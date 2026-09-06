@@ -8,6 +8,16 @@ export default function FabricDetail() {
     const { id } = useParams();
     const fabric = FABRICS.find((f) => f.id === id);
 
+    React.useEffect(() => {
+        if (!fabric) return;
+        document.title = `${fabric.name} — Raymond Shirt Fabric | Crazy Cut Piece`;
+
+        let canonicalLink = document.querySelector("link[rel='canonical']");
+        if (canonicalLink) {
+            canonicalLink.setAttribute("href", `https://menswear-cbbg.vercel.app/fabrics/${fabric.id}`);
+        }
+    }, [fabric]);
+
     if (!fabric) {
         return (
             <div className="pt-32 pb-24 text-center">
@@ -28,8 +38,39 @@ export default function FabricDetail() {
         );
     }
 
+    const numericPrice = fabric.price ? fabric.price.replace(/[^0-9]/g, "") : "460";
+
+    const productSchema = {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": fabric.name,
+        "image": fabric.image ? `https://menswear-cbbg.vercel.app${fabric.image}` : undefined,
+        "description": fabric.description || `${fabric.name} - Raymond shirt fabric pre-cut set for men's shirts from Crazy Cut Piece.`,
+        "brand": {
+            "@type": "Brand",
+            "name": "Raymond"
+        },
+        "offers": {
+            "@type": "Offer",
+            "url": `https://menswear-cbbg.vercel.app/fabrics/${fabric.id}`,
+            "priceCurrency": "INR",
+            "price": numericPrice,
+            "itemCondition": "https://schema.org/NewCondition",
+            "availability": "https://schema.org/InStock",
+            "seller": {
+                "@type": "Organization",
+                "name": "Crazy Cut Piece"
+            }
+        }
+    };
+
     return (
         <div className="pt-16 sm:pt-20">
+            {/* Product JSON-LD Schema */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+            />
             {/* Breadcrumb */}
             <div className="mx-auto max-w-7xl px-5 sm:px-8 py-6">
                 <Link to="/fabrics" className="text-sm text-foreground/55 hover:text-foreground transition-colors">

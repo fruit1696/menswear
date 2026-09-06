@@ -4,6 +4,14 @@ import { WhatsAppIcon } from "@/components/Navbar";
 import { FABRICS, whatsappLink } from "@/lib/brand";
 
 export default function Fabrics() {
+    React.useEffect(() => {
+        document.title = "Selected Raymond Shirt Fabrics | Crazy Cut Piece";
+        let canonicalLink = document.querySelector("link[rel='canonical']");
+        if (canonicalLink) {
+            canonicalLink.setAttribute("href", "https://menswear-cbbg.vercel.app/fabrics");
+        }
+    }, []);
+
     return (
         <div className="pt-16 sm:pt-20">
             {/* Header */}

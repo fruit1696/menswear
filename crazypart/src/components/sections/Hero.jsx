@@ -1,51 +1,93 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import useEmblaCarousel from "embla-carousel-react";
 import Image from "@/components/ui/image";
 import { WhatsAppIcon } from "@/components/Navbar";
 import { whatsappLink, DEFAULT_WHATSAPP_MESSAGE } from "@/lib/brand";
 import { IMAGES } from "@/lib/images";
-import { BadgeCheck, Scissors, Feather, ChevronLeft, ChevronRight, Image as ImageIcon } from "lucide-react";
+import { BadgeCheck, Scissors, Feather, ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function Hero() {
-    const [currentSlide, setCurrentSlide] = useState(0);
     const heroImages = [
         "/landingpage1.jpeg",
         "/LandingPage2.jpeg",
         "/landingpage3.jpeg"
     ];
-    const totalSlides = heroImages.length;
 
-    const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % totalSlides);
-    const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+    const [emblaRef, emblaApi] = useEmblaCarousel({
+        loop: true,
+        dragFree: false,
+        containScroll: "trimSnaps",
+    });
+    const [currentSlide, setCurrentSlide] = useState(0);
+
+    useEffect(() => {
+        if (!emblaApi) return;
+        const onSelect = () => {
+            setCurrentSlide(emblaApi.selectedScrollSnap());
+        };
+        onSelect();
+        emblaApi.on("select", onSelect);
+        emblaApi.on("reInit", onSelect);
+        return () => {
+            emblaApi.off("select", onSelect);
+        };
+    }, [emblaApi]);
+
+    const scrollPrev = useCallback(
+        (e) => {
+            e?.preventDefault?.();
+            emblaApi?.scrollPrev();
+        },
+        [emblaApi]
+    );
+
+    const scrollNext = useCallback(
+        (e) => {
+            e?.preventDefault?.();
+            emblaApi?.scrollNext();
+        },
+        [emblaApi]
+    );
 
     return (
         /* Changed bg-background to bg-white */
         <section id="hero-section" className="relative min-h-[100svh] flex flex-col items-center justify-between overflow-hidden bg-white pt-24 sm:pt-28 pb-12 px-5 sm:px-8">
+            <h1 className="sr-only">Raymond Shirt Fabric Online | Crazy Cut Piece</h1>
 
             {/* Main Content Composition */}
             <div className="relative z-10 mx-auto max-w-4xl w-full flex flex-col items-center gap-6 sm:gap-8 text-center my-auto">
 
                 {/* 1. FABRIC CAROUSEL */}
                 <div className="w-full max-w-[600px] flex flex-col items-center gap-4">
-                    {/* Changed bg-secondary/50 to bg-white */}
+                    {/* Carousel Container with Touch/Swipe */}
                     <div className="relative w-full aspect-[9/16] rounded-2xl overflow-hidden border border-border/80 bg-white shadow-lg flex items-center justify-center group">
+                        
+                        {/* Embla Viewport */}
+                        <div className="overflow-hidden w-full h-full" ref={emblaRef}>
+                            <div className="flex h-full">
+                                {heroImages.map((src, idx) => (
+                                    <div className="flex-[0_0_100%] min-w-0 h-full relative" key={idx}>
+                                        <img
+                                            src={src}
+                                            alt={`Raymond shirt fabric showcase ${idx + 1}`}
+                                            className="w-full h-full object-cover select-none"
+                                            draggable={false}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
 
-                        {/* Slide Image */}
-                        <img
-                            src={heroImages[currentSlide]}
-                            alt={`Raymond shirt fabric showcase ${currentSlide + 1}`}
-                            className="w-full h-full object-cover transition-opacity duration-300"
-                        />
-
-                        {/* Carousel Navigation Arrows - Changed bg-background/80 to bg-white */}
+                        {/* Carousel Navigation Arrows */}
                         <button
-                            onClick={prevSlide}
+                            onClick={scrollPrev}
                             aria-label="Previous fabric"
                             className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white hover:bg-neutral-100 text-foreground flex items-center justify-center border border-border shadow-sm transition-all duration-200 z-10"
                         >
                             <ChevronLeft className="w-5 h-5" />
                         </button>
                         <button
-                            onClick={nextSlide}
+                            onClick={scrollNext}
                             aria-label="Next fabric"
                             className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white hover:bg-neutral-100 text-foreground flex items-center justify-center border border-border shadow-sm transition-all duration-200 z-10"
                         >
@@ -55,10 +97,10 @@ export default function Hero() {
 
                     {/* Carousel Indicators */}
                     <div className="flex items-center justify-center gap-2 pt-1">
-                        {[0, 1, 2].map((idx) => (
+                        {heroImages.map((_, idx) => (
                             <button
                                 key={idx}
-                                onClick={() => setCurrentSlide(idx)}
+                                onClick={() => emblaApi?.scrollTo(idx)}
                                 aria-label={`Go to slide ${idx + 1}`}
                                 className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentSlide
                                     ? "w-6 bg-accent"

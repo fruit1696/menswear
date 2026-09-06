@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://crazycutpiece.in/sitemap.xml
+Sitemap: https://menswear-cbbg.vercel.app/sitemap.xml
