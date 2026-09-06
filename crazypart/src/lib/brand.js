@@ -5,9 +5,9 @@ export const BRAND = {
     name: "Crazy Cut Piece",
     tagline: "Raymond Shirt Fabrics — Sold as 2-Piece Cut Pieces",
     // Indian WhatsApp number in international format, digits only.
-    whatsappNumber: "919876543210",
+    whatsappNumber: "919425333460",
     location: "Surat, Gujarat, India",
-    email: "hello@crazycutpiece.in",
+    email: "[EMAIL_ADDRESS]",
     hours: "Mon – Sat · 10:00 AM – 7:00 PM IST",
 };
 
@@ -24,45 +24,50 @@ export const DEFAULT_WHATSAPP_MESSAGE =
 export const FABRICS = [
     {
         id: "azure-linen",
-        name: "Raymond Linen",
+        name: "Raymond 100% Cotton",
+        price: "₹460",
 
-        image: "https://media.base44.com/images/public/6a971e2701a060b2f50a33ae/cebf068d3_generated_5cdb9ece.jpg",
+        image: "/blue1.jpeg",
         images: [
-            "https://media.base44.com/images/public/6a971e2701a060b2f50a33ae/cebf068d3_generated_5cdb9ece.jpg",
-            "https://media.base44.com/images/public/6a971e2701a060b2f50a33ae/70b8b124d_generated_image.png",
-            "https://media.base44.com/images/public/6a971e2701a060b2f50a33ae/a9e31c4fc_generated_image.png",
+            "/blue1.jpeg",
+            "/blue2.jpeg",
+            "/blue3.jpeg",
         ],
-        description:
-            "Classic white",
-        tone: "Cool · Breathable",
     },
     {
         id: "ivory-herringbone",
-        name: "Raymond Ivory",
+        name: "Raymond Giza Cotton",
+        price: "₹500",
 
-        image: "https://media.base44.com/images/public/6a971e2701a060b2f50a33ae/7650f6f30_generated_662466a4.jpg",
+        image: "/black1.jpeg",
         images: [
-            "https://media.base44.com/images/public/6a971e2701a060b2f50a33ae/7650f6f30_generated_662466a4.jpg",
-            "https://media.base44.com/images/public/6a971e2701a060b2f50a33ae/05a178efc_generated_image.png",
-            "https://media.base44.com/images/public/6a971e2701a060b2f50a33ae/294b99b6c_generated_image.png",
+            "/black1.jpeg",
+            "/black2.jpeg",
+            "/black3.jpeg",
         ],
-        description:
-            "A crisp",
-        tone: "Formal · Crisp",
     },
     {
         id: "slate-evening",
-        name: "Raymond Slate",
+        name: "Raymond Pure white",
+        price: "₹460",
 
-        image: "https://media.base44.com/images/public/6a971e2701a060b2f50a33ae/41c004bca_generated_ca91bbdf.jpg",
+        image: "/white1.jpeg",
         images: [
-            "https://media.base44.com/images/public/6a971e2701a060b2f50a33ae/41c004bca_generated_ca91bbdf.jpg",
-            "https://media.base44.com/images/public/6a971e2701a060b2f50a33ae/fb8616239_generated_image.png",
-            "https://media.base44.com/images/public/6a971e2701a060b2f50a33ae/59291a4d3_generated_image.png",
+            "/white1.jpeg",
+            "/white2.jpeg",
+            "/white3.jpeg",
         ],
-        description:
-            "A muted",
-        tone: "Evening · Textured",
+    },
+    {
+        id: "vibrant-collection",
+        name: "Raymond",
+        price: "₹400 – ₹1,500",
+
+        image: "/colored.jpeg",
+        images: [
+            "/colored.jpeg",
+            "/colored2.jpeg",
+        ],
     },
 ];
 

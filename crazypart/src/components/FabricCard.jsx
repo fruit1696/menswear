@@ -9,48 +9,35 @@ import { fabricWhatsappLink, fabricImages } from "@/lib/brand";
  * The image area is a multi-image carousel (touch/swipe + arrows + dots).
  * Existing info is preserved: name, code, tone, description, WhatsApp CTA.
  */
-export default function FabricCard({ fabric }) {
+export default function FabricCard({ fabric, onSelectFabric }) {
     const images = fabricImages(fabric);
 
     return (
         <article className="group flex flex-col">
-            <div className="swatch-shadow rounded-sm overflow-hidden">
+            <div
+                className="swatch-shadow rounded-sm overflow-hidden cursor-pointer"
+                onClick={() => onSelectFabric?.(fabric)}
+            >
                 <FabricCarousel
                     images={images}
-                    altBase={`${fabric.name} — Raymond shirt fabric, 2-piece cut piece`}
-                    badge="2-Piece Cut Piece"
+                    altBase={`${fabric.name} — Raymond shirt fabric, 2-piece cut`}
+                    badge="2-Piece Cut"
                 />
             </div>
 
-            <div className="mt-5 flex flex-col">
-                <div className="flex items-baseline justify-between gap-4">
-                    <Link
-                        to={`/fabrics/${fabric.id}`}
-                        className="font-display text-2xl font-medium text-foreground hover:text-accent transition-colors duration-300"
-                    >
-                        {fabric.name}
-                    </Link>
-                    <span className="text-[11px] uppercase tracking-[0.2em] text-accent">
-                        {fabric.code}
+            <div className="mt-4 flex flex-col">
+                <button
+                    onClick={() => onSelectFabric?.(fabric)}
+                    className="text-left font-display text-xl sm:text-2xl font-medium text-foreground hover:text-accent transition-colors duration-300 truncate w-full"
+                    title={fabric.name}
+                >
+                    {fabric.name}
+                </button>
+                {fabric.price && (
+                    <span className="mt-1 text-sm font-semibold text-accent">
+                        {fabric.price}
                     </span>
-                </div>
-                <span className="mt-1.5 text-[11px] uppercase tracking-[0.2em] text-foreground/45">
-                    {fabric.tone}
-                </span>
-                <p className="mt-3 text-sm text-foreground/70 leading-relaxed">
-                    {fabric.description}
-                </p>
-                <div className="mt-5 flex items-center gap-4">
-                    <a
-                        href={fabricWhatsappLink(fabric)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-sm font-medium text-foreground border-b border-accent pb-1 hover:border-foreground transition-colors duration-300"
-                    >
-                        <WhatsAppIcon className="w-4 h-4 text-accent" />
-                        Ask About This Fabric
-                    </a>
-                </div>
+                )}
             </div>
         </article>
     );

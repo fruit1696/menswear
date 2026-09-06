@@ -109,8 +109,8 @@ export default function FabricCarousel({ images, altBase, badge }) {
                             onClick={() => emblaApi?.scrollTo(i)}
                             aria-label={`Go to fabric image ${i + 1}`}
                             className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${i === selected
-                                    ? "bg-foreground scale-110"
-                                    : "border border-foreground/40 bg-transparent hover:border-foreground/70"
+                                ? "bg-foreground scale-110"
+                                : "border border-foreground/40 bg-transparent hover:border-foreground/70"
                                 }`}
                         />
                     ))}

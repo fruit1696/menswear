@@ -2,6 +2,7 @@ import React from "react";
 import Image from "@/components/ui/image";
 import SectionHeading from "@/components/SectionHeading";
 import { IMAGES } from "@/lib/images";
+import TranslateText from "@/components/TranslateText";
 
 export default function TwoPieceConcept() {
     return (
@@ -13,11 +14,11 @@ export default function TwoPieceConcept() {
                         title="What Is a 2-Piece Cut Piece?"
                         align="center"
                     />
-                    <p className="mt-7 text-lg text-foreground/75 leading-relaxed text-center">
-                        Instead of buying individual shirt fabric, our cut pieces are offered
-                        as a convenient 2-piece set. One set is enough fabric for one complete
-                        shirt.
-                    </p>
+                    <TranslateText
+                        english="Premium Raymond shirt fabric, pre-cut with the right amount of fabric needed to make one complete men's shirt. Each set comes as two pre-cut pieces that together provide enough fabric to take straight to your tailor."
+                        hindi="प्रीमियम रेमंड शर्ट फैब्रिक, एक पूरी शर्ट बनाने के लिए सही मात्रा में पहले से कटा हुआ। प्रत्येक सेट में दो कट पीस होते हैं जो मिलकर एक पुरुष की शर्ट सिलाने के लिए पर्याप्त फैब्रिक प्रदान करते हैं।"
+                        className="mt-7 text-lg text-foreground/75 leading-relaxed text-center block"
+                    />
                 </div>
 
                 {/* Visual flow */}

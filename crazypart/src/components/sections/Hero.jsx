@@ -7,7 +7,12 @@ import { BadgeCheck, Scissors, Feather, ChevronLeft, ChevronRight, Image as Imag
 
 export default function Hero() {
     const [currentSlide, setCurrentSlide] = useState(0);
-    const totalSlides = 3;
+    const heroImages = [
+        "/landingpage1.jpeg",
+        "/LandingPage2.jpeg",
+        "/landingpage3.jpeg"
+    ];
+    const totalSlides = heroImages.length;
 
     const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % totalSlides);
     const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
@@ -20,22 +25,16 @@ export default function Hero() {
             <div className="relative z-10 mx-auto max-w-4xl w-full flex flex-col items-center gap-6 sm:gap-8 text-center my-auto">
 
                 {/* 1. FABRIC CAROUSEL */}
-                <div className="w-full max-w-[440px] sm:max-w-[520px] flex flex-col items-center gap-4">
+                <div className="w-full max-w-[600px] flex flex-col items-center gap-4">
                     {/* Changed bg-secondary/50 to bg-white */}
-                    <div className="relative w-full aspect-[4/5] sm:aspect-[3/4] rounded-2xl overflow-hidden border border-border/80 bg-white shadow-lg flex items-center justify-center group">
+                    <div className="relative w-full aspect-[9/16] rounded-2xl overflow-hidden border border-border/80 bg-white shadow-lg flex items-center justify-center group">
 
-                        {/* Empty Placeholder Container - Changed bg-secondary/30 to bg-white */}
-                        <div className="w-full h-full flex flex-col items-center justify-center gap-3 p-6 text-foreground/60 border border-dashed border-border rounded-xl m-2 bg-white">
-                            <ImageIcon className="w-16 h-16 stroke-[1.5] text-accent/80 animate-pulse" />
-                            <div className="flex flex-col items-center gap-1">
-                                <span className="text-xs uppercase tracking-widest font-medium text-foreground/80">
-                                    Fabric Photo {currentSlide + 1}
-                                </span>
-                                <span className="text-[10px] text-foreground/50">
-                                    (Slot Empty)
-                                </span>
-                            </div>
-                        </div>
+                        {/* Slide Image */}
+                        <img
+                            src={heroImages[currentSlide]}
+                            alt={`Raymond shirt fabric showcase ${currentSlide + 1}`}
+                            className="w-full h-full object-cover transition-opacity duration-300"
+                        />
 
                         {/* Carousel Navigation Arrows - Changed bg-background/80 to bg-white */}
                         <button

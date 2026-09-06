@@ -3,6 +3,7 @@ import Image from "@/components/ui/image";
 import SectionHeading from "@/components/SectionHeading";
 import { IMAGES } from "@/lib/images";
 import { ArrowRight, MessageCircle } from "lucide-react";
+import TranslateText from "@/components/TranslateText";
 
 const TRUST_POINTS = [
     {
@@ -75,9 +76,11 @@ export default function WhyBuy() {
                     <h3 className="mt-4 font-display text-3xl sm:text-5xl font-bold text-foreground tracking-tight">
                         Smart buying. Not compromise.
                     </h3>
-                    <p className="mt-4 text-base sm:text-xl font-medium text-foreground/75">
-                        Not inferior or defective fabric.
-                    </p>
+                    <TranslateText
+                        english="This fabric is Raymond quality, same mills, same process, but sold as 2-piece cuts, enough for one shirt. And importantly: not factory reject, but properly inspected pieces."
+                        hindi="यह कपड़ा रेमंड क्वालिटी का ही है, वही मिल, वही प्रक्रिया, लेकिन 2-पीस कट में बेचा जाता है, जो एक शर्ट के लिए पर्याप्त है। और महत्वपूर्ण बात: यह कोई फैक्टरी रिजेक्ट नहीं है, बल्कि सही ढंग से जाँचा गया कपड़ा है।"
+                        className="mt-4 text-base sm:text-xl font-medium text-foreground/75 block"
+                    />
                 </div>
 
                 {/* 6. 100% TRANSPARENT SHOPPING */}
@@ -108,13 +111,17 @@ export default function WhyBuy() {
                 <div className="text-center max-w-3xl mx-auto mt-10">
                     {/* Customer Hook Quote */}
                     <div className="p-6 sm:p-8 rounded-sm bg-secondary/70 border border-border/70 backdrop-blur-sm shadow-sm inline-block w-full">
-                        <p className="text-xs font-bold uppercase tracking-[0.25em] text-accent">
-                            ₹2,000 Raymond Quality for ₹400? Is it real? Yes—100% Authentic Mill Stock.
-                        </p>
+                        <TranslateText
+                            english="₹2,000 Raymond Quality for ₹400? Is it real? Yes—100% Authentic Mill Stock."
+                            hindi="₹2,000 की रेमंड क्वालिटी ₹400 में? क्या यह सच है? हाँ—100% असली मिल स्टॉक।"
+                            className="text-xs font-bold uppercase tracking-[0.25em] text-accent block"
+                        />
                         <div className="mt-4 pt-4 border-t border-border/50 space-y-1.5">
-                            <p className="text-base sm:text-lg font-medium text-foreground/90">
-                                Traditional retail prices include expensive showroom overheads and multi-layer distributor margins. We source factory-surplus and cut pieces straight from the mill to bring you authentic Raymond shirting at direct factory value.
-                            </p>
+                            <TranslateText
+                                english="Traditional retail prices include expensive showroom overheads and multi-layer distributor margins. We source factory-surplus and cut pieces straight from the mill to bring you authentic Raymond shirting at direct factory value."
+                                hindi="पारंपरिक खुदरा कीमतों में महंगे शोरूम के खर्चे और कई परतों के बिचौलियों का मार्जिन शामिल होता है। हम सीधे मिल से फैक्टरी सरप्लस और कट पीस लाते हैं ताकि आपको सीधे फैक्टरी मूल्य पर असली रेमंड शर्टिंग मिल सके।"
+                                className="text-base sm:text-lg font-medium text-foreground/90 block"
+                            />
                             <p className="text-sm sm:text-base text-accent font-medium uppercase tracking-wider text-center">
                                 Honesty is the best policy.
                             </p>

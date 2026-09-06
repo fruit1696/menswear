@@ -4,6 +4,7 @@ import { Check, ChevronRight, ChevronLeft } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import { WhatsAppIcon } from "@/components/Navbar";
 import { whatsappLink } from "@/lib/brand";
+import TranslateText from "@/components/TranslateText";
 
 const FABRIC_OPTIONS = ["Cotton", "Linen", "Polyester", "Terry", "Other / Mix"];
 const PATTERN_OPTIONS = ["Solid / Plain", "Checks", "Stripes", "Other"];
@@ -85,9 +86,11 @@ export default function PickYourStyle() {
                     title="See It Before You Buy It"
                     align="center"
                 />
-                <p className="mt-5 text-center text-sm sm:text-base text-foreground/65 leading-relaxed max-w-xl mx-auto">
-                    Looking for a specific fabric? Just share your preferred material, color, and pattern. Our experts will check our current selection and send you live photos of your perfect match over WhatsApp.
-                </p>
+                <TranslateText
+                    english="Looking for a specific fabric? Just share your preferred material, color, and pattern. Our experts will check our current selection and send you live photos of your perfect match over WhatsApp."
+                    hindi="क्या आप किसी खास फैब्रिक की तलाश में हैं? बस अपनी पसंद का कपड़ा, रंग और पैटर्न शेयर करें। हमारे एक्सपर्ट्स हमारे मौजूदा स्टॉक की जांच करेंगे और आपको वॉट्सऐप पर लाइव तस्वीरें भेजेंगे।"
+                    className="mt-5 text-center text-sm sm:text-base text-foreground/65 leading-relaxed max-w-xl mx-auto block"
+                />
 
                 <div className="mt-12 bg-card border border-border rounded-sm p-6 sm:p-10 swatch-shadow">
                     {/* Progress indicator */}
