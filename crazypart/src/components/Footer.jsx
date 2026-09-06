@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BRAND, whatsappLink, DEFAULT_WHATSAPP_MESSAGE } from "@/lib/brand";
 import { WhatsAppIcon } from "@/components/Navbar";
 
 export default function Footer() {
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const dropdownRef = useRef(null);
+
+    // Close dropdown on click outside for mobile devices
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setDropdownOpen(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
     return (
         <footer id="contact" className="bg-foreground text-primary-foreground">
             <div className="mx-auto max-w-7xl px-5 sm:px-8 py-16 sm:py-24 pb-24 md:pb-24">
@@ -47,20 +61,99 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    {/* Contact */}
-                    <div className="md:col-span-4">
-                        <h4 className="text-[11px] uppercase tracking-[0.25em] text-accent mb-5">
-                            Reach Us
-                        </h4>
-                        <ul className="space-y-3 text-sm text-primary-foreground/75">
-                            <li>{BRAND.location}</li>
-                            <li>{BRAND.hours}</li>
-                            <li>
-                                <a href={`mailto:${BRAND.email}`} className="hover:text-primary-foreground transition-colors">
-                                    {BRAND.email}
-                                </a>
-                            </li>
-                        </ul>
+                    {/* Reach Us & Policies */}
+                    <div className="md:col-span-4 flex flex-col justify-between">
+                        <div>
+                            <h4 className="text-[11px] uppercase tracking-[0.25em] text-accent mb-5">
+                                Reach Us
+                            </h4>
+                            <ul className="space-y-3 text-sm text-primary-foreground/75">
+                                <li>{BRAND.location}</li>
+                                <li>{BRAND.hours}</li>
+                                <li>
+                                    <a href={`mailto:${BRAND.email}`} className="hover:text-primary-foreground transition-colors">
+                                        {BRAND.email}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        {/* Hover/Tap Dropdown Menu */}
+                        <div
+                            ref={dropdownRef}
+                            className="relative mt-8 group inline-block"
+                            onMouseEnter={() => setDropdownOpen(true)}
+                            onMouseLeave={() => setDropdownOpen(false)}
+                        >
+                            <button
+                                onClick={() => setDropdownOpen((prev) => !prev)}
+                                type="button"
+                                className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-medium text-accent hover:text-primary-foreground transition-colors focus:outline-none py-1"
+                                aria-expanded={dropdownOpen}
+                            >
+                                <span>Terms &amp; Policies</span>
+                                <svg
+                                    className={`w-3.5 h-3.5 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`}
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+
+                            {/* Dropdown panel positioned cleanly above button with padding bridge */}
+                            <div
+                                className={`absolute left-0 bottom-full pb-2 w-56 transition-all duration-200 ease-in-out z-50 ${dropdownOpen
+                                        ? "opacity-100 visible translate-y-0"
+                                        : "opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0"
+                                    }`}
+                            >
+                                <div className="rounded-md bg-zinc-900 border border-white/15 shadow-2xl p-2">
+                                    <div className="text-[10px] uppercase tracking-widest text-accent px-3 py-1.5 border-b border-white/10 font-semibold">
+                                        Legal &amp; Policies
+                                    </div>
+                                    <div className="py-1">
+                                        <Link
+                                            to="/policies/refund"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="block px-3 py-2 text-xs text-primary-foreground/80 hover:text-white hover:bg-white/10 rounded transition-colors"
+                                            onClick={() => setDropdownOpen(false)}
+                                        >
+                                            Refund Policy
+                                        </Link>
+                                        <Link
+                                            to="/policies/privacy"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="block px-3 py-2 text-xs text-primary-foreground/80 hover:text-white hover:bg-white/10 rounded transition-colors"
+                                            onClick={() => setDropdownOpen(false)}
+                                        >
+                                            Privacy Policy
+                                        </Link>
+                                        <Link
+                                            to="/policies/shipping"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="block px-3 py-2 text-xs text-primary-foreground/80 hover:text-white hover:bg-white/10 rounded transition-colors"
+                                            onClick={() => setDropdownOpen(false)}
+                                        >
+                                            Shipping Policy
+                                        </Link>
+                                        <Link
+                                            to="/policies/terms"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="block px-3 py-2 text-xs text-primary-foreground/80 hover:text-white hover:bg-white/10 rounded transition-colors"
+                                            onClick={() => setDropdownOpen(false)}
+                                        >
+                                            Terms of Service
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

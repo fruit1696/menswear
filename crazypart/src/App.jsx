@@ -10,6 +10,10 @@ import Layout from '@/components/Layout';
 import Home from '@/pages/Home';
 import Fabrics from '@/pages/Fabrics';
 import FabricDetail from '@/pages/FabricDetail';
+import RefundPolicy from '@/pages/RefundPolicy';
+import PrivacyPolicy from '@/pages/PrivacyPolicy';
+import ShippingPolicy from '@/pages/ShippingPolicy';
+import TermsOfService from '@/pages/TermsOfService';
 
 const AuthenticatedApp = () => {
     const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -37,6 +41,10 @@ const AuthenticatedApp = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/fabrics" element={<Fabrics />} />
                 <Route path="/fabrics/:id" element={<FabricDetail />} />
+                <Route path="/policies/refund" element={<RefundPolicy />} />
+                <Route path="/policies/privacy" element={<PrivacyPolicy />} />
+                <Route path="/policies/shipping" element={<ShippingPolicy />} />
+                <Route path="/policies/terms" element={<TermsOfService />} />
             </Route>
             <Route path="*" element={<PageNotFound />} />
         </Routes>
