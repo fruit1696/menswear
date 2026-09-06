@@ -1,0 +1,93 @@
+import React, { useState, useEffect } from "react";
+import { WhatsAppIcon } from "@/components/Navbar";
+import { whatsappLink } from "@/lib/brand";
+
+const PROMPTS = [
+    "Ask for: Blue Linens",
+    "Ask for: Formal Whites",
+    "Ask for: Evening Textures",
+    "Ask for: Earthy Tones",
+];
+
+const POINTS = [
+    "See more available fabrics",
+    "Ask about colours and patterns",
+    "Get actual fabric photos",
+    "Choose what you like",
+    "Order directly with us",
+];
+
+export default function WantMore() {
+    const [idx, setIdx] = useState(0);
+
+    useEffect(() => {
+        const t = setInterval(() => setIdx((i) => (i + 1) % PROMPTS.length), 2600);
+        return () => clearInterval(t);
+    }, []);
+
+    return (
+        <section className="relative py-24 sm:py-36 bg-foreground text-primary-foreground overflow-hidden">
+            <div className="mx-auto max-w-7xl px-5 sm:px-8">
+                <div className="grid gap-12 lg:grid-cols-12 lg:gap-16 items-center">
+                    <div className="lg:col-span-7">
+                        <span className="text-[11px] uppercase tracking-[0.3em] text-accent">
+                            Want More?
+                        </span>
+                        <h2 className="mt-5 font-display text-4xl sm:text-5xl lg:text-6xl font-medium leading-[1.05] tracking-tight text-balance">
+                            Looking for More Designs?
+                        </h2>
+                        <div className="brass-rule w-24 mt-6" />
+                        <p className="mt-7 text-lg text-primary-foreground/75 leading-relaxed max-w-xl">
+                            These are only a few examples from our collection. We have more
+                            fabrics available than what's shown online. WhatsApp us and we'll
+                            show you what's currently available.
+                        </p>
+
+                        <a
+                            href={whatsappLink("Hi Crazy Cut Piece, I'd like to see more shirt fabric designs.")}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-9 inline-flex items-center gap-2.5 px-7 py-4 bg-white/10 hover:bg-white/15 text-sm font-medium tracking-wide rounded-sm transition-colors duration-300"
+                        >
+                            <WhatsAppIcon className="w-4 h-4" />
+                            WhatsApp Us — See More Fabrics
+                        </a>
+                    </div>
+
+                    <div className="lg:col-span-5">
+                        {/* Live feed prompt */}
+                        <div className="border border-white/15 rounded-sm p-6 bg-white/5">
+                            <p className="text-[11px] uppercase tracking-[0.25em] text-accent mb-4">
+                                On WhatsApp right now
+                            </p>
+                            <div className="h-8 overflow-hidden">
+                                <p
+                                    key={idx}
+                                    className="font-display text-2xl text-primary-foreground animate-[fadeUp_0.6s_ease-out]"
+                                >
+                                    {PROMPTS[idx]}
+                                </p>
+                            </div>
+                        </div>
+
+                        <ul className="mt-8 space-y-3.5">
+                            {POINTS.map((p) => (
+                                <li key={p} className="flex items-center gap-3 text-sm text-primary-foreground/80">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                                    {p}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <style>{`
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(8px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+        </section>
+    );
+}
