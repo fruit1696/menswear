@@ -3,6 +3,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "@/components/ui/image";
 import { WhatsAppIcon } from "@/components/Navbar";
 import { whatsappLink, DEFAULT_WHATSAPP_MESSAGE } from "@/lib/brand";
+import { trackWhatsAppClick } from "@/lib/gtag";
 import { IMAGES } from "@/lib/images";
 import { BadgeCheck, Scissors, Feather, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -117,6 +118,7 @@ export default function Hero() {
                         href={whatsappLink(DEFAULT_WHATSAPP_MESSAGE)}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackWhatsAppClick('hero')}
                         className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-[#1E5E41] hover:bg-[#184C35] text-white text-sm font-medium tracking-wide rounded-full transition-colors duration-300 shadow-md"
                     >
                         <WhatsAppIcon className="w-4 h-4" />
