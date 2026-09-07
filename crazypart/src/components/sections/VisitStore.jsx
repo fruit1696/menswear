@@ -4,7 +4,7 @@ import { MapPin, Navigation, Clock, Phone, Sparkles } from "lucide-react";
 import { BRAND } from "@/lib/brand";
 
 export default function VisitStore() {
-    const googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=Raymond+Shop+G16+G17+Radha+Vallabh+Market+Jawahar+Nagar+Khargone+Madhya+Pradesh+451001";
+    const googleMapsUrl = "https://maps.app.goo.gl/9dWYd3jpDS869x577";
 
     return (
         <section id="visit-store" className="py-16 sm:py-24 bg-gradient-to-b from-secondary/30 via-background to-secondary/40 overflow-hidden border-t border-border/60">
@@ -16,7 +16,7 @@ export default function VisitStore() {
                         <div className="relative group rounded-sm overflow-hidden border border-border/80 swatch-shadow bg-card">
                             <div className="aspect-[4/3] w-full overflow-hidden">
                                 <img
-                                    src="public/raymondshop.jpeg"
+                                    src="/raymondshop.jpeg"
                                     alt="Raymond Store in Khargone — Crazy Cut Piece Physical Location"
                                     className="w-full h-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-105"
                                 />
@@ -66,7 +66,7 @@ export default function VisitStore() {
                                         Shop Address
                                     </h4>
                                     <p className="mt-1 text-sm text-foreground/80 leading-relaxed font-medium">
-                                        G16 &amp; G17, Radha Vallabh Market, Jawahar Nagar, Khargone, Madhya Pradesh 451001
+                                        G16 &amp; Fuwara Chauk, Gajanan Soni Marg, near Sala Ka Ram Kachori, Khargone, Madhya Pradesh 451001, India
                                     </p>
                                 </div>
                             </div>
