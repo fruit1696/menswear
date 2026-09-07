@@ -2,6 +2,7 @@ import React from "react";
 import FabricCard from "@/components/FabricCard";
 import { WhatsAppIcon } from "@/components/Navbar";
 import { FABRICS, whatsappLink } from "@/lib/brand";
+import { trackWhatsAppClick } from "@/lib/gtag";
 
 export default function Fabrics() {
     React.useEffect(() => {
@@ -60,6 +61,7 @@ export default function Fabrics() {
                         href={whatsappLink("Hi Crazy Cut Piece, I'd like to see more shirt fabric designs.")}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackWhatsAppClick('fabrics_gallery_cta')}
                         className="mt-9 inline-flex items-center gap-2.5 px-7 py-4 bg-white/10 hover:bg-white/15 text-sm font-medium tracking-wide rounded-sm transition-colors duration-300"
                     >
                         <WhatsAppIcon className="w-4 h-4" />

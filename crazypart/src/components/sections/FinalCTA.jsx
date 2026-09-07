@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { WhatsAppIcon } from "@/components/Navbar";
 import { whatsappLink } from "@/lib/brand";
+import { trackWhatsAppClick } from "@/lib/gtag";
 
 function useShopHours() {
     const [isOnline, setIsOnline] = useState(false);
@@ -83,6 +84,7 @@ export default function FinalCTA() {
                         href={whatsappLink("Hi Crazy Cut Piece, I'm looking for shirt fabric. Can you show me what's currently available?")}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackWhatsAppClick('final_cta')}
                         className="inline-flex items-center gap-2.5 px-8 py-4 bg-foreground text-primary-foreground text-sm font-medium tracking-wide rounded-sm hover:bg-foreground/90 transition-colors duration-300 shadow-md"
                     >
                         <WhatsAppIcon className="w-4 h-4" />

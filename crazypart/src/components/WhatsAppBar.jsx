@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { whatsappLink, DEFAULT_WHATSAPP_MESSAGE } from "@/lib/brand";
 import { WhatsAppIcon } from "@/components/Navbar";
+import { trackWhatsAppClick } from "@/lib/gtag";
 
 /**
  * Mobile-only fixed bottom action bar for WhatsApp order.
@@ -34,6 +35,7 @@ export default function WhatsAppBar() {
                     href={whatsappLink(DEFAULT_WHATSAPP_MESSAGE)}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackWhatsAppClick('sticky_bar')}
                     className="w-full max-w-sm inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-[#1E5E41] active:bg-[#184C35] text-white text-sm font-medium tracking-wide rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.35)] transition-all duration-200"
                 >
                     <WhatsAppIcon className="w-4 h-4" />

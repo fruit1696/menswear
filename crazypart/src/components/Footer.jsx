@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BRAND, whatsappLink, DEFAULT_WHATSAPP_MESSAGE } from "@/lib/brand";
 import { WhatsAppIcon } from "@/components/Navbar";
+import { trackWhatsAppClick } from "@/lib/gtag";
 
 export default function Footer() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -41,6 +42,7 @@ export default function Footer() {
                             href={whatsappLink(DEFAULT_WHATSAPP_MESSAGE)}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={() => trackWhatsAppClick('footer')}
                             className="mt-7 inline-flex items-center gap-2 px-5 py-3 bg-white/10 hover:bg-white/15 text-sm font-medium tracking-wide rounded-sm transition-colors duration-300"
                         >
                             <WhatsAppIcon className="w-4 h-4" />

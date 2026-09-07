@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { BRAND, whatsappLink, DEFAULT_WHATSAPP_MESSAGE } from "@/lib/brand";
+import { trackWhatsAppClick } from "@/lib/gtag";
 import AnnouncementTicker from "@/components/AnnouncementTicker";
 
 const NAV_LINKS = [
@@ -64,6 +65,7 @@ export default function Navbar() {
                             href={whatsappLink(DEFAULT_WHATSAPP_MESSAGE)}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={() => trackWhatsAppClick('navbar_desktop')}
                             className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-primary-foreground text-sm font-medium tracking-wide rounded-sm hover:bg-foreground/90 transition-colors duration-300 whitespace-nowrap"
                         >
                             <WhatsAppIcon className="w-4 h-4" />
@@ -98,6 +100,7 @@ export default function Navbar() {
                             href={whatsappLink(DEFAULT_WHATSAPP_MESSAGE)}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={() => trackWhatsAppClick('navbar_mobile')}
                             className="mt-4 inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-foreground text-primary-foreground text-sm font-medium tracking-wide rounded-sm"
                         >
                             <WhatsAppIcon className="w-4 h-4" />

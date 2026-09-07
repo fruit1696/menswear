@@ -4,6 +4,7 @@ import { Check, ChevronRight, ChevronLeft } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import { WhatsAppIcon } from "@/components/Navbar";
 import { whatsappLink } from "@/lib/brand";
+import { trackWhatsAppClick } from "@/lib/gtag";
 import TranslateText from "@/components/TranslateText";
 
 const FABRIC_OPTIONS = ["Cotton", "Linen", "Polyester", "Terry", "Other / Mix"];
@@ -281,6 +282,7 @@ export default function PickYourStyle() {
                                         href={whatsappLink(message)}
                                         target="_blank"
                                         rel="noopener noreferrer"
+                                        onClick={() => trackWhatsAppClick('pick_your_style_wizard')}
                                         className="inline-flex items-center justify-center gap-2.5 px-7 sm:px-8 py-4 bg-foreground text-primary-foreground text-sm font-medium tracking-wide rounded-sm hover:bg-foreground/90 transition-colors duration-300"
                                     >
                                         <WhatsAppIcon className="w-4 h-4" />

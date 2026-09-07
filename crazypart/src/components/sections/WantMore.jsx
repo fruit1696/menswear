@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { WhatsAppIcon } from "@/components/Navbar";
 import { whatsappLink } from "@/lib/brand";
+import { trackWhatsAppClick } from "@/lib/gtag";
 
 const PROMPTS = [
     "Ask for: Blue Linens",
@@ -47,6 +48,7 @@ export default function WantMore() {
                             href={whatsappLink("Hi Crazy Cut Piece, I'd like to see more shirt fabric designs.")}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={() => trackWhatsAppClick('want_more_section')}
                             className="mt-9 inline-flex items-center gap-2.5 px-7 py-4 bg-white/10 hover:bg-white/15 text-sm font-medium tracking-wide rounded-sm transition-colors duration-300"
                         >
                             <WhatsAppIcon className="w-4 h-4" />

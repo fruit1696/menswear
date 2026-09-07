@@ -4,6 +4,7 @@ import FabricCard from "@/components/FabricCard";
 import FabricCarousel from "@/components/FabricCarousel";
 import { FABRICS, whatsappLink, fabricImages } from "@/lib/brand";
 import { WhatsAppIcon } from "@/components/Navbar";
+import { trackWhatsAppClick } from "@/lib/gtag";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 export default function SelectedCollection() {
@@ -74,6 +75,7 @@ export default function SelectedCollection() {
                                         href={whatsappLink(getWhatsappMessage(selectedFabric))}
                                         target="_blank"
                                         rel="noopener noreferrer"
+                                        onClick={() => trackWhatsAppClick(`lightbox_${selectedFabric.id}`)}
                                         className="mt-2 inline-flex items-center justify-center gap-2.5 px-6 py-3.5 bg-[#1E5E41] hover:bg-[#184C35] text-white text-sm font-medium tracking-wide rounded-lg transition-all duration-300 shadow-md hover:shadow-lg w-full text-center"
                                     >
                                         <WhatsAppIcon className="w-5 h-5 flex-shrink-0" />

@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import Image from "@/components/ui/image";
 import { WhatsAppIcon } from "@/components/Navbar";
 import { FABRICS, fabricWhatsappLink, whatsappLink } from "@/lib/brand";
+import { trackWhatsAppClick } from "@/lib/gtag";
 
 export default function FabricDetail() {
     const { id } = useParams();
@@ -125,6 +126,7 @@ export default function FabricDetail() {
                                 href={fabricWhatsappLink(fabric)}
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                onClick={() => trackWhatsAppClick(`product_detail_${fabric.id}`)}
                                 className="mt-8 inline-flex w-full sm:w-auto items-center justify-center gap-2.5 px-7 py-4 bg-foreground text-primary-foreground text-sm font-medium tracking-wide rounded-sm hover:bg-foreground/90 transition-colors duration-300"
                             >
                                 <WhatsAppIcon className="w-4 h-4" />
@@ -156,6 +158,7 @@ export default function FabricDetail() {
                         href={whatsappLink(`Hi Crazy Cut Piece, I'm interested in the ${fabric.name} (${fabric.code}) fabric. Can you show me similar available designs?`)}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackWhatsAppClick(`product_detail_similar_${fabric.id}`)}
                         className="mt-7 inline-flex items-center gap-2.5 px-7 py-4 bg-foreground text-primary-foreground text-sm font-medium tracking-wide rounded-sm hover:bg-foreground/90 transition-colors duration-300"
                     >
                         <WhatsAppIcon className="w-4 h-4" />
