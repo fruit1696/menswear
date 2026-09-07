@@ -11,7 +11,7 @@ const STEPS = [
 
 export default function HowItWorks() {
     return (
-        <section className="py-20 sm:py-32">
+        <section className="py-14 sm:py-20">
             <div className="mx-auto max-w-7xl px-5 sm:px-8">
                 <SectionHeading eyebrow="How It Works" title="From Browse to Your Fabric." />
 

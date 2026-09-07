@@ -1,24 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "@/components/ui/image";
 import SectionHeading from "@/components/SectionHeading";
 import { IMAGES } from "@/lib/images";
-import TranslateText from "@/components/TranslateText";
+import { Languages } from "lucide-react";
 
 export default function TwoPieceConcept() {
+    const [isHindi, setIsHindi] = useState(false);
+
     return (
-        <section id="concept" className="py-20 sm:py-32 bg-secondary/50 border-y border-border/60">
+        <section id="concept" className="py-14 sm:py-20 bg-gradient-to-b from-background via-secondary/35 to-secondary/50">
             <div className="mx-auto max-w-7xl px-5 sm:px-8">
                 <div className="max-w-2xl mx-auto text-center">
                     <SectionHeading
-                        eyebrow="The Concept"
-                        title="What Is a 2-Piece Cut Piece?"
+                        eyebrow={isHindi ? "अवधारणा" : "The Concept"}
+                        title={isHindi ? "2-पीस क्या है?" : "What Is a 2-Piece?"}
                         align="center"
                     />
-                    <TranslateText
-                        english="Premium Raymond shirt fabric, pre-cut with the right amount of fabric needed to make one complete men's shirt. Each set comes as two pre-cut pieces that together provide enough fabric to take straight to your tailor."
-                        hindi="प्रीमियम रेमंड शर्ट फैब्रिक, एक पूरी शर्ट बनाने के लिए सही मात्रा में पहले से कटा हुआ। प्रत्येक सेट में दो कट पीस होते हैं जो मिलकर एक पुरुष की शर्ट सिलाने के लिए पर्याप्त फैब्रिक प्रदान करते हैं।"
-                        className="mt-7 text-lg text-foreground/75 leading-relaxed text-center block"
-                    />
+                    <p className="mt-7 text-lg text-foreground/75 leading-relaxed text-center block">
+                        {isHindi
+                            ? "प्रीमियम रेमंड शर्ट फैब्रिक, एक पूरी शर्ट बनाने के लिए सही मात्रा में पहले से कटा हुआ। प्रत्येक सेट में दो कट पीस होते हैं जो मिलकर एक पुरुष की शर्ट सिलाने के लिए पर्याप्त फैब्रिक प्रदान करते हैं।"
+                            : "Premium Raymond shirt fabric, pre-cut with the right amount of fabric needed to make one complete men's shirt. Each set comes as two pre-cut pieces that together provide enough fabric to take straight to your tailor."}
+                    </p>
+                    <button
+                        type="button"
+                        onClick={() => setIsHindi((prev) => !prev)}
+                        className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-accent hover:text-foreground transition-colors duration-200 cursor-pointer focus:outline-none"
+                        aria-label={isHindi ? "See English version" : "See Hindi translation"}
+                    >
+                        <Languages className="w-3.5 h-3.5" />
+                        <span>{isHindi ? "See English" : "See Translation (हिंदी)"}</span>
+                    </button>
                 </div>
 
                 {/* Visual flow */}
@@ -37,41 +48,34 @@ export default function TwoPieceConcept() {
                     <div className="lg:col-span-7 text-center">
                         <div className="grid gap-4 sm:gap-6 grid-cols-2">
                             <PieceCard
-                                step="Piece 1"
-                                use="Front & Back"
-                                detail="The body of the shirt - front panels and back."
+                                step={isHindi ? "पीस 1" : "Piece 1"}
+                                use={isHindi ? "फ्रंट और बैक" : "Front & Back"}
+                                detail={isHindi ? "शर्ट का मुख्य हिस्सा - फ्रंट पैनल और बैक।" : "The body of the shirt - front panels and back."}
                             />
                             <PieceCard
-                                step="Piece 2"
-                                use="Sleeves & Collar"
-                                detail="Sleeves, collar and cuffs - the finishing pieces."
+                                step={isHindi ? "पीस 2" : "Piece 2"}
+                                use={isHindi ? "स्लीव्स और कॉलर" : "Sleeves & Collar"}
+                                detail={isHindi ? "स्लीव्स, कॉलर और कफ्स - फिनिशिंग पीस।" : "Sleeves, collar and cuffs - the finishing pieces."}
                             />
                         </div>
 
                         <div className="mt-6 grid gap-2 sm:gap-4 grid-cols-3">
                             <PieceCard
-                                step="Total Length"
-                                use="≈ 1.8 metre"
-                                detail=""//Full cut piece length
+                                step={isHindi ? "कुल लंबाई" : "Total Length"}
+                                use={isHindi ? "≈ 1.8 मीटर" : "≈ 1.8 metre"}
+                                detail=""
                             />
                             <PieceCard
-                                step="Width"
-                                use="57 inch"
-                                detail=""//Standard fabric width
+                                step={isHindi ? "चौड़ाई" : "Width"}
+                                use={isHindi ? "57 इंच" : "57 inch"}
+                                detail=""
                             />
                             <PieceCard
-                                step="Makes"
-                                use="1 Shirt"
-                                detail=""//Enough for one complete shirt
+                                step={isHindi ? "बनती है" : "Makes"}
+                                use={isHindi ? "1 शर्ट" : "1 Shirt"}
+                                detail=""
                             />
                         </div>
-
-                        {/* <div className="mt-6 p-6 bg-background border border-border/60 rounded-sm">
-                            <p className="text-sm text-foreground/65 leading-relaxed text-center">
-                                2-piece cut piece ≈ 1.8 metre length × 57 inch width — enough for one
-                                complete shirt.
-                            </p>
-                        </div> */}
                     </div>
                 </div>
             </div>
@@ -84,16 +88,7 @@ function PieceCard({ step, use, detail }) {
         <div className="p-6 bg-background border border-border/60 rounded-sm">
             <span className="text-[11px] uppercase tracking-[0.25em] text-accent">{step}</span>
             <h3 className="mt-3 font-display text-2xl font-medium text-foreground">{use}</h3>
-            <p className="mt-2 text-sm text-foreground/65 leading-relaxed">{detail}</p>
-        </div>
-    );
-}
-
-function Spec({ label, value }) {
-    return (
-        <div>
-            <p className="text-[11px] uppercase tracking-[0.2em] text-foreground/50">{label}</p>
-            <p className="mt-1 font-display text-xl text-foreground">{value}</p>
+            {detail && <p className="mt-2 text-sm text-foreground/65 leading-relaxed">{detail}</p>}
         </div>
     );
 }

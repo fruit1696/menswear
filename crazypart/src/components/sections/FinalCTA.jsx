@@ -37,17 +37,17 @@ export default function FinalCTA() {
     }, []);
 
     return (
-        <section className="py-24 sm:py-40">
+        <section className="py-16 sm:py-28">
             <div className="mx-auto max-w-4xl px-5 sm:px-8 text-center">
                 <span className="text-[11px] uppercase tracking-[0.3em] text-accent">
-                    Your Fabric Awaits
+                    Find a Fabric You’ll Love
                 </span>
                 <h2 className="mt-6 font-display text-5xl sm:text-6xl lg:text-7xl font-medium leading-[1.02] tracking-tight text-foreground text-balance">
-                    Ready to Find Your Fabric?
+                    What Our Customers Say
                 </h2>
                 <div className="brass-rule w-24 mx-auto mt-7" />
                 <p className="mt-7 text-lg text-foreground/75 leading-relaxed max-w-xl mx-auto">
-                    Tell us what you're looking for and we'll show you what's available.
+                    Real words from customers who’ve bought and worn our fabrics.
                 </p>
 
                 <div
@@ -59,11 +59,10 @@ export default function FinalCTA() {
                 >
                     {/* Hover & Touch Tooltip Popover */}
                     <div
-                        className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-3 transition-all duration-200 pointer-events-none z-30 ${
-                            showTooltip
-                                ? "opacity-100 translate-y-0 scale-100"
-                                : "opacity-0 translate-y-2 scale-95 group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100"
-                        }`}
+                        className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-3 transition-all duration-200 pointer-events-none z-30 ${showTooltip
+                            ? "opacity-100 translate-y-0 scale-100"
+                            : "opacity-0 translate-y-2 scale-95 group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100"
+                            }`}
                     >
                         <div className="px-4 py-2.5 bg-card border border-border/90 rounded-md shadow-2xl whitespace-nowrap text-center">
                             <div className="inline-flex items-center gap-1.5">
@@ -79,17 +78,6 @@ export default function FinalCTA() {
                         {/* Tooltip Arrow */}
                         <div className="w-2.5 h-2.5 bg-card border-r border-b border-border/90 rotate-45 mx-auto -mt-1.5" />
                     </div>
-
-                    <a
-                        href={whatsappLink("Hi Crazy Cut Piece, I'm looking for shirt fabric. Can you show me what's currently available?")}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => trackWhatsAppClick('final_cta')}
-                        className="inline-flex items-center gap-2.5 px-8 py-4 bg-foreground text-primary-foreground text-sm font-medium tracking-wide rounded-sm hover:bg-foreground/90 transition-colors duration-300 shadow-md"
-                    >
-                        <WhatsAppIcon className="w-4 h-4" />
-                        ORDER ON WHATSAPP
-                    </a>
                 </div>
 
                 {/* Google Reviews Widget */}

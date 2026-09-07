@@ -128,7 +128,7 @@ export default function Hero() {
             </div>
 
             {/* 3. TRUST PILLARS */}
-            <div className="relative z-10 w-full max-w-4xl mx-auto border-t border-border/60 pt-5 mt-6">
+            <div className="relative z-10 w-full max-w-4xl mx-auto border-t border-border/30 pt-5 mt-6">
                 <div className="flex flex-row items-center w-full justify-between sm:justify-center gap-2 sm:gap-8 text-foreground/80">
                     <div className="flex flex-col items-center gap-1.5 flex-1 sm:flex-none text-center">
                         <BadgeCheck className="w-6 h-6 sm:w-7 sm:h-7 text-accent flex-shrink-0" />

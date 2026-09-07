@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useCallback, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronRight, ChevronLeft } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
@@ -41,6 +41,19 @@ function toggle(arr, value) {
 
 export default function PickYourStyle() {
     const [step, setStep] = useState(1); // 1,2,3,4(summary)
+    const cardRef = useRef(null);
+
+    // Advance/go-back while keeping the card top in the viewport
+    const goToStep = useCallback((next) => {
+        setStep((prev) => (typeof next === "function" ? next(prev) : next));
+        // Wait one animation frame so the new step starts mounting, then scroll
+        requestAnimationFrame(() => {
+            if (cardRef.current) {
+                const top = cardRef.current.getBoundingClientRect().top + window.scrollY - 90;
+                window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+            }
+        });
+    }, []);
     const [fabrics, setFabrics] = useState([]);
     const [colors, setColors] = useState([]);
     const [patterns, setPatterns] = useState([]);
@@ -80,20 +93,20 @@ export default function PickYourStyle() {
     }, [fabrics, colors, patterns, fabricNote, colorNote, patternNote]);
 
     return (
-        <section id="pick-your-style" className="bg-secondary/40 py-20 sm:py-28">
+        <section id="pick-your-style" className="bg-gradient-to-b from-secondary/50 via-secondary/30 to-background py-14 sm:py-20">
             <div className="mx-auto max-w-3xl px-5 sm:px-8">
                 <SectionHeading
                     eyebrow="Pick Your Style"
-                    title="See It Before You Buy It"
+                    title="Tell Us What You’re Looking For"
                     align="center"
                 />
                 <TranslateText
-                    english="Looking for a specific fabric? Just share your preferred material, color, and pattern. Our experts will check our current selection and send you live photos of your perfect match over WhatsApp."
-                    hindi="क्या आप किसी खास फैब्रिक की तलाश में हैं? बस अपनी पसंद का कपड़ा, रंग और पैटर्न शेयर करें। हमारे एक्सपर्ट्स हमारे मौजूदा स्टॉक की जांच करेंगे और आपको वॉट्सऐप पर लाइव तस्वीरें भेजेंगे।"
+                    english="Looking for a specific fabric? Just select your preferred material, color, and pattern. Our experts will check our Current Stock and send you live photos of your perfect match over WhatsApp."
+                    hindi="क्या आप किसी खास फैब्रिक की तलाश में हैं? बस अपनी पसंद का कपड़ा, रंग और पैटर्न चुनें। हमारे एक्सपर्ट्स हमारे मौजूदा स्टॉक की जांच करेंगे और आपको वॉट्सऐप पर लाइव तस्वीरें भेजेंगे।"
                     className="mt-5 text-center text-sm sm:text-base text-foreground/65 leading-relaxed max-w-xl mx-auto block"
                 />
 
-                <div className="mt-12 bg-card border border-border rounded-sm p-6 sm:p-10 swatch-shadow">
+                <div ref={cardRef} className="mt-12 bg-card border border-border rounded-sm p-6 sm:p-10 swatch-shadow">
                     {/* Progress indicator */}
                     <div className="flex items-center justify-center gap-2 sm:gap-3 mb-10">
                         {STEPS.map((s, i) => {
@@ -112,7 +125,7 @@ export default function PickYourStyle() {
                                     <button
                                         type="button"
                                         onClick={() => {
-                                            if (isStepAccessible) setStep(s.n);
+                                            if (isStepAccessible) goToStep(s.n);
                                         }}
                                         disabled={!isStepAccessible}
                                         className={`flex items-center gap-2 focus:outline-none transition-opacity duration-200 ${isStepAccessible
@@ -249,7 +262,7 @@ export default function PickYourStyle() {
                                                 f === "Other / Mix" && fabricNote.trim() ? fabricNote.trim() : f
                                             )
                                             .join(", ")}
-                                        onEdit={() => setStep(1)}
+                                        onEdit={() => goToStep(1)}
                                     />
                                     <SummaryRow
                                         label="Color"
@@ -258,7 +271,7 @@ export default function PickYourStyle() {
                                                 c === OTHER_COLOR && colorNote.trim() ? colorNote.trim() : c
                                             )
                                             .join(", ")}
-                                        onEdit={() => setStep(2)}
+                                        onEdit={() => goToStep(2)}
                                     />
                                     <SummaryRow
                                         label="Style"
@@ -267,7 +280,7 @@ export default function PickYourStyle() {
                                                 p === "Other" && patternNote.trim() ? patternNote.trim() : p
                                             )
                                             .join(", ")}
-                                        onEdit={() => setStep(3)}
+                                        onEdit={() => goToStep(3)}
                                     />
                                 </div>
 
@@ -286,7 +299,7 @@ export default function PickYourStyle() {
                                         className="inline-flex items-center justify-center gap-2.5 px-7 sm:px-8 py-4 bg-foreground text-primary-foreground text-sm font-medium tracking-wide rounded-sm hover:bg-foreground/90 transition-colors duration-300"
                                     >
                                         <WhatsAppIcon className="w-4 h-4" />
-                                        Chat on WhatsApp
+                                        Send your Request on WhatsApp
                                         <ChevronRight className="w-4 h-4" />
                                     </a>
                                 </div>
@@ -298,7 +311,7 @@ export default function PickYourStyle() {
                     {step < 4 && (
                         <div className="flex items-center justify-between mt-10 pt-6 border-t border-border/60">
                             <button
-                                onClick={() => setStep((s) => Math.max(1, s - 1))}
+                                onClick={() => goToStep((s) => Math.max(1, s - 1))}
                                 disabled={step === 1}
                                 className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground/70 hover:text-foreground disabled:opacity-0 disabled:pointer-events-none transition-all duration-300"
                             >
@@ -306,7 +319,7 @@ export default function PickYourStyle() {
                                 Back
                             </button>
                             <button
-                                onClick={() => setStep((s) => Math.min(4, s + 1))}
+                                onClick={() => goToStep((s) => Math.min(4, s + 1))}
                                 disabled={!canNext}
                                 className="inline-flex items-center gap-2 px-6 sm:px-7 py-3.5 bg-foreground text-primary-foreground text-sm font-medium tracking-wide rounded-sm hover:bg-foreground/90 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-foreground transition-all duration-300"
                             >

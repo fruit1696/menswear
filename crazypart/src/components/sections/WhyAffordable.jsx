@@ -45,7 +45,7 @@ const POINTS = [
 
 export default function WhyAffordable() {
     return (
-        <section className="py-20 sm:py-32">
+        <section className="py-14 sm:py-20">
             <div className="mx-auto max-w-7xl px-5 sm:px-8">
                 {/* Heading + intro */}
                 <div className="max-w-3xl">

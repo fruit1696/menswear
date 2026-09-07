@@ -20,8 +20,8 @@ export default function AnnouncementTicker() {
     }, []);
 
     return (
-        <div className="w-full bg-black text-white py-2 px-4 text-center overflow-hidden select-none border-b border-white/10">
-            <div className="mx-auto max-w-7xl h-5 flex items-center justify-center relative overflow-hidden">
+        <div className="w-full bg-black text-white py-2.5 sm:py-2 px-4 text-center select-none border-b border-white/10">
+            <div className="mx-auto max-w-7xl min-h-5 flex items-center justify-center relative">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={index}
@@ -29,7 +29,7 @@ export default function AnnouncementTicker() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -12 }}
                         transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
-                        className="text-[11px] sm:text-xs font-medium tracking-[0.2em] uppercase text-white/90 whitespace-nowrap"
+                        className="text-[11px] sm:text-xs font-medium tracking-[0.2em] uppercase text-white/90 sm:whitespace-nowrap text-center leading-snug"
                     >
                         {ANNOUNCEMENTS[index]}
                     </motion.div>

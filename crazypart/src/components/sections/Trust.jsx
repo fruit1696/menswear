@@ -20,7 +20,7 @@ const PILLARS = [
 
 export default function Trust() {
     return (
-        <section id="about" className="py-20 sm:py-32 bg-secondary/50 border-y border-border/60">
+        <section id="about" className="py-14 sm:py-20 bg-secondary/50 border-y border-border/60">
             <div className="mx-auto max-w-7xl px-5 sm:px-8">
                 <div className="grid gap-12 lg:grid-cols-12 lg:gap-16 items-center">
                     <div className="lg:col-span-6">

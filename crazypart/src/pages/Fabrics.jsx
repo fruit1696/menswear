@@ -22,13 +22,12 @@ export default function Fabrics() {
                         The Gallery
                     </span>
                     <h1 className="mt-5 font-display text-5xl sm:text-6xl lg:text-7xl font-medium leading-[1.02] tracking-tight text-foreground text-balance">
-                        Selected Fabrics
+                        Fabrics We Sell
                     </h1>
                     <div className="brass-rule w-24 mt-7" />
                     <p className="mt-7 text-lg text-foreground/75 leading-relaxed max-w-2xl">
-                        A small selection from our collection. Our online gallery is only a
-                        glimpse of the fabrics currently available — the full, current range
-                        is yours to discover on WhatsApp.
+                        What you see here is just a small glimpse of our collection. With 5,000+ fabrics and varieties to choose from, we can’t showcase everything online. WhatsApp us to explore our full collection.
+
                     </p>
                 </div>
             </section>
@@ -54,8 +53,8 @@ export default function Fabrics() {
                         WhatsApp us to see current available designs.
                     </h2>
                     <p className="mt-6 text-primary-foreground/75 leading-relaxed">
-                        These are only a few examples. We have many more fabrics available —
-                        tell us what you're looking for and we'll send actual photos.
+                        These are only a few examples. We have 5000+ fabrics available —
+                        tell us what you're looking for and we'll send live photos.
                     </p>
                     <a
                         href={whatsappLink("Hi Crazy Cut Piece, I'd like to see more shirt fabric designs.")}

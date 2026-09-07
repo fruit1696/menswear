@@ -27,7 +27,7 @@ export default function WantMore() {
     }, []);
 
     return (
-        <section className="relative py-24 sm:py-36 bg-foreground text-primary-foreground overflow-hidden">
+        <section className="relative py-16 sm:py-24 bg-foreground text-primary-foreground overflow-hidden">
             <div className="mx-auto max-w-7xl px-5 sm:px-8">
                 <div className="grid gap-12 lg:grid-cols-12 lg:gap-16 items-center">
                     <div className="lg:col-span-7">
@@ -39,9 +39,7 @@ export default function WantMore() {
                         </h2>
                         <div className="brass-rule w-24 mt-6" />
                         <p className="mt-7 text-lg text-primary-foreground/75 leading-relaxed max-w-xl">
-                            These are only a few examples from our collection. We have more
-                            fabrics available than what's shown online. WhatsApp us and we'll
-                            show you what's currently available.
+                            These are only a few examples from our collection.we have 5,000+ fabric varieties to choose from. Tell us what you’re looking for and we’ll show you the available options.
                         </p>
 
                         <a

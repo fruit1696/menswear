@@ -43,7 +43,6 @@ export const FABRICS = [
         images: [
             "/black1.jpeg",
             "/black2.jpeg",
-            "/black3.jpeg",
         ],
     },
     {
