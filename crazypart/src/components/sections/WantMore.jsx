@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { WhatsAppIcon } from "@/components/Navbar";
 import { whatsappLink } from "@/lib/brand";
 import { trackWhatsAppClick } from "@/lib/gtag";
+import TranslateText from "@/components/TranslateText";
 
 const PROMPTS = [
     "Ask for: Blue Linens",
@@ -34,13 +35,30 @@ export default function WantMore() {
                         <span className="text-[11px] uppercase tracking-[0.3em] text-accent">
                             Want More?
                         </span>
-                        <h2 className="mt-5 font-display text-4xl sm:text-5xl lg:text-6xl font-medium leading-[1.05] tracking-tight text-balance">
-                            Looking for More Designs?
-                        </h2>
-                        <div className="brass-rule w-24 mt-6" />
-                        <p className="mt-7 text-lg text-primary-foreground/75 leading-relaxed max-w-xl">
-                            These are only a few examples from our collection.we have 5,000+ fabric varieties to choose from. Tell us what you’re looking for and we’ll show you the available options.
-                        </p>
+                        <TranslateText
+                            english={
+                                <>
+                                    <h2 className="mt-5 font-display text-4xl sm:text-5xl lg:text-6xl font-medium leading-[1.05] tracking-tight text-balance">
+                                        Looking for More Designs?
+                                    </h2>
+                                    <div className="brass-rule w-24 mt-6" />
+                                    <p className="mt-7 text-lg text-primary-foreground/75 leading-relaxed max-w-xl">
+                                        These are only a few examples from our collection. We have 5,000+ fabric varieties to choose from. Tell us what you’re looking for and we’ll show you the available options.
+                                    </p>
+                                </>
+                            }
+                            hindi={
+                                <>
+                                    <h2 className="mt-5 font-display text-4xl sm:text-5xl lg:text-6xl font-medium leading-[1.05] tracking-tight text-balance">
+                                        अधिक डिज़ाइन देखना चाहते हैं?
+                                    </h2>
+                                    <div className="brass-rule w-24 mt-6" />
+                                    <p className="mt-7 text-lg text-primary-foreground/75 leading-relaxed max-w-xl">
+                                        ये हमारे संग्रह के केवल कुछ उदाहरण हैं। हमारे पास 5,000+ कपड़े के विकल्प उपलब्ध हैं। हमें बताएं कि आप क्या ढूंढ रहे हैं और हम आपको उपलब्ध विकल्प दिखाएंगे।
+                                    </p>
+                                </>
+                            }
+                        />
 
                         <a
                             href={whatsappLink("Hi Crazy Cut Piece, I'd like to see more shirt fabric designs.")}

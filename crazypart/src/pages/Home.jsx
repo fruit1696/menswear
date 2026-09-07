@@ -4,6 +4,7 @@ import BrandIntro from "@/components/sections/BrandIntro";
 import Quality from "@/components/sections/Quality";
 import SelectedCollection from "@/components/sections/SelectedCollection";
 import PickYourStyle from "@/components/sections/PickYourStyle";
+import VisitStore from "@/components/sections/VisitStore";
 import WantMore from "@/components/sections/WantMore";
 import WhyAffordable from "@/components/sections/WhyAffordable";
 import TwoPieceConcept from "@/components/sections/TwoPieceConcept";
@@ -30,6 +31,7 @@ export default function Home() {
             <WhyBuy />
             {/* <BrandIntro /> */}
             {/* <Quality /> */}
+            <VisitStore />
             <WantMore />
             {/* <WhyAffordable /> */}
             {/* <HowItWorks /> */}

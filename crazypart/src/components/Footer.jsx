@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Instagram, Facebook } from "lucide-react";
 import { BRAND, whatsappLink, DEFAULT_WHATSAPP_MESSAGE } from "@/lib/brand";
 import { WhatsAppIcon } from "@/components/Navbar";
 import { trackWhatsAppClick } from "@/lib/gtag";
@@ -78,6 +79,39 @@ export default function Footer() {
                                     </a>
                                 </li>
                             </ul>
+
+                            {/* Social Media Icons */}
+                            <div className="mt-6 pt-5 border-t border-white/10">
+                                <h5 className="text-[11px] uppercase tracking-[0.25em] text-accent mb-3 font-medium">
+                                    Follow Us
+                                </h5>
+                                <div className="flex items-center gap-3">
+                                    <a
+                                        href={BRAND.socials?.instagram || "#"}
+                                        aria-label="Instagram"
+                                        className="w-9 h-9 rounded-full bg-white/5 border border-white/15 flex items-center justify-center text-primary-foreground/75 hover:text-white hover:bg-white/15 hover:border-accent hover:scale-105 transition-all duration-300 shadow-sm"
+                                    >
+                                        <Instagram className="w-4 h-4" />
+                                    </a>
+                                    <a
+                                        href={BRAND.socials?.facebook || "#"}
+                                        aria-label="Facebook"
+                                        className="w-9 h-9 rounded-full bg-white/5 border border-white/15 flex items-center justify-center text-primary-foreground/75 hover:text-white hover:bg-white/15 hover:border-accent hover:scale-105 transition-all duration-300 shadow-sm"
+                                    >
+                                        <Facebook className="w-4 h-4" />
+                                    </a>
+                                    <a
+                                        href={BRAND.socials?.whatsapp || whatsappLink(DEFAULT_WHATSAPP_MESSAGE)}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={() => trackWhatsAppClick('footer_social')}
+                                        aria-label="WhatsApp"
+                                        className="w-9 h-9 rounded-full bg-white/5 border border-white/15 flex items-center justify-center text-primary-foreground/75 hover:text-white hover:bg-white/15 hover:border-accent hover:scale-105 transition-all duration-300 shadow-sm"
+                                    >
+                                        <WhatsAppIcon className="w-4 h-4" />
+                                    </a>
+                                </div>
+                            </div>
                         </div>
 
                         {/* Hover/Tap Dropdown Menu */}

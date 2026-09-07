@@ -9,6 +9,11 @@ export const BRAND = {
     location: "Surat, Gujarat, India",
     email: "[EMAIL_ADDRESS]",
     hours: "Mon – Sat · 10:00 AM – 7:00 PM IST",
+    socials: {
+        instagram: "#",
+        facebook: "#",
+        whatsapp: "#",
+    },
 };
 
 // Build a WhatsApp deep link with a pre-filled, contextual message.

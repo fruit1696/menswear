@@ -3,6 +3,7 @@ import FabricCard from "@/components/FabricCard";
 import { WhatsAppIcon } from "@/components/Navbar";
 import { FABRICS, whatsappLink } from "@/lib/brand";
 import { trackWhatsAppClick } from "@/lib/gtag";
+import TranslateText from "@/components/TranslateText";
 
 export default function Fabrics() {
     React.useEffect(() => {
@@ -21,14 +22,30 @@ export default function Fabrics() {
                     <span className="text-[11px] uppercase tracking-[0.3em] text-accent">
                         The Gallery
                     </span>
-                    <h1 className="mt-5 font-display text-5xl sm:text-6xl lg:text-7xl font-medium leading-[1.02] tracking-tight text-foreground text-balance">
-                        Fabrics We Sell
-                    </h1>
-                    <div className="brass-rule w-24 mt-7" />
-                    <p className="mt-7 text-lg text-foreground/75 leading-relaxed max-w-2xl">
-                        What you see here is just a small glimpse of our collection. With 5,000+ fabrics and varieties to choose from, we can’t showcase everything online. WhatsApp us to explore our full collection.
-
-                    </p>
+                    <TranslateText
+                        english={
+                            <>
+                                <h1 className="mt-5 font-display text-5xl sm:text-6xl lg:text-7xl font-medium leading-[1.02] tracking-tight text-foreground text-balance">
+                                    Fabrics We Sell
+                                </h1>
+                                <div className="brass-rule w-24 mt-7" />
+                                <p className="mt-7 text-lg text-foreground/75 leading-relaxed max-w-2xl">
+                                    What you see here is just a small glimpse of our collection. With 5,000+ fabrics and varieties to choose from, we can’t showcase everything online. WhatsApp us to explore our full collection.
+                                </p>
+                            </>
+                        }
+                        hindi={
+                            <>
+                                <h1 className="mt-5 font-display text-5xl sm:text-6xl lg:text-7xl font-medium leading-[1.02] tracking-tight text-foreground text-balance">
+                                    कपड़े जो हम बेचते हैं
+                                </h1>
+                                <div className="brass-rule w-24 mt-7" />
+                                <p className="mt-7 text-lg text-foreground/75 leading-relaxed max-w-2xl">
+                                    जो आप यहाँ देख रहे हैं वह हमारे संग्रह की केवल एक छोटी सी झलक है। 5,000+ कपड़ों और किस्मों के साथ, हम सब कुछ ऑनलाइन नहीं दिखा सकते। हमारा पूरा संग्रह देखने के लिए हमें WhatsApp करें।
+                                </p>
+                            </>
+                        }
+                    />
                 </div>
             </section>
 

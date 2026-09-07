@@ -18,11 +18,12 @@ export default function SelectedCollection() {
     return (
         <section id="fabrics" className="py-14 sm:py-20 bg-gradient-to-b from-white via-secondary/35 to-secondary/50">
             <div className="mx-auto max-w-7xl px-5 sm:px-8">
-                <div className="flex flex-col items-center text-center gap-4">
-                    <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium leading-[1.05] tracking-tight text-foreground text-balance">
-                        TOP PICKS
-                    </h2>
-                    <div className="brass-rule w-24 mx-auto" />
+                <div className="flex flex-col items-center text-center">
+                    <SectionHeading
+                        eyebrow="CUSTOMER FAVORITES"
+                        title="TOP PICKS"
+                        align="center"
+                    />
                 </div>
 
                 <div className="mt-14 grid gap-x-6 gap-y-10 grid-cols-2 lg:grid-cols-4">
