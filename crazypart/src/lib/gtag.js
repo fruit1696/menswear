@@ -1,6 +1,6 @@
 // Utility helper for Google Analytics 4 (GA4) event tracking.
 
-export const GA_MEASUREMENT_ID = 'G-XXXXXXXXXX';
+export const GA_MEASUREMENT_ID = 'G-6DJ484XC0S';
 
 /**
  * Safely trigger custom GA4 events.
