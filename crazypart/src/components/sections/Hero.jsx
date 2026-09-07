@@ -52,7 +52,7 @@ export default function Hero() {
 
     return (
         /* Changed bg-background to bg-white */
-        <section id="hero-section" className="relative min-h-[100svh] flex flex-col items-center justify-between overflow-hidden bg-white pt-24 sm:pt-28 pb-12 px-5 sm:px-8">
+        <section id="hero-section" className="relative min-h-[100svh] flex flex-col items-center justify-between overflow-hidden bg-white pt-32 sm:pt-36 pb-12 px-5 sm:px-8">
             <h1 className="sr-only">Raymond Shirt Fabric Online | Crazy Cut Piece</h1>
 
             {/* Main Content Composition */}

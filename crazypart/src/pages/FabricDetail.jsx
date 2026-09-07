@@ -66,7 +66,7 @@ export default function FabricDetail() {
     };
 
     return (
-        <div className="pt-16 sm:pt-20">
+        <div className="pt-24 sm:pt-28">
             {/* Product JSON-LD Schema */}
             <script
                 type="application/ld+json"

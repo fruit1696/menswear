@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import { BRAND, whatsappLink, DEFAULT_WHATSAPP_MESSAGE } from "@/lib/brand";
 import { trackWhatsAppClick } from "@/lib/gtag";
 import AnnouncementTicker from "@/components/AnnouncementTicker";
+import BetaBanner from "@/components/BetaBanner";
 
 const NAV_LINKS = [
     { label: "Home", to: "/" },
@@ -34,6 +35,7 @@ export default function Navbar() {
                 : "bg-background/80 backdrop-blur-sm"
                 }`}
         >
+            <BetaBanner />
             <AnnouncementTicker />
             <nav className="relative mx-auto max-w-7xl px-5 sm:px-8">
                 <div className="relative flex items-center justify-between h-16 sm:h-20 w-full">

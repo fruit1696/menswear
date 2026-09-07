@@ -14,7 +14,7 @@ export default function Fabrics() {
     }, []);
 
     return (
-        <div className="pt-16 sm:pt-20">
+        <div className="pt-24 sm:pt-28">
             {/* Header */}
             <section className="py-16 sm:py-24 border-b border-border/60">
                 <div className="mx-auto max-w-7xl px-5 sm:px-8">
