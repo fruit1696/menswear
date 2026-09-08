@@ -3,10 +3,12 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const ANNOUNCEMENTS = [
     "Premium Fabrics. Crazy Prices.",
-    "Raymond Shirting. Up to 75% Off.",
+    "Raymond Shirting.",
     "2-Piece Shirt Sets.",
     "Choose Your Fabric. We'll Find the Match.",
-    "Real Fabric. Real Availability. Order on WhatsApp.",
+    "Real Raymond Fabric. Real Availability.",
+    "Order on WhatsApp.",
+    "Free Shipping in MP & MH.",
 ];
 
 export default function AnnouncementTicker() {

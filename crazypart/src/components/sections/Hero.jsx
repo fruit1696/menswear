@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "@/components/ui/image";
 import { WhatsAppIcon } from "@/components/Navbar";
@@ -12,10 +12,9 @@ export default function Hero() {
         {
             src: "/pic1.jpeg",
             alt: "Raymond shirt fabric — Order Now",
-            href: whatsappLink(DEFAULT_WHATSAPP_MESSAGE),
-            isExternal: true,
-            label: "Order Now on WhatsApp",
-            onClick: () => trackWhatsAppClick('hero_carousel_1'),
+            href: "#pick-your-style",
+            isExternal: false,
+            label: "Order Here",
         },
         {
             src: "/pic2.jpeg",
@@ -53,20 +52,44 @@ export default function Hero() {
         };
     }, [emblaApi]);
 
+    // ── Autoplay ──────────────────────────────────────────────
+    const autoplayRef = useRef(null);
+
+    const startAutoplay = useCallback(() => {
+        if (autoplayRef.current) clearInterval(autoplayRef.current);
+        autoplayRef.current = setInterval(() => {
+            emblaApi?.scrollNext();
+        }, 4500);
+    }, [emblaApi]);
+
+    useEffect(() => {
+        if (!emblaApi) return;
+        startAutoplay();
+        // Reset timer on any user-initiated interaction
+        emblaApi.on("pointerDown", startAutoplay);
+        return () => {
+            clearInterval(autoplayRef.current);
+            emblaApi.off("pointerDown", startAutoplay);
+        };
+    }, [emblaApi, startAutoplay]);
+    // ─────────────────────────────────────────────────────────
+
     const scrollPrev = useCallback(
         (e) => {
             e?.preventDefault?.();
             emblaApi?.scrollPrev();
+            startAutoplay();
         },
-        [emblaApi]
+        [emblaApi, startAutoplay]
     );
 
     const scrollNext = useCallback(
         (e) => {
             e?.preventDefault?.();
             emblaApi?.scrollNext();
+            startAutoplay();
         },
-        [emblaApi]
+        [emblaApi, startAutoplay]
     );
 
     return (

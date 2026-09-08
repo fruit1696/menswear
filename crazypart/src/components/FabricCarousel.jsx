@@ -87,17 +87,19 @@ export default function FabricCarousel({ images, altBase, badge }) {
                         onClick={scrollPrev}
                         disabled={selected === 0}
                         aria-label="Previous fabric image"
-                        className="absolute left-2.5 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-background/85 backdrop-blur-sm text-foreground border border-border/70 hover:bg-background hover:scale-105 active:scale-95 disabled:opacity-0 disabled:pointer-events-none transition-all duration-300 shadow-sm"
+                        className="absolute left-1 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-9 h-9 text-white/80 hover:text-white active:scale-90 disabled:opacity-0 disabled:pointer-events-none transition-all duration-200"
+                        style={{ filter: "drop-shadow(0 1px 3px rgba(0,0,0,0.55))" }}
                     >
-                        <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={1.5} />
+                        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={1.75} />
                     </button>
                     <button
                         onClick={scrollNext}
                         disabled={selected === count - 1}
                         aria-label="Next fabric image"
-                        className="absolute right-2.5 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-background/85 backdrop-blur-sm text-foreground border border-border/70 hover:bg-background hover:scale-105 active:scale-95 disabled:opacity-0 disabled:pointer-events-none transition-all duration-300 shadow-sm"
+                        className="absolute right-1 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-9 h-9 text-white/80 hover:text-white active:scale-90 disabled:opacity-0 disabled:pointer-events-none transition-all duration-200"
+                        style={{ filter: "drop-shadow(0 1px 3px rgba(0,0,0,0.55))" }}
                     >
-                        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={1.5} />
+                        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={1.75} />
                     </button>
                 </>
             )}

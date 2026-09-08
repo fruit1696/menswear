@@ -29,9 +29,9 @@ const OTHER_COLOR = "Other / Specific Shade";
 /* ─── Hindi translation map ─── */
 const HINDI = {
     // Section heading
-    eyebrow: "अपनी पसंद चुनें",
-    title: "हमें बताएं आप क्या ढूंढ रहे हैं",
-    description: "क्या आप किसी खास कपड़े की तलाश में हैं? बस अपनी पसंद का कपड़ा, रंग और पैटर्न चुनें। हमारी टीम आपके लिए अभी उपलब्ध स्टॉक चेक करेगी और उस कपड़े की लाइव फोटो WhatsApp पर भेज देगी।",
+    eyebrow: "यहाँ से अपना कपड़ा ऑर्डर करें",
+    title: "नीचे दिए गए विकल्पों में से अपनी पसंद का कपड़ा चुनें",
+    description: "अपनी पसंद बताने के बाद, हम आपको उस कपड़े की लाइव फोटो WhatsApp पर भेजेंगे। पसंद आए तो वहीं से ऑर्डर कर सकते हैं।",
 
     // Step labels
     stepFabric: "कपड़ा",
@@ -82,7 +82,7 @@ const HINDI = {
     seeRequest: "आपकी रिक्वेस्ट देखें",
 
     // Summary
-    summaryHeading: "आपकी फैब्रिक रिक्वेस्ट",
+    summaryHeading: "अपनी रिक्वेस्ट भेजने से पहले जाँच लें",
     labelFabric: "कपड़ा",
     labelColor: "रंग",
     labelStyle: "स्टाइल",
@@ -204,7 +204,7 @@ export default function PickYourStyle() {
     }, [fabrics, colors, patterns, fabricNote, colorNote, patternNote]);
 
     return (
-        <section id="pick-your-style" className="bg-gradient-to-b from-secondary/50 via-secondary/30 to-background py-12 sm:py-16">
+        <section id="pick-your-style" className="bg-gradient-to-b from-secondary/50 via-secondary/30 to-background pt-6 sm:pt-8 pb-12 sm:pb-16">
             <div className="mx-auto max-w-3xl px-5 sm:px-8">
                 <SectionHeading
                     eyebrow={lang.eyebrow}
@@ -308,7 +308,7 @@ export default function PickYourStyle() {
 
                         {step === 2 && (
                             <Step key="s2" heading={lang.headingColor}>
-                                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
+                                <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-6 gap-2 sm:gap-3">
                                     {COLOR_OPTIONS.map((c) => (
                                         <Swatch
                                             key={c.label}
@@ -496,7 +496,7 @@ function Swatch({ label, hex, active, onClick }) {
         <button
             type="button"
             onClick={onClick}
-            className={`group flex flex-col items-center gap-2 p-2.5 rounded-sm border transition-all duration-300 ${active
+            className={`group flex flex-col items-center gap-1.5 p-2 sm:p-2.5 rounded-sm border transition-all duration-300 ${active
                 ? "border-foreground bg-foreground/5"
                 : "border-border hover:border-foreground/50"
                 }`}
@@ -507,7 +507,7 @@ function Swatch({ label, hex, active, onClick }) {
                 style={{ backgroundColor: hex }}
             />
             <span
-                className={`text-[11px] sm:text-xs tracking-wide text-center leading-tight ${active ? "text-foreground font-medium" : "text-foreground/65"
+                className={`text-[10px] sm:text-xs tracking-wide text-center leading-tight ${active ? "text-foreground font-medium" : "text-foreground/65"
                     }`}
             >
                 {label}
