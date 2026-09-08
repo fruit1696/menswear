@@ -152,8 +152,6 @@ export default function Footer() {
                                     <div className="py-1">
                                         <Link
                                             to="/policies/refund"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
                                             className="block px-3 py-2 text-xs text-primary-foreground/80 hover:text-white hover:bg-white/10 rounded transition-colors"
                                             onClick={() => setDropdownOpen(false)}
                                         >
@@ -161,8 +159,6 @@ export default function Footer() {
                                         </Link>
                                         <Link
                                             to="/policies/privacy"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
                                             className="block px-3 py-2 text-xs text-primary-foreground/80 hover:text-white hover:bg-white/10 rounded transition-colors"
                                             onClick={() => setDropdownOpen(false)}
                                         >
@@ -170,8 +166,6 @@ export default function Footer() {
                                         </Link>
                                         <Link
                                             to="/policies/shipping"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
                                             className="block px-3 py-2 text-xs text-primary-foreground/80 hover:text-white hover:bg-white/10 rounded transition-colors"
                                             onClick={() => setDropdownOpen(false)}
                                         >
@@ -179,8 +173,6 @@ export default function Footer() {
                                         </Link>
                                         <Link
                                             to="/policies/terms"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
                                             className="block px-3 py-2 text-xs text-primary-foreground/80 hover:text-white hover:bg-white/10 rounded transition-colors"
                                             onClick={() => setDropdownOpen(false)}
                                         >

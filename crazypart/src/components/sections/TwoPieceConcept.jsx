@@ -8,7 +8,7 @@ export default function TwoPieceConcept() {
     const [isHindi, setIsHindi] = useState(false);
 
     return (
-        <section id="concept" className="py-12 sm:py-16 bg-gradient-to-b from-background via-secondary/35 to-secondary/50">
+        <section id="concept" className="scroll-mt-32 sm:scroll-mt-36 py-12 sm:py-16 bg-gradient-to-b from-background via-secondary/35 to-secondary/50">
             <div className="mx-auto max-w-7xl px-5 sm:px-8">
                 <div className="max-w-2xl mx-auto text-center">
                     <SectionHeading

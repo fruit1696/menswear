@@ -5,7 +5,7 @@ import { WhatsAppIcon } from "@/components/Navbar";
 import { whatsappLink, DEFAULT_WHATSAPP_MESSAGE } from "@/lib/brand";
 import { trackWhatsAppClick } from "@/lib/gtag";
 import { IMAGES } from "@/lib/images";
-import { BadgeCheck, Scissors, Feather, ChevronLeft, ChevronRight } from "lucide-react";
+import { BadgeCheck, Scissors, Feather, Truck, ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function Hero() {
     const heroSlides = [
@@ -206,6 +206,15 @@ export default function Hero() {
                         <span className="text-[9px] sm:text-[11px] uppercase tracking-wider font-medium leading-tight">
                             <span className="sm:hidden">Soft & Comfortable</span>
                             <span className="hidden sm:inline">Smooth, Soft & Comfortable Feel</span>
+                        </span>
+                    </div>
+
+                    <span className="text-foreground/20 flex-shrink-0 text-sm sm:text-base self-center">|</span>
+
+                    <div className="flex flex-col items-center gap-1.5 flex-1 sm:flex-none text-center">
+                        <Truck className="w-6 h-6 sm:w-7 sm:h-7 text-accent flex-shrink-0" />
+                        <span className="text-[9px] sm:text-[11px] uppercase tracking-wider font-medium leading-tight">
+                            Free Shipping
                         </span>
                     </div>
                 </div>

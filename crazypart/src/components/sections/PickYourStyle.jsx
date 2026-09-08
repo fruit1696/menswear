@@ -204,7 +204,7 @@ export default function PickYourStyle() {
     }, [fabrics, colors, patterns, fabricNote, colorNote, patternNote]);
 
     return (
-        <section id="pick-your-style" className="bg-gradient-to-b from-secondary/50 via-secondary/30 to-background pt-6 sm:pt-8 pb-12 sm:pb-16">
+        <section id="pick-your-style" className="scroll-mt-32 sm:scroll-mt-36 bg-gradient-to-b from-secondary/50 via-secondary/30 to-background pt-6 sm:pt-8 pb-12 sm:pb-16">
             <div className="mx-auto max-w-3xl px-5 sm:px-8">
                 <SectionHeading
                     eyebrow={lang.eyebrow}
