@@ -35,6 +35,7 @@ export default function FabricCarousel({ images, altBase, badge }) {
     const scrollPrev = useCallback(
         (e) => {
             e?.preventDefault?.();
+            e?.stopPropagation?.();
             emblaApi?.scrollPrev();
         },
         [emblaApi]
@@ -42,6 +43,7 @@ export default function FabricCarousel({ images, altBase, badge }) {
     const scrollNext = useCallback(
         (e) => {
             e?.preventDefault?.();
+            e?.stopPropagation?.();
             emblaApi?.scrollNext();
         },
         [emblaApi]
@@ -106,7 +108,7 @@ export default function FabricCarousel({ images, altBase, badge }) {
                     {Array.from({ length: count }).map((_, i) => (
                         <button
                             key={i}
-                            onClick={() => emblaApi?.scrollTo(i)}
+                            onClick={(e) => { e.stopPropagation(); emblaApi?.scrollTo(i); }}
                             aria-label={`Go to fabric image ${i + 1}`}
                             className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${i === selected
                                 ? "bg-foreground scale-110"

@@ -1,11 +1,10 @@
 import React, { useMemo, useRef, useCallback, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronRight, ChevronLeft } from "lucide-react";
+import { Check, ChevronRight, ChevronLeft, Languages } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import { WhatsAppIcon } from "@/components/Navbar";
 import { whatsappLink } from "@/lib/brand";
 import { trackWhatsAppClick } from "@/lib/gtag";
-import TranslateText from "@/components/TranslateText";
 
 const FABRIC_OPTIONS = ["Cotton", "Linen", "Polyester", "Terry", "Other / Mix"];
 const PATTERN_OPTIONS = ["Solid / Plain", "Checks", "Stripes", "Other"];
@@ -27,10 +26,112 @@ const COLOR_OPTIONS = [
 ];
 const OTHER_COLOR = "Other / Specific Shade";
 
-const STEPS = [
-    { n: 1, label: "Fabric" },
-    { n: 2, label: "Color" },
-    { n: 3, label: "Pattern" },
+/* ─── Hindi translation map ─── */
+const HINDI = {
+    // Section heading
+    eyebrow: "अपनी पसंद चुनें",
+    title: "हमें बताएं आप क्या ढूंढ रहे हैं",
+    description: "क्या आप किसी खास कपड़े की तलाश में हैं? बस अपनी पसंद का कपड़ा, रंग और पैटर्न चुनें। हमारी टीम आपके लिए अभी उपलब्ध स्टॉक चेक करेगी और उस कपड़े की लाइव फोटो WhatsApp पर भेज देगी।",
+
+    // Step labels
+    stepFabric: "कपड़ा",
+    stepColor: "रंग",
+    stepPattern: "पैटर्न",
+
+    // Step headings
+    headingFabric: "आपको कौन सा कपड़ा चाहिए?",
+    headingColor: "आपको कौन सा रंग चाहिए?",
+    headingPattern: "आपको कौन सा पैटर्न पसंद है?",
+
+    // Fabric options
+    "Cotton": "कॉटन",
+    "Linen": "लिनन",
+    "Polyester": "पॉलिएस्टर",
+    "Terry": "टेरी",
+    "Other / Mix": "कुछ और चाहिए",
+
+    // Color options
+    "White": "सफ़ेद",
+    "Black": "काला",
+    "Navy Blue": "नेवी ब्लू",
+    "Sky Blue": "स्काई ब्लू",
+    "Grey": "ग्रे",
+    "Charcoal": "चारकोल",
+    "Red": "लाल",
+    "Burgundy": "बर्गंडी",
+    "Green": "हरा",
+    "Brown": "भूरा",
+    "Tan": "टैन",
+    "Yellow": "पीला",
+    "Other / Specific Shade": "कोई और रंग",
+
+    // Pattern options
+    "Solid / Plain": "प्लेन",
+    "Checks": "चेक्स",
+    "Stripes": "स्ट्राइप्स",
+    "Other": "कोई और पैटर्न",
+
+    // Placeholders
+    fabricPlaceholder: "आप जिस तरह का कपड़ा पसंद करते हैं, वह लिखें",
+    colorPlaceholder: "अपने रंग का नाम या शेड लिखें",
+    patternPlaceholder: "आप जिस पैटर्न या स्टाइल की तलाश में हैं वह लिखें",
+
+    // Buttons
+    back: "पीछे",
+    next: "आगे",
+    seeRequest: "आपकी रिक्वेस्ट देखें",
+
+    // Summary
+    summaryHeading: "आपकी फैब्रिक रिक्वेस्ट",
+    labelFabric: "कपड़ा",
+    labelColor: "रंग",
+    labelStyle: "स्टाइल",
+    edit: "बदलें",
+    seeItBefore: "खरीदने से पहले देखें",
+    askAvailable: "आज क्या उपलब्ध है, हमसे पूछें।",
+    sendWhatsApp: "वॉट्सऐप पर अपनी रिक्वेस्ट भेजें",
+
+    // Language toggle
+    toggleLabel: "See English",
+};
+
+const ENGLISH = {
+    eyebrow: "Pick Your Style",
+    title: "Tell Us What You're Looking For",
+    description: "Looking for a specific fabric? Just select your preferred material, color, and pattern. Our experts will check our Current Stock and send you live photos of your perfect match over WhatsApp.",
+
+    stepFabric: "Fabric",
+    stepColor: "Color",
+    stepPattern: "Pattern",
+
+    headingFabric: "What fabric are you looking for?",
+    headingColor: "What colors are you looking for?",
+    headingPattern: "What pattern do you prefer?",
+
+    fabricPlaceholder: "e.g., Cotton blend, Wool mix",
+    colorPlaceholder: "Type your color name or shade (e.g., Powder Blue, Bottle Green)",
+    patternPlaceholder: "Tell us the pattern or style you're looking for",
+
+    back: "Back",
+    next: "Next",
+    seeRequest: "See Your Request",
+
+    summaryHeading: "Your fabric request",
+    labelFabric: "Fabric",
+    labelColor: "Color",
+    labelStyle: "Style",
+    edit: "Edit",
+    seeItBefore: "See It Before You Buy It",
+    askAvailable: "Ask us what's available today.",
+    sendWhatsApp: "Send your Request on WhatsApp",
+
+    toggleLabel: "See Translation (हिंदी)",
+};
+
+const STEPS_EN = [
+    { n: 1, key: "stepFabric" },
+    { n: 2, key: "stepColor" },
+    { n: 3, key: "stepPattern" },
 ];
 
 const transition = { duration: 0.35, ease: [0.22, 1, 0.36, 1] };
@@ -41,7 +142,17 @@ function toggle(arr, value) {
 
 export default function PickYourStyle() {
     const [step, setStep] = useState(1); // 1,2,3,4(summary)
+    const [isHindi, setIsHindi] = useState(false);
     const cardRef = useRef(null);
+
+    // Pick the right language pack
+    const lang = isHindi ? HINDI : ENGLISH;
+
+    // Helper: translate a chip/swatch value for display
+    const tLabel = useCallback((value) => {
+        if (!isHindi) return value;
+        return HINDI[value] || value;
+    }, [isHindi]);
 
     // Advance/go-back while keeping the card top in the viewport
     const goToStep = useCallback((next) => {
@@ -84,7 +195,7 @@ export default function PickYourStyle() {
             .join(", ");
 
         return (
-            `Hi! Mujhe aapke website se exact ye combination chahiye:\n\n` +
+            `Hi! Crazy Cut Piece ki website se message kar raha/rahi hoon Mujhe aapke website se exact ye combination chahiye:\n\n` +
             `- Fabric: ${fabricList || "—"}\n` +
             `- Color: ${colorList || "—"}\n` +
             `- Style: ${styleList || "—"}\n\n` +
@@ -93,23 +204,34 @@ export default function PickYourStyle() {
     }, [fabrics, colors, patterns, fabricNote, colorNote, patternNote]);
 
     return (
-        <section id="pick-your-style" className="bg-gradient-to-b from-secondary/50 via-secondary/30 to-background py-14 sm:py-20">
+        <section id="pick-your-style" className="bg-gradient-to-b from-secondary/50 via-secondary/30 to-background py-12 sm:py-16">
             <div className="mx-auto max-w-3xl px-5 sm:px-8">
                 <SectionHeading
-                    eyebrow="Pick Your Style"
-                    title="Tell Us What You’re Looking For"
+                    eyebrow={lang.eyebrow}
+                    title={lang.title}
                     align="center"
                 />
-                <TranslateText
-                    english="Looking for a specific fabric? Just select your preferred material, color, and pattern. Our experts will check our Current Stock and send you live photos of your perfect match over WhatsApp."
-                    hindi="क्या आप किसी खास फैब्रिक की तलाश में हैं? बस अपनी पसंद का कपड़ा, रंग और पैटर्न चुनें। हमारे एक्सपर्ट्स हमारे मौजूदा स्टॉक की जांच करेंगे और आपको वॉट्सऐप पर लाइव तस्वीरें भेजेंगे।"
-                    className="mt-5 text-center text-sm sm:text-base text-foreground/65 leading-relaxed max-w-xl mx-auto block"
-                />
+                <p className="mt-5 text-center text-sm sm:text-base text-foreground/65 leading-relaxed max-w-xl mx-auto">
+                    {lang.description}
+                </p>
+
+                {/* Single language toggle for the entire section */}
+                <div className="flex justify-center mt-4">
+                    <button
+                        type="button"
+                        onClick={() => setIsHindi((prev) => !prev)}
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent hover:opacity-80 transition-all duration-200 cursor-pointer focus:outline-none"
+                        aria-label={isHindi ? "Switch to English" : "Switch to Hindi"}
+                    >
+                        <Languages className="w-3.5 h-3.5 flex-shrink-0" />
+                        <span>{lang.toggleLabel}</span>
+                    </button>
+                </div>
 
                 <div ref={cardRef} className="mt-12 bg-card border border-border rounded-sm p-6 sm:p-10 swatch-shadow">
                     {/* Progress indicator */}
                     <div className="flex items-center justify-center gap-2 sm:gap-3 mb-10">
-                        {STEPS.map((s, i) => {
+                        {STEPS_EN.map((s, i) => {
                             const active = step === s.n;
                             const done = step > s.n || step === 4;
 
@@ -132,7 +254,7 @@ export default function PickYourStyle() {
                                             ? "cursor-pointer group opacity-100"
                                             : "cursor-not-allowed opacity-40"
                                             }`}
-                                        aria-label={`Go to step ${s.n}: ${s.label}`}
+                                        aria-label={`Go to step ${s.n}: ${lang[s.key]}`}
                                     >
                                         <span
                                             className={`flex items-center justify-center w-7 h-7 rounded-full text-xs font-medium transition-all duration-300 ${isStepAccessible ? "group-hover:scale-105" : ""
@@ -147,10 +269,10 @@ export default function PickYourStyle() {
                                             className={`text-xs sm:text-sm uppercase tracking-[0.15em] transition-colors duration-300 ${isStepAccessible ? "group-hover:text-foreground" : ""
                                                 } ${active ? "text-foreground font-semibold" : "text-foreground/45"}`}
                                         >
-                                            {s.label}
+                                            {lang[s.key]}
                                         </span>
                                     </button>
-                                    {i < STEPS.length - 1 && (
+                                    {i < STEPS_EN.length - 1 && (
                                         <ChevronRight className="w-4 h-4 text-foreground/30" />
                                     )}
                                 </React.Fragment>
@@ -160,12 +282,12 @@ export default function PickYourStyle() {
 
                     <AnimatePresence mode="wait">
                         {step === 1 && (
-                            <Step key="s1" heading="What fabric are you looking for?">
+                            <Step key="s1" heading={lang.headingFabric}>
                                 <div className="flex flex-wrap gap-3">
                                     {FABRIC_OPTIONS.map((f) => (
                                         <Chip
                                             key={f}
-                                            label={f}
+                                            label={tLabel(f)}
                                             active={fabrics.includes(f)}
                                             onClick={() => setFabrics((a) => toggle(a, f))}
                                         />
@@ -175,7 +297,7 @@ export default function PickYourStyle() {
                                     {fabricOther && (
                                         <CustomInput
                                             key="fn"
-                                            placeholder="e.g., Cotton blend, Wool mix"
+                                            placeholder={lang.fabricPlaceholder}
                                             value={fabricNote}
                                             onChange={setFabricNote}
                                         />
@@ -185,12 +307,12 @@ export default function PickYourStyle() {
                         )}
 
                         {step === 2 && (
-                            <Step key="s2" heading="What colors are you looking for?">
+                            <Step key="s2" heading={lang.headingColor}>
                                 <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
                                     {COLOR_OPTIONS.map((c) => (
                                         <Swatch
                                             key={c.label}
-                                            label={c.label}
+                                            label={tLabel(c.label)}
                                             hex={c.hex}
                                             active={colors.includes(c.label)}
                                             onClick={() => setColors((a) => toggle(a, c.label))}
@@ -199,7 +321,7 @@ export default function PickYourStyle() {
                                 </div>
                                 <div className="mt-3">
                                     <Chip
-                                        label={OTHER_COLOR}
+                                        label={tLabel(OTHER_COLOR)}
                                         active={colorOther}
                                         onClick={() => setColors((a) => toggle(a, OTHER_COLOR))}
                                     />
@@ -208,7 +330,7 @@ export default function PickYourStyle() {
                                     {colorOther && (
                                         <CustomInput
                                             key="cn"
-                                            placeholder="Type your color name or shade (e.g., Powder Blue, Bottle Green)"
+                                            placeholder={lang.colorPlaceholder}
                                             value={colorNote}
                                             onChange={setColorNote}
                                         />
@@ -218,12 +340,12 @@ export default function PickYourStyle() {
                         )}
 
                         {step === 3 && (
-                            <Step key="s3" heading="What pattern do you prefer?">
+                            <Step key="s3" heading={lang.headingPattern}>
                                 <div className="flex flex-wrap gap-3">
                                     {PATTERN_OPTIONS.map((p) => (
                                         <Chip
                                             key={p}
-                                            label={p}
+                                            label={tLabel(p)}
                                             active={patterns.includes(p)}
                                             onClick={() => setPatterns((a) => toggle(a, p))}
                                         />
@@ -233,7 +355,7 @@ export default function PickYourStyle() {
                                     {patternOther && (
                                         <CustomInput
                                             key="pn"
-                                            placeholder="Tell us the pattern or style you're looking for"
+                                            placeholder={lang.patternPlaceholder}
                                             value={patternNote}
                                             onChange={setPatternNote}
                                         />
@@ -251,45 +373,48 @@ export default function PickYourStyle() {
                                 transition={transition}
                             >
                                 <h3 className="font-display text-2xl sm:text-3xl font-medium text-foreground text-balance">
-                                    Your fabric request
+                                    {lang.summaryHeading}
                                 </h3>
                                 <div className="brass-rule w-20 mt-4 mb-8" />
                                 <div className="space-y-5">
                                     <SummaryRow
-                                        label="Fabric"
+                                        label={lang.labelFabric}
                                         value={fabrics
                                             .map((f) =>
-                                                f === "Other / Mix" && fabricNote.trim() ? fabricNote.trim() : f
+                                                f === "Other / Mix" && fabricNote.trim() ? fabricNote.trim() : tLabel(f)
                                             )
                                             .join(", ")}
                                         onEdit={() => goToStep(1)}
+                                        editLabel={lang.edit}
                                     />
                                     <SummaryRow
-                                        label="Color"
+                                        label={lang.labelColor}
                                         value={colors
                                             .map((c) =>
-                                                c === OTHER_COLOR && colorNote.trim() ? colorNote.trim() : c
+                                                c === OTHER_COLOR && colorNote.trim() ? colorNote.trim() : tLabel(c)
                                             )
                                             .join(", ")}
                                         onEdit={() => goToStep(2)}
+                                        editLabel={lang.edit}
                                     />
                                     <SummaryRow
-                                        label="Style"
+                                        label={lang.labelStyle}
                                         value={patterns
                                             .map((p) =>
-                                                p === "Other" && patternNote.trim() ? patternNote.trim() : p
+                                                p === "Other" && patternNote.trim() ? patternNote.trim() : tLabel(p)
                                             )
                                             .join(", ")}
                                         onEdit={() => goToStep(3)}
+                                        editLabel={lang.edit}
                                     />
                                 </div>
 
                                 <div className="mt-10 text-center">
                                     <p className="text-xs uppercase tracking-[0.25em] text-accent mb-2">
-                                        See It Before You Buy It
+                                        {lang.seeItBefore}
                                     </p>
                                     <p className="text-sm text-foreground/60 mb-6">
-                                        Ask us what's available today.
+                                        {lang.askAvailable}
                                     </p>
                                     <a
                                         href={whatsappLink(message)}
@@ -299,7 +424,7 @@ export default function PickYourStyle() {
                                         className="inline-flex items-center justify-center gap-2.5 px-7 sm:px-8 py-4 bg-foreground text-primary-foreground text-sm font-medium tracking-wide rounded-sm hover:bg-foreground/90 transition-colors duration-300"
                                     >
                                         <WhatsAppIcon className="w-4 h-4" />
-                                        Send your Request on WhatsApp
+                                        {lang.sendWhatsApp}
                                         <ChevronRight className="w-4 h-4" />
                                     </a>
                                 </div>
@@ -316,14 +441,14 @@ export default function PickYourStyle() {
                                 className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground/70 hover:text-foreground disabled:opacity-0 disabled:pointer-events-none transition-all duration-300"
                             >
                                 <ChevronLeft className="w-4 h-4" />
-                                Back
+                                {lang.back}
                             </button>
                             <button
                                 onClick={() => goToStep((s) => Math.min(4, s + 1))}
                                 disabled={!canNext}
                                 className="inline-flex items-center gap-2 px-6 sm:px-7 py-3.5 bg-foreground text-primary-foreground text-sm font-medium tracking-wide rounded-sm hover:bg-foreground/90 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-foreground transition-all duration-300"
                             >
-                                {step === 3 ? "See Your Request" : "Next"}
+                                {step === 3 ? lang.seeRequest : lang.next}
                                 <ChevronRight className="w-4 h-4" />
                             </button>
                         </div>
@@ -411,7 +536,7 @@ function CustomInput({ placeholder, value, onChange }) {
     );
 }
 
-function SummaryRow({ label, value, onEdit }) {
+function SummaryRow({ label, value, onEdit, editLabel = "Edit" }) {
     return (
         <div className="flex items-start justify-between gap-4 pb-5 border-b border-border/50">
             <div>
@@ -424,7 +549,7 @@ function SummaryRow({ label, value, onEdit }) {
                 onClick={onEdit}
                 className="text-sm font-medium text-foreground/60 hover:text-foreground border-b border-accent pb-0.5 transition-colors duration-300"
             >
-                Edit
+                {editLabel}
             </button>
         </div>
     );

@@ -30,7 +30,7 @@ export const FABRICS = [
     {
         id: "azure-linen",
         name: "Raymond 100% Cotton",
-        price: "₹460",
+        price: "₹460/2-piece",
 
         image: "/blue1.jpeg",
         images: [
@@ -42,7 +42,7 @@ export const FABRICS = [
     {
         id: "ivory-herringbone",
         name: "Raymond Giza Cotton",
-        price: "₹500",
+        price: "₹500/2-piece",
 
         image: "/black1.jpeg",
         images: [
@@ -53,7 +53,7 @@ export const FABRICS = [
     {
         id: "slate-evening",
         name: "Raymond Pure white",
-        price: "₹460",
+        price: "₹460/2-piece",
 
         image: "/white1.jpeg",
         images: [
@@ -64,13 +64,13 @@ export const FABRICS = [
     },
     {
         id: "vibrant-collection",
-        name: "Raymond",
-        price: "₹400 – ₹1,500",
+        name: "Raymond Pure white",
+        price: "₹700/2-piece",
 
-        image: "/colored.jpeg",
+        image: "/Awhite2.jpeg",
         images: [
-            "/colored.jpeg",
-            "/colored2.jpeg",
+            "/Awhite2.jpeg",
+            "/Awhite1.jpeg",
         ],
     },
 ];

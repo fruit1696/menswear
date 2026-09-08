@@ -8,10 +8,29 @@ import { IMAGES } from "@/lib/images";
 import { BadgeCheck, Scissors, Feather, ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function Hero() {
-    const heroImages = [
-        "/landingpage1.jpeg",
-        "/LandingPage2.jpeg",
-        "/landingpage3.jpeg"
+    const heroSlides = [
+        {
+            src: "/pic1.jpeg",
+            alt: "Raymond shirt fabric — Order Now",
+            href: whatsappLink(DEFAULT_WHATSAPP_MESSAGE),
+            isExternal: true,
+            label: "Order Now on WhatsApp",
+            onClick: () => trackWhatsAppClick('hero_carousel_1'),
+        },
+        {
+            src: "/pic2.jpeg",
+            alt: "Raymond shirt fabric — Pick Your Style",
+            href: "#pick-your-style",
+            isExternal: false,
+            label: "Pick Your Style",
+        },
+        {
+            src: "/pic3.jpeg",
+            alt: "Raymond shirt fabric — The Concept",
+            href: "#concept",
+            isExternal: false,
+            label: "The Concept",
+        },
     ];
 
     const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -62,18 +81,27 @@ export default function Hero() {
                 <div className="w-full max-w-[600px] flex flex-col items-center gap-4">
                     {/* Carousel Container with Touch/Swipe */}
                     <div className="relative w-full aspect-[9/16] rounded-2xl overflow-hidden border border-border/80 bg-white shadow-lg flex items-center justify-center group">
-                        
+
                         {/* Embla Viewport */}
                         <div className="overflow-hidden w-full h-full" ref={emblaRef}>
                             <div className="flex h-full">
-                                {heroImages.map((src, idx) => (
+                                {heroSlides.map((slide, idx) => (
                                     <div className="flex-[0_0_100%] min-w-0 h-full relative" key={idx}>
-                                        <img
-                                            src={src}
-                                            alt={`Raymond shirt fabric showcase ${idx + 1}`}
-                                            className="w-full h-full object-cover select-none"
-                                            draggable={false}
-                                        />
+                                        <a
+                                            href={slide.href}
+                                            target={slide.isExternal ? "_blank" : undefined}
+                                            rel={slide.isExternal ? "noopener noreferrer" : undefined}
+                                            onClick={slide.onClick}
+                                            className="block w-full h-full cursor-pointer relative"
+                                            aria-label={slide.label}
+                                        >
+                                            <img
+                                                src={slide.src}
+                                                alt={slide.alt}
+                                                className="w-full h-full object-cover select-none"
+                                                draggable={false}
+                                            />
+                                        </a>
                                     </div>
                                 ))}
                             </div>
@@ -98,7 +126,7 @@ export default function Hero() {
 
                     {/* Carousel Indicators */}
                     <div className="flex items-center justify-center gap-2 pt-1">
-                        {heroImages.map((_, idx) => (
+                        {heroSlides.map((_, idx) => (
                             <button
                                 key={idx}
                                 onClick={() => emblaApi?.scrollTo(idx)}

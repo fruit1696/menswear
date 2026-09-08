@@ -37,7 +37,7 @@ export default function FinalCTA() {
     }, []);
 
     return (
-        <section className="py-14 sm:py-20 border-t border-border/60">
+        <section className="py-12 sm:py-16 border-t border-border/60">
             <div className="mx-auto max-w-4xl px-5 sm:px-8 text-center">
                 <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-accent">
                     Find a Fabric You’ll Love

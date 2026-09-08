@@ -5,7 +5,10 @@ import { AlertTriangle } from "lucide-react";
  * Top notification banner for demo/portfolio disclaimer.
  */
 export default function BetaBanner() {
-    return (
+    // Banner disabled — uncomment the return block below to re-enable
+    return null;
+
+    /* return (
         <div className="w-full bg-zinc-900 text-amber-400 border-b border-amber-500/20 py-2.5 px-4 text-center select-none z-50">
             <div className="mx-auto max-w-7xl flex items-center justify-center gap-2 text-xs sm:text-sm font-medium tracking-wide">
                 <AlertTriangle className="w-4 h-4 text-amber-400 flex-shrink-0" />
@@ -14,5 +17,5 @@ export default function BetaBanner() {
                 </span>
             </div>
         </div>
-    );
+    ); */
 }

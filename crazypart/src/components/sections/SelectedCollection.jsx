@@ -16,7 +16,7 @@ export default function SelectedCollection() {
     };
 
     return (
-        <section id="fabrics" className="py-14 sm:py-20 bg-gradient-to-b from-white via-secondary/35 to-secondary/50">
+        <section id="fabrics" className="py-12 sm:py-16 bg-[#F9F8F6]">
             <div className="mx-auto max-w-7xl px-5 sm:px-8">
                 <div className="flex flex-col items-center text-center">
                     <SectionHeading

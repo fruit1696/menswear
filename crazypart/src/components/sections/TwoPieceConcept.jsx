@@ -8,17 +8,17 @@ export default function TwoPieceConcept() {
     const [isHindi, setIsHindi] = useState(false);
 
     return (
-        <section id="concept" className="py-14 sm:py-20 bg-gradient-to-b from-background via-secondary/35 to-secondary/50">
+        <section id="concept" className="py-12 sm:py-16 bg-gradient-to-b from-background via-secondary/35 to-secondary/50">
             <div className="mx-auto max-w-7xl px-5 sm:px-8">
                 <div className="max-w-2xl mx-auto text-center">
                     <SectionHeading
-                        eyebrow={isHindi ? "अवधारणा" : "The Concept"}
+                        eyebrow={isHindi ? "यह है क्या?" : "The Concept"}
                         title={isHindi ? "2-पीस क्या है?" : "What Is a 2-Piece?"}
                         align="center"
                     />
                     <p className="mt-7 text-lg text-foreground/75 leading-relaxed text-center block">
                         {isHindi
-                            ? "प्रीमियम रेमंड शर्ट फैब्रिक, एक पूरी शर्ट बनाने के लिए सही मात्रा में पहले से कटा हुआ। प्रत्येक सेट में दो कट पीस होते हैं जो मिलकर एक पुरुष की शर्ट सिलाने के लिए पर्याप्त फैब्रिक प्रदान करते हैं।"
+                            ? "यह प्रीमियम रेमंड शर्ट फैब्रिक है, जो एक पूरी शर्ट बनाने के लिए सही मात्रा में पहले से कटा हुआ आता है। प्रत्येक सेट में दो कट पीस होते हैं जो मिलकर एक पुरुष की शर्ट सिलाने के लिए पर्याप्त फैब्रिक प्रदान करते हैं।बस इसे सीधे अपने tailor के पास ले जाएँ और shirt सिलवा लें।"
                             : "Premium Raymond shirt fabric, pre-cut with the right amount of fabric needed to make one complete men's shirt. Each set comes as two pre-cut pieces that together provide enough fabric to take straight to your tailor."}
                     </p>
                     <button
@@ -50,12 +50,12 @@ export default function TwoPieceConcept() {
                             <PieceCard
                                 step={isHindi ? "पीस 1" : "Piece 1"}
                                 use={isHindi ? "फ्रंट और बैक" : "Front & Back"}
-                                detail={isHindi ? "शर्ट का मुख्य हिस्सा - फ्रंट पैनल और बैक।" : "The body of the shirt - front panels and back."}
+                                detail={isHindi ? "इस पीस से shirt का आगे और पीछे का हिस्सा तैयार होगा।" : "The body of the shirt - front and back."}
                             />
                             <PieceCard
                                 step={isHindi ? "पीस 2" : "Piece 2"}
                                 use={isHindi ? "स्लीव्स और कॉलर" : "Sleeves & Collar"}
-                                detail={isHindi ? "स्लीव्स, कॉलर और कफ्स - फिनिशिंग पीस।" : "Sleeves, collar and cuffs - the finishing pieces."}
+                                detail={isHindi ? "इस पीस से shirt की स्लीव्स, कॉलर और कफ्स तैयार होंगे।" : "Sleeves, collar and cuffs - the finishing pieces."}
                             />
                         </div>
 

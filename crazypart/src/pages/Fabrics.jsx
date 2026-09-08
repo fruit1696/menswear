@@ -17,7 +17,7 @@ export default function Fabrics() {
     return (
         <div className="pt-24 sm:pt-28">
             {/* Header */}
-            <section className="py-16 sm:py-24 border-b border-border/60">
+            <section className="py-12 sm:py-16 border-b border-border/60">
                 <div className="mx-auto max-w-7xl px-5 sm:px-8">
                     <span className="text-[11px] uppercase tracking-[0.3em] text-accent">
                         The Gallery
@@ -50,7 +50,7 @@ export default function Fabrics() {
             </section>
 
             {/* Gallery */}
-            <section className="py-16 sm:py-24">
+            <section className="py-12 sm:py-16">
                 <div className="mx-auto max-w-7xl px-5 sm:px-8">
                     <div className="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
                         {FABRICS.map((f, i) => (
@@ -61,7 +61,7 @@ export default function Fabrics() {
             </section>
 
             {/* Want to see more */}
-            <section className="py-20 sm:py-28 bg-foreground text-primary-foreground">
+            <section className="py-12 sm:py-16 bg-foreground text-primary-foreground">
                 <div className="mx-auto max-w-3xl px-5 sm:px-8 text-center">
                     <span className="text-[11px] uppercase tracking-[0.3em] text-accent">
                         Want to See More?

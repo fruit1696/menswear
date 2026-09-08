@@ -21,20 +21,20 @@ export default function FabricCard({ fabric, onSelectFabric }) {
                 <FabricCarousel
                     images={images}
                     altBase={`${fabric.name} — Raymond shirt fabric, 2-piece cut`}
-                    badge="2-Piece Cut"
+                    badge="2-PIECE SET"
                 />
             </div>
 
             <div className="mt-4 flex flex-col">
                 <button
                     onClick={() => onSelectFabric?.(fabric)}
-                    className="text-left font-display text-xl sm:text-2xl font-medium text-foreground hover:text-accent transition-colors duration-300 truncate w-full"
+                    className="text-left font-display text-base sm:text-lg font-medium text-foreground hover:text-accent transition-colors duration-300 tracking-tight leading-tight whitespace-nowrap overflow-hidden text-ellipsis w-full"
                     title={fabric.name}
                 >
                     {fabric.name}
                 </button>
                 {fabric.price && (
-                    <span className="mt-1 text-sm font-semibold text-accent">
+                    <span className="mt-1.5 text-sm sm:text-[15px] font-medium tracking-wide text-accent font-sans">
                         {fabric.price}
                     </span>
                 )}
