@@ -49,7 +49,7 @@ export default function VisitStore() {
                                 Shop Address
                             </h4>
                             <p className="mt-1 text-sm text-foreground/80 leading-relaxed font-medium max-w-sm mx-auto">
-                                Fuwara Chauk, near Sala Ka Ram Kachori, Khargone, Madhya Pradesh 451001, India
+                               Radha Vallabhi Market, Fuwara Chauk,Khargone, Madhya Pradesh 451001, India
                             </p>
                         </div>
                     </div>

@@ -8,7 +8,7 @@ export default function TermsOfService() {
             <div className="max-w-4xl mx-auto px-5 sm:px-8">
                 <div className="border-b border-border pb-8 mb-10">
                     <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-semibold">
-                        Crazy Cut Piece Policies
+                        Crazy Cutpiece Policies
                     </span>
                     <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-foreground mt-2">
                         Terms of Service
@@ -21,7 +21,7 @@ export default function TermsOfService() {
                 <div className="space-y-8 text-foreground/90 leading-relaxed text-sm sm:text-base">
                     <section>
                         <p className="text-muted-foreground font-medium text-foreground">
-                            Welcome to Crazy Cut Piece.
+                            Welcome to Crazy Cutpiece.
                         </p>
                         <p className="text-muted-foreground mt-2">
                             By accessing or using our website, you agree to these Terms of Service. Please read them carefully before using our website or placing an order.
@@ -31,7 +31,7 @@ export default function TermsOfService() {
                     <section>
                         <h2 className="text-lg font-semibold text-foreground mb-3">About Our Products</h2>
                         <p className="text-muted-foreground">
-                            Crazy Cut Piece sells fabric and pre-cut fabric pieces through its website.
+                            Crazy Cutpiece sells fabric and pre-cut fabric pieces through its website.
                         </p>
                         <p className="text-muted-foreground mt-2">
                             Product images are provided to help customers understand the appearance of the fabric. Actual colors may appear slightly different depending on your device, screen settings, lighting, and other factors.
@@ -57,7 +57,7 @@ export default function TermsOfService() {
                     <section>
                         <h2 className="text-lg font-semibold text-foreground mb-3">Orders &amp; Payment</h2>
                         <p className="text-muted-foreground">
-                            Crazy Cut Piece does not currently process payments through an online payment gateway on the website.
+                            Crazy Cutpiece does not currently process payments through an online payment gateway on the website.
                         </p>
                         <p className="text-muted-foreground mt-2">
                             Customers must contact the owner through WhatsApp to confirm their order and receive payment instructions.
@@ -83,7 +83,7 @@ export default function TermsOfService() {
                     <section>
                         <h2 className="text-lg font-semibold text-foreground mb-3">Shipping</h2>
                         <p className="text-muted-foreground">
-                            After an order has been confirmed and payment has been received, Crazy Cut Piece will prepare the order for dispatch.
+                            After an order has been confirmed and payment has been received, Crazy Cutpiece will prepare the order for dispatch.
                         </p>
                         <p className="text-muted-foreground mt-2">
                             Once the order has been shipped, the tracking ID will be shared with the customer through WhatsApp.
@@ -126,14 +126,14 @@ export default function TermsOfService() {
                     <section>
                         <h2 className="text-lg font-semibold text-foreground mb-3">Intellectual Property</h2>
                         <p className="text-muted-foreground">
-                            The content of the Crazy Cut Piece website, including text, photographs, graphics, logos, designs, product descriptions, and other materials, belongs to Crazy Cut Piece or its respective owners and may not be reproduced or used without permission.
+                            The content of the Crazy Cutpiece website, including text, photographs, graphics, logos, designs, product descriptions, and other materials, belongs to Crazy Cutpiece or its respective owners and may not be reproduced or used without permission.
                         </p>
                     </section>
 
                     <section>
                         <h2 className="text-lg font-semibold text-foreground mb-3">Limitation of Liability</h2>
                         <p className="text-muted-foreground">
-                            Crazy Cut Piece will make reasonable efforts to ensure that product information and website content are accurate.
+                            Crazy Cutpiece will make reasonable efforts to ensure that product information and website content are accurate.
                         </p>
                         <p className="text-muted-foreground mt-2">
                             However, we cannot guarantee that the website will always be available, error-free, or completely accurate.
@@ -156,10 +156,10 @@ export default function TermsOfService() {
                     <section className="bg-secondary/40 p-6 rounded-lg border border-border mt-10">
                         <h3 className="font-semibold text-foreground mb-2">Contact Us</h3>
                         <p className="text-sm text-muted-foreground mb-4">
-                            If you have questions about these Terms of Service, your order, or any of our policies, please contact Crazy Cut Piece through WhatsApp.
+                            If you have questions about these Terms of Service, your order, or any of our policies, please contact Crazy Cutpiece through WhatsApp.
                         </p>
                         <a
-                            href={whatsappLink("Hi Crazy Cut Piece, I have a question regarding the Terms of Service.")}
+                            href={whatsappLink("Hi Crazy Cutpiece, I have a question regarding the Terms of Service.")}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded transition-colors"

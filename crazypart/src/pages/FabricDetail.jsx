@@ -11,7 +11,7 @@ export default function FabricDetail() {
 
     React.useEffect(() => {
         if (!fabric) return;
-        document.title = `${fabric.name} — Raymond Shirt Fabric | Crazy Cut Piece`;
+        document.title = `${fabric.name} — Raymond Shirt Fabric | Crazy Cutpiece`;
 
         let canonicalLink = document.querySelector("link[rel='canonical']");
         if (canonicalLink) {
@@ -46,7 +46,7 @@ export default function FabricDetail() {
         "@type": "Product",
         "name": fabric.name,
         "image": fabric.image ? `https://menswear-cbbg.vercel.app${fabric.image}` : undefined,
-        "description": fabric.description || `${fabric.name} - Raymond shirt fabric pre-cut set for men's shirts from Crazy Cut Piece.`,
+        "description": fabric.description || `${fabric.name} - Raymond shirt fabric pre-cut set for men's shirts from Crazy Cutpiece.`,
         "brand": {
             "@type": "Brand",
             "name": "Raymond"
@@ -60,7 +60,7 @@ export default function FabricDetail() {
             "availability": "https://schema.org/InStock",
             "seller": {
                 "@type": "Organization",
-                "name": "Crazy Cut Piece"
+                "name": "Crazy Cutpiece"
             }
         }
     };
@@ -87,7 +87,7 @@ export default function FabricDetail() {
                             <div className="swatch-shadow rounded-sm overflow-hidden bg-secondary">
                                 <Image
                                     src={fabric.image}
-                                    alt={`${fabric.name} — Raymond shirt fabric, 2-piece cut piece`}
+                                    alt={`${fabric.name} — Raymond shirt fabric, 2-piece cutpiece`}
                                     fittingType="fill"
                                     className="w-full aspect-[4/5] object-cover"
                                 />
@@ -110,7 +110,7 @@ export default function FabricDetail() {
                             <div className="mt-8 flex flex-wrap gap-x-8 gap-y-4 border-y border-border/60 py-6">
                                 <div>
                                     <p className="text-[11px] uppercase tracking-[0.2em] text-foreground/50">Format</p>
-                                    <p className="mt-1 font-display text-xl text-foreground">2-Piece Cut Piece</p>
+                                    <p className="mt-1 font-display text-xl text-foreground">2-Piece Cutpiece</p>
                                 </div>
                                 <div>
                                     <p className="text-[11px] uppercase tracking-[0.2em] text-foreground/50">Yields</p>
@@ -118,7 +118,7 @@ export default function FabricDetail() {
                                 </div>
                                 <div>
                                     <p className="text-[11px] uppercase tracking-[0.2em] text-foreground/50">Size</p>
-                                    <p className="mt-1 font-display text-xl text-foreground">≈1.8m × 57"</p>
+                                    <p className="mt-1 font-display text-xl text-foreground">≈1.7m × 57"</p>
                                 </div>
                             </div>
 
@@ -155,7 +155,7 @@ export default function FabricDetail() {
                         More weaves like this are available.
                     </h2>
                     <a
-                        href={whatsappLink(`Hi Crazy Cut Piece, I'm interested in the ${fabric.name} (${fabric.code}) fabric. Can you show me similar available designs?`)}
+                        href={whatsappLink(`Hi Crazy Cutpiece, I'm interested in the ${fabric.name} (${fabric.code}) fabric. Can you show me similar available designs?`)}
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => trackWhatsAppClick(`product_detail_similar_${fabric.id}`)}

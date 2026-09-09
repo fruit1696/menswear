@@ -8,7 +8,7 @@ const ANNOUNCEMENTS = [
     "Choose Your Fabric. We'll Find the Match.",
     "Real Raymond Fabric. Real Availability.",
     "Order on WhatsApp.",
-    "Free Shipping in MP & MH.",
+    "Free Shipping across India.",
 ];
 
 export default function AnnouncementTicker() {

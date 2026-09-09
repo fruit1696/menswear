@@ -28,7 +28,7 @@ export default function Footer() {
                     <div className="md:col-span-5">
                         <div className="flex flex-col leading-none">
                             <span className="font-display text-2xl font-semibold tracking-tight">
-                                Crazy Cut Piece
+                                Crazy Cutpiece
                             </span>
                             <span className="text-[11px] uppercase tracking-[0.25em] text-accent mt-1.5">
                                 Raymond Shirting
@@ -36,7 +36,7 @@ export default function Footer() {
                         </div>
                         <p className="mt-6 text-sm text-primary-foreground/70 max-w-sm leading-relaxed">
                             A curated gateway to Raymond shirt fabrics, sold as convenient
-                            2-piece cut pieces. The fabrics shown online are only a glimpse —
+                            2-piece sets. The fabrics shown online are only a glimpse —
                             the full collection is yours to discover on WhatsApp.
                         </p>
                         <a
@@ -47,7 +47,7 @@ export default function Footer() {
                             className="mt-7 inline-flex items-center gap-2 px-5 py-3 bg-white/10 hover:bg-white/15 text-sm font-medium tracking-wide rounded-sm transition-colors duration-300"
                         >
                             <WhatsAppIcon className="w-4 h-4" />
-                            WhatsApp Crazy Cut Piece
+                            WhatsApp Crazy Cutpiece
                         </a>
                     </div>
 
@@ -187,7 +187,7 @@ export default function Footer() {
 
                 <div className="mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <p className="text-xs text-primary-foreground/50">
-                        © {new Date().getFullYear()} Crazy Cut Piece. Fabrics by Raymond.
+                        © {new Date().getFullYear()} Crazy Cutpiece. Fabrics by Raymond.
                     </p>
                     <p className="text-xs text-primary-foreground/50">
                         Online selection is a small gallery of our collection.

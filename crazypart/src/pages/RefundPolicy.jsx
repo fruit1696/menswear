@@ -8,7 +8,7 @@ export default function RefundPolicy() {
             <div className="max-w-4xl mx-auto px-5 sm:px-8">
                 <div className="border-b border-border pb-8 mb-10">
                     <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-semibold">
-                        Crazy Cut Piece Policies
+                        Crazy Cutpiece Policies
                     </span>
                     <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-foreground mt-2">
                         Refund Policy
@@ -21,14 +21,14 @@ export default function RefundPolicy() {
                 <div className="space-y-8 text-foreground/90 leading-relaxed text-sm sm:text-base">
                     <section>
                         <p className="text-muted-foreground">
-                            At Crazy Cut Piece, we carefully check every fabric order before it is packed and shipped. Because our products are pre-cut fabric pieces, we have a few specific rules regarding returns, exchanges, and refunds.
+                            At Crazy Cutpiece, we carefully check every fabric order before it is packed and shipped. Because our products are pre-cut fabric pieces, we have a few specific rules regarding returns, exchanges, and refunds.
                         </p>
                     </section>
 
                     <section>
                         <h2 className="text-lg font-semibold text-foreground mb-3">Returns &amp; Exchanges</h2>
                         <p className="text-muted-foreground">
-                            All Crazy Cut Piece products are pre-cut fabric pieces. Once an order has been confirmed and payment has been made, cancellation or return may not be possible.
+                            All Crazy Cutpiece products are pre-cut fabric pieces. Once an order has been confirmed and payment has been made, cancellation or return may not be possible.
                         </p>
                         <p className="text-muted-foreground mt-3">
                             If you receive:
@@ -56,7 +56,7 @@ export default function RefundPolicy() {
                     <section>
                         <h2 className="text-lg font-semibold text-foreground mb-3">Refunds</h2>
                         <p className="text-muted-foreground">
-                            If Crazy Cut Piece determines that you are eligible for a refund, the refund amount and payment method will be discussed with you directly on WhatsApp.
+                            If Crazy Cutpiece determines that you are eligible for a refund, the refund amount and payment method will be discussed with you directly on WhatsApp.
                         </p>
                         <p className="text-muted-foreground mt-2">
                             Since payments are handled directly with the owner rather than through an online payment gateway on our website, refund processing will also be coordinated directly with the customer.
@@ -79,7 +79,7 @@ export default function RefundPolicy() {
                             Contact us on WhatsApp to discuss your order with us directly.
                         </p>
                         <a
-                            href={whatsappLink("Hi Crazy Cut Piece, I have a question regarding returns/refunds.")}
+                            href={whatsappLink("Hi Crazy Cutpiece, I have a question regarding returns/refunds.")}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded transition-colors"

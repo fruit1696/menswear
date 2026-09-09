@@ -195,7 +195,7 @@ export default function PickYourStyle() {
             .join(", ");
 
         return (
-            `Hi! Crazy Cut Piece ki website se message kar raha/rahi hoon Mujhe aapke website se exact ye combination chahiye:\n\n` +
+            `Hi! Crazy Cutpiece ki website se message kar raha/rahi hoon Mujhe aapke website se exact ye combination chahiye:\n\n` +
             `- Fabric: ${fabricList || "—"}\n` +
             `- Color: ${colorList || "—"}\n` +
             `- Style: ${styleList || "—"}\n\n` +

@@ -10,7 +10,7 @@ const PILLARS = [
     },
     {
         title: "Quality Promise",
-        text: "Every cut piece is checked before it leaves us. If a fabric isn't right, it doesn't ship.",
+        text: "Every cutpiece is checked before it leaves us. If a fabric isn't right, it doesn't ship.",
     },
     {
         title: "Visit Us",

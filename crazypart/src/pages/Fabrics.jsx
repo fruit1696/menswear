@@ -7,7 +7,7 @@ import TranslateText from "@/components/TranslateText";
 
 export default function Fabrics() {
     React.useEffect(() => {
-        document.title = "Selected Raymond Shirt Fabrics | Crazy Cut Piece";
+        document.title = "Selected Raymond Shirt Fabrics | Crazy Cutpiece";
         let canonicalLink = document.querySelector("link[rel='canonical']");
         if (canonicalLink) {
             canonicalLink.setAttribute("href", "https://menswear-cbbg.vercel.app/fabrics");
@@ -74,7 +74,7 @@ export default function Fabrics() {
                         tell us what you're looking for and we'll send live photos.
                     </p>
                     <a
-                        href={whatsappLink("Hi Crazy Cut Piece, I'd like to see more shirt fabric designs.")}
+                        href={whatsappLink("Hi Crazy Cutpiece, I'd like to see more shirt fabric designs.")}
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => trackWhatsAppClick('fabrics_gallery_cta')}

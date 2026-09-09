@@ -52,11 +52,11 @@ export default function Navbar() {
                         ))}
                     </div>
 
-                    {/* Center: Brand Name (Crazy Cut Piece) */}
+                    {/* Center: Brand Name (Crazy Cutpiece) */}
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                         <Link to="/" className="group flex flex-col leading-none text-center pointer-events-auto">
                             <span className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-accent whitespace-nowrap">
-                                Crazy Cut Piece
+                                Crazy Cutpiece
                             </span>
                         </Link>
                     </div>

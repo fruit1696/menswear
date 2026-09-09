@@ -60,7 +60,7 @@ export default function WantMore() {
 
                 <div className="mt-9 flex justify-center">
                     <a
-                        href={whatsappLink("Hi Crazy Cut Piece, I'd like to see more shirt fabric designs.")}
+                        href={whatsappLink("Hi Crazy Cutpiece, I'd like to see more shirt fabric designs.")}
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => trackWhatsAppClick('want_more_section')}

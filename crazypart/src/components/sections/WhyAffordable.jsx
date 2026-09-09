@@ -35,7 +35,7 @@ const POINTS = [
     },
     {
         title: "2-piece cut-piece format",
-        text: "Each set is 1.8 metres, pre-cut into 2 pieces — enough for one shirt.",
+        text: "Total length is 1.7 metres, pre-cut into 2 pieces — enough for one shirt.",
     },
     {
         title: "Better value",
@@ -58,7 +58,7 @@ export default function WhyAffordable() {
                         this? You’re not paying the usual retail markup.
                     </p>
                     <p className="mt-4 text-foreground/70 leading-relaxed">
-                        Crazy Cut Piece works with mill / surplus and cut-piece fabric — an
+                        Crazy Cutpiece works with mill / surplus and cutpiece fabric - an
                         opportunity to offer premium fabrics at much lower prices than
                         conventional retail. The fabric is not inferior or defective. It’s
                         simply bought differently.

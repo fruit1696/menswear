@@ -15,7 +15,7 @@ import FinalCTA from "@/components/sections/FinalCTA";
 
 export default function Home() {
     React.useEffect(() => {
-        document.title = "Raymond Shirt Fabric Online | Crazy Cut Piece";
+        document.title = "Raymond Shirt Fabric Online | Crazy Cutpiece";
         let canonicalLink = document.querySelector("link[rel='canonical']");
         if (canonicalLink) {
             canonicalLink.setAttribute("href", "https://menswear-cbbg.vercel.app/");

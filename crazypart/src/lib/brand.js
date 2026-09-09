@@ -1,14 +1,14 @@
-// Central brand configuration for Crazy Cut Piece.
+// Central brand configuration for Crazy Cutpiece.
 // Update the WhatsApp number and fabric entries here — the whole site updates.
 
 export const BRAND = {
-    name: "Crazy Cut Piece",
-    tagline: "Raymond Shirt Fabrics — Sold as 2-Piece Cut Pieces",
+    name: "Crazy Cutpiece",
+    tagline: "Raymond Shirt Fabrics — Sold as 2-Piece Cutpieces",
     // Indian WhatsApp number in international format, digits only.
     whatsappNumber: "919425333460",
-    location: "Surat, Gujarat, India",
+    location: "Khargone, Madhya Pradesh, India",
     email: "[EMAIL_ADDRESS]",
-    hours: "Mon – Sat · 10:00 AM – 7:00 PM IST",
+    hours: "Mon – Sat · 10:00 AM – 8:00 PM IST",
     socials: {
         instagram: "#",
         facebook: "#",
@@ -18,12 +18,12 @@ export const BRAND = {
 
 // Build a WhatsApp deep link with a pre-filled, contextual message.
 export function whatsappLink(message) {
-    const text = encodeURIComponent(message || "Hi Crazy Cut Piece, I'd like to see more shirt fabric designs.");
+    const text = encodeURIComponent(message || "Hi Crazy Cutpiece, I'd like to see more shirt fabric designs.");
     return `https://wa.me/${BRAND.whatsappNumber}?text=${text}`;
 }
 
 export const DEFAULT_WHATSAPP_MESSAGE =
-    "Hi Crazy Cut Piece, I'd like to see more shirt fabric designs.";
+    "Hi Crazy Cutpiece, I'd like to see more shirt fabric designs.";
 
 // A small, curated selection. Add more here to extend the gallery.
 export const FABRICS = [
@@ -65,7 +65,7 @@ export const FABRICS = [
     {
         id: "vibrant-collection",
         name: "Raymond Pure white",
-        price: "₹700/2-piece",
+        price: "₹460/2-piece",
 
         image: "/Awhite2.jpeg",
         images: [
@@ -82,6 +82,6 @@ export function fabricImages(fabric) {
 }
 
 export function fabricWhatsappLink(fabric) {
-    const msg = `Hi Crazy Cut Piece, I'm interested in the ${fabric.name} (${fabric.code}) fabric. Can you show me similar available designs?`;
+    const msg = `Hi Crazy Cutpiece, I'm interested in the ${fabric.name} (${fabric.code}) fabric. Can you show me similar available designs?`;
     return whatsappLink(msg);
 }

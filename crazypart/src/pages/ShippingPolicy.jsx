@@ -8,7 +8,7 @@ export default function ShippingPolicy() {
             <div className="max-w-4xl mx-auto px-5 sm:px-8">
                 <div className="border-b border-border pb-8 mb-10">
                     <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-semibold">
-                        Crazy Cut Piece Policies
+                        Crazy Cutpiece Policies
                     </span>
                     <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-foreground mt-2">
                         Shipping Policy
@@ -21,7 +21,7 @@ export default function ShippingPolicy() {
                 <div className="space-y-8 text-foreground/90 leading-relaxed text-sm sm:text-base">
                     <section>
                         <p className="text-muted-foreground">
-                            Crazy Cut Piece ships fabric orders after the order has been confirmed and payment has been received.
+                            Crazy Cutpiece ships fabric orders after the order has been confirmed and payment has been received.
                         </p>
                     </section>
 
@@ -61,7 +61,7 @@ export default function ShippingPolicy() {
                             Once the package has been handed over to the shipping carrier, delivery is handled by the carrier.
                         </p>
                         <p className="text-muted-foreground mt-2">
-                            Crazy Cut Piece is not responsible for delays caused by the shipping carrier, incorrect or incomplete delivery information provided by the customer, natural events, or other circumstances beyond our reasonable control.
+                            Crazy Cutpiece is not responsible for delays caused by the shipping carrier, incorrect or incomplete delivery information provided by the customer, natural events, or other circumstances beyond our reasonable control.
                         </p>
                     </section>
 
@@ -101,7 +101,7 @@ export default function ShippingPolicy() {
                             Contact us on WhatsApp for tracking updates or shipping assistance.
                         </p>
                         <a
-                            href={whatsappLink("Hi Crazy Cut Piece, I have a question about my shipping/order.")}
+                            href={whatsappLink("Hi Crazy Cutpiece, I have a question about my shipping/order.")}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded transition-colors"

@@ -21,7 +21,7 @@ export default function FabricCard({ fabric, onSelectFabric }) {
                 <FabricCarousel
                     images={images}
                     altBase={`${fabric.name} — Raymond shirt fabric, 2-piece cut`}
-                    badge="2-PIECE SET"
+                    badge="2-PIECE SHIRT"
                 />
             </div>
 

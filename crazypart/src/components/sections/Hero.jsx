@@ -30,6 +30,20 @@ export default function Hero() {
             isExternal: false,
             label: "The Concept",
         },
+         {
+            src: "/pic4.jpeg",
+            alt: "Raymond shirt fabric — The Concept",
+            href: "#concept",
+            isExternal: false,
+            label: "The Concept",
+        },
+         {
+            src: "/pic5.jpeg",
+            alt: "Raymond shirt fabric — The Concept",
+            href: "#concept",
+            isExternal: false,
+            label: "The Concept",
+        },
     ];
 
     const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -95,7 +109,7 @@ export default function Hero() {
     return (
         /* Changed bg-background to bg-white */
         <section id="hero-section" className="relative min-h-[100svh] flex flex-col items-center justify-between overflow-hidden bg-white pt-32 sm:pt-36 pb-12 px-5 sm:px-8">
-            <h1 className="sr-only">Raymond Shirt Fabric Online | Crazy Cut Piece</h1>
+            <h1 className="sr-only">Raymond Shirt Fabric Online | Crazy Cutpiece</h1>
 
             {/* Main Content Composition */}
             <div className="relative z-10 mx-auto max-w-4xl w-full flex flex-col items-center gap-6 sm:gap-8 text-center my-auto">

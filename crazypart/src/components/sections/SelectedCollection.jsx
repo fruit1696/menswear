@@ -12,7 +12,7 @@ export default function SelectedCollection() {
 
     const getWhatsappMessage = (fabric) => {
         if (!fabric) return "";
-        return `Hi, I saw ${fabric.name} on Crazy Cut Piece. Can you show me the available colours and patterns in live stock?`;
+        return `Hi, I saw ${fabric.name} on Crazy Cutpiece. Can you show me the available colours and patterns in live stock?`;
     };
 
     return (

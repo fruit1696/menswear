@@ -8,7 +8,7 @@ export default function PrivacyPolicy() {
             <div className="max-w-4xl mx-auto px-5 sm:px-8">
                 <div className="border-b border-border pb-8 mb-10">
                     <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-semibold">
-                        Crazy Cut Piece Policies
+                        Crazy Cutpiece Policies
                     </span>
                     <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-foreground mt-2">
                         Privacy Policy
@@ -21,7 +21,7 @@ export default function PrivacyPolicy() {
                 <div className="space-y-8 text-foreground/90 leading-relaxed text-sm sm:text-base">
                     <section>
                         <p className="text-muted-foreground">
-                            Crazy Cut Piece respects your privacy and is committed to protecting the information you share with us.
+                            Crazy Cutpiece respects your privacy and is committed to protecting the information you share with us.
                         </p>
                         <p className="text-muted-foreground mt-2">
                             This Privacy Policy explains what information we may collect, how we use it, and how we protect it when you use our website or contact us to place an order.
@@ -66,13 +66,13 @@ export default function PrivacyPolicy() {
                     <section>
                         <h2 className="text-lg font-semibold text-foreground mb-3">Payments</h2>
                         <p className="text-muted-foreground">
-                            Crazy Cut Piece does not currently process payments directly through an online payment gateway on this website.
+                            Crazy Cutpiece does not currently process payments directly through an online payment gateway on this website.
                         </p>
                         <p className="text-muted-foreground mt-2">
                             Customers communicate with the owner through WhatsApp to confirm their order and payment arrangements.
                         </p>
                         <p className="text-muted-foreground mt-2">
-                            We do not ask customers to enter card or banking information into the Crazy Cut Piece website.
+                            We do not ask customers to enter card or banking information into the Crazy Cutpiece website.
                         </p>
                     </section>
 
@@ -92,7 +92,7 @@ export default function PrivacyPolicy() {
                     <section>
                         <h2 className="text-lg font-semibold text-foreground mb-3">WhatsApp Communication</h2>
                         <p className="text-muted-foreground">
-                            When you contact Crazy Cut Piece through WhatsApp, your communication is also subject to WhatsApp&apos;s own privacy policies and terms.
+                            When you contact Crazy Cutpiece through WhatsApp, your communication is also subject to WhatsApp&apos;s own privacy policies and terms.
                         </p>
                         <p className="text-muted-foreground mt-2">
                             We may use the information you provide through WhatsApp to communicate with you about your order, payment confirmation, shipping, tracking, and customer support.
@@ -122,10 +122,10 @@ export default function PrivacyPolicy() {
                     <section className="bg-secondary/40 p-6 rounded-lg border border-border mt-10">
                         <h3 className="font-semibold text-foreground mb-2">Contact Us</h3>
                         <p className="text-sm text-muted-foreground mb-4">
-                            If you have questions about this Privacy Policy or how your information is handled, please contact Crazy Cut Piece through WhatsApp.
+                            If you have questions about this Privacy Policy or how your information is handled, please contact Crazy Cutpiece through WhatsApp.
                         </p>
                         <a
-                            href={whatsappLink("Hi Crazy Cut Piece, I have a question regarding your Privacy Policy.")}
+                            href={whatsappLink("Hi Crazy Cutpiece, I have a question regarding your Privacy Policy.")}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded transition-colors"
