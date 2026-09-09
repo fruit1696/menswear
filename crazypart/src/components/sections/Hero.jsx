@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "@/components/ui/image";
 import { WhatsAppIcon } from "@/components/Navbar";
@@ -66,44 +66,20 @@ export default function Hero() {
         };
     }, [emblaApi]);
 
-    // ── Autoplay ──────────────────────────────────────────────
-    const autoplayRef = useRef(null);
-
-    const startAutoplay = useCallback(() => {
-        if (autoplayRef.current) clearInterval(autoplayRef.current);
-        autoplayRef.current = setInterval(() => {
-            emblaApi?.scrollNext();
-        }, 4500);
-    }, [emblaApi]);
-
-    useEffect(() => {
-        if (!emblaApi) return;
-        startAutoplay();
-        // Reset timer on any user-initiated interaction
-        emblaApi.on("pointerDown", startAutoplay);
-        return () => {
-            clearInterval(autoplayRef.current);
-            emblaApi.off("pointerDown", startAutoplay);
-        };
-    }, [emblaApi, startAutoplay]);
-    // ─────────────────────────────────────────────────────────
-
     const scrollPrev = useCallback(
         (e) => {
             e?.preventDefault?.();
             emblaApi?.scrollPrev();
-            startAutoplay();
         },
-        [emblaApi, startAutoplay]
+        [emblaApi]
     );
 
     const scrollNext = useCallback(
         (e) => {
             e?.preventDefault?.();
             emblaApi?.scrollNext();
-            startAutoplay();
         },
-        [emblaApi, startAutoplay]
+        [emblaApi]
     );
 
     return (
@@ -120,7 +96,7 @@ export default function Hero() {
                     <div className="relative w-full aspect-[9/16] rounded-2xl overflow-hidden border border-border/80 bg-white shadow-lg flex items-center justify-center group">
 
                         {/* Embla Viewport */}
-                        <div className="overflow-hidden w-full h-full" ref={emblaRef}>
+                        <div className="overflow-hidden w-full h-full touch-pan-y" ref={emblaRef}>
                             <div className="flex h-full">
                                 {heroSlides.map((slide, idx) => (
                                     <div className="flex-[0_0_100%] min-w-0 h-full relative" key={idx}>
@@ -144,36 +120,43 @@ export default function Hero() {
                             </div>
                         </div>
 
-                        {/* Carousel Navigation Arrows */}
-                        <button
-                            onClick={scrollPrev}
-                            aria-label="Previous fabric"
-                            className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white hover:bg-neutral-100 text-foreground flex items-center justify-center border border-border shadow-sm transition-all duration-200 z-10"
-                        >
-                            <ChevronLeft className="w-5 h-5" />
-                        </button>
-                        <button
-                            onClick={scrollNext}
-                            aria-label="Next fabric"
-                            className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white hover:bg-neutral-100 text-foreground flex items-center justify-center border border-border shadow-sm transition-all duration-200 z-10"
-                        >
-                            <ChevronRight className="w-5 h-5" />
-                        </button>
                     </div>
 
-                    {/* Carousel Indicators */}
-                    <div className="flex items-center justify-center gap-2 pt-1">
-                        {heroSlides.map((_, idx) => (
-                            <button
-                                key={idx}
-                                onClick={() => emblaApi?.scrollTo(idx)}
-                                aria-label={`Go to slide ${idx + 1}`}
-                                className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentSlide
-                                    ? "w-6 bg-accent"
-                                    : "w-1.5 bg-foreground/20 hover:bg-foreground/40"
-                                    }`}
-                            />
-                        ))}
+                    {/* Carousel Navigation: Previous, Pagination, Next */}
+                    <div className="flex items-center justify-center gap-4 pt-1">
+                        <button
+                            type="button"
+                            onClick={scrollPrev}
+                            aria-label="Previous fabric"
+                            className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-neutral-200 text-foreground shadow-sm transition-colors duration-200 hover:bg-neutral-300 active:bg-neutral-300"
+                        >
+                            <ChevronLeft className="h-5 w-5" />
+                        </button>
+
+                        <div className="flex min-w-[4.5rem] items-center justify-center gap-2" aria-label="Carousel pagination">
+                            {heroSlides.map((_, idx) => (
+                                <button
+                                    type="button"
+                                    key={idx}
+                                    onClick={() => emblaApi?.scrollTo(idx)}
+                                    aria-label={`Go to slide ${idx + 1}`}
+                                    aria-current={idx === currentSlide ? "true" : undefined}
+                                    className={`h-2 rounded-full transition-all duration-300 ${idx === currentSlide
+                                        ? "w-6 bg-accent"
+                                        : "w-2 bg-foreground/20 hover:bg-foreground/40"
+                                        }`}
+                                />
+                            ))}
+                        </div>
+
+                        <button
+                            type="button"
+                            onClick={scrollNext}
+                            aria-label="Next fabric"
+                            className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-neutral-200 text-foreground shadow-sm transition-colors duration-200 hover:bg-neutral-300 active:bg-neutral-300"
+                        >
+                            <ChevronRight className="h-5 w-5" />
+                        </button>
                     </div>
                 </div>
 

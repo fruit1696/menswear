@@ -10,9 +10,9 @@ export const BRAND = {
     email: "[EMAIL_ADDRESS]",
     hours: "Mon – Sat · 10:00 AM – 8:00 PM IST",
     socials: {
-        instagram: "#",
+        instagram: "https://www.instagram.com/crazycutpiece/",
         facebook: "#",
-        whatsapp: "#",
+        whatsapp: "https://wa.me/919425333460",
     },
 };
 

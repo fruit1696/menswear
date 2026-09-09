@@ -6,7 +6,7 @@ import { WhatsAppIcon } from "@/components/Navbar";
 import { whatsappLink } from "@/lib/brand";
 import { trackWhatsAppClick } from "@/lib/gtag";
 
-const FABRIC_OPTIONS = ["Cotton", "Linen", "Polyester", "Terry", "Other / Mix"];
+const FABRIC_OPTIONS = ["Cotton", "Linen", "Polyester", "Paper Cotton", "Other"];
 const PATTERN_OPTIONS = ["Solid / Plain", "Checks", "Stripes", "Other"];
 
 // Sophisticated, muted swatches — not generic bright UI colors.
@@ -47,8 +47,8 @@ const HINDI = {
     "Cotton": "कॉटन",
     "Linen": "लिनन",
     "Polyester": "पॉलिएस्टर",
-    "Terry": "टेरी",
-    "Other / Mix": "कुछ और चाहिए",
+    "Paper Cotton": "पेपर कॉटन",
+    "Other": "कुछ और चाहिए",
 
     // Color options
     "White": "सफ़ेद",

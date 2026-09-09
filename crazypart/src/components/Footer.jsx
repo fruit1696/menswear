@@ -88,6 +88,8 @@ export default function Footer() {
                                 <div className="flex items-center gap-3">
                                     <a
                                         href={BRAND.socials?.instagram || "#"}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         aria-label="Instagram"
                                         className="w-9 h-9 rounded-full bg-white/5 border border-white/15 flex items-center justify-center text-primary-foreground/75 hover:text-white hover:bg-white/15 hover:border-accent hover:scale-105 transition-all duration-300 shadow-sm"
                                     >
