@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
-import { BRAND, whatsappLink, DEFAULT_WHATSAPP_MESSAGE } from "@/lib/brand";
+import { Menu, X, UserRound, ShoppingBag, Heart } from "lucide-react";
+import { whatsappLink, DEFAULT_WHATSAPP_MESSAGE } from "@/lib/brand";
 import { trackWhatsAppClick } from "@/lib/gtag";
 import AnnouncementTicker from "@/components/AnnouncementTicker";
 import BetaBanner from "@/components/BetaBanner";
+import { useAuth } from "@/lib/AuthContext";
+import { useCart } from "@/features/cart/CartProvider";
 
 const NAV_LINKS = [
     { label: "Home", to: "/" },
-    { label: "Fabrics", to: "/fabrics" },
+    { label: "Shop Fabrics", to: "/fabrics" },
     { label: "2-Piece Concept", to: "/#concept" },
-    { label: "About", to: "/#about" },
-    { label: "Contact", to: "/#contact" },
+    { label: "About Us", to: "/#about" },
 ];
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [open, setOpen] = useState(false);
     const location = useLocation();
+    const isHeroNavigation = location.pathname === "/";
+    const { itemCount } = useCart();
+    const { isAuthenticated, logout } = useAuth();
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 24);
@@ -39,8 +43,15 @@ export default function Navbar() {
             <AnnouncementTicker />
             <nav className="relative mx-auto max-w-7xl px-5 sm:px-8">
                 <div className="relative flex items-center justify-between h-16 sm:h-20 w-full">
-                    {/* Left: Navigation Menu */}
-                    <div className="hidden md:flex items-center gap-5 lg:gap-7 z-10">
+                    <button
+                        className="absolute left-0 z-20 p-2 text-foreground pointer-events-auto md:hidden"
+                        onClick={() => setOpen((v) => !v)}
+                        aria-label="Toggle menu"
+                    >
+                        {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                    </button>
+                    {/* Left: Navigation and account actions */}
+                    <div className="hidden flex-1 items-center gap-5 z-10 md:flex lg:gap-7">
                         {NAV_LINKS.map((l) => (
                             <Link
                                 key={l.label}
@@ -50,10 +61,23 @@ export default function Navbar() {
                                 {l.label}
                             </Link>
                         ))}
+                        <Link to="/account" className="p-2 text-foreground hover:text-accent" aria-label="Account" title="Account">
+                            <UserRound className="h-5 w-5" />
+                        </Link>
+                        <Link to="/account" className="text-sm font-medium text-foreground/75 hover:text-foreground">Account</Link>
+                        <a
+                            href={whatsappLink(DEFAULT_WHATSAPP_MESSAGE)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => trackWhatsAppClick('navbar_desktop')}
+                            className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-primary-foreground text-sm font-medium tracking-wide rounded-sm hover:bg-foreground/90 transition-colors duration-300 whitespace-nowrap"
+                        >
+                    
+                        </a>
                     </div>
 
                     {/* Center: Brand Name (Crazy Cutpiece) */}
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
                         <Link to="/" className="group flex flex-col leading-none text-center pointer-events-auto">
                             <span className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-accent whitespace-nowrap">
                                 Crazy Cutpiece
@@ -61,26 +85,17 @@ export default function Navbar() {
                         </Link>
                     </div>
 
-                    {/* Right: WhatsApp Button & Mobile Menu Toggle */}
-                    <div className="flex items-center gap-3 z-10">
-                        <a
-                            href={whatsappLink(DEFAULT_WHATSAPP_MESSAGE)}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={() => trackWhatsAppClick('navbar_desktop')}
-                            className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-primary-foreground text-sm font-medium tracking-wide rounded-sm hover:bg-foreground/90 transition-colors duration-300 whitespace-nowrap"
-                        >
-                            <WhatsAppIcon className="w-4 h-4" />
-                            WhatsApp Us
-                        </a>
-
-                        <button
-                            className="md:hidden p-2 -mr-2 text-foreground pointer-events-auto"
-                            onClick={() => setOpen((v) => !v)}
-                            aria-label="Toggle menu"
-                        >
-                            {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-                        </button>
+                    {/* Right: Shopping shortcuts */}
+                    <div className="ml-auto flex flex-1 items-center justify-end gap-3 z-10">
+                        <Link to="/cart" className="relative flex h-9 w-9 items-center justify-center text-foreground hover:text-accent" aria-label={`Cart with ${itemCount} items`} title="Cart">
+                            <ShoppingBag className="h-5 w-5" />
+                            {itemCount > 0 && <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] text-accent-foreground">{itemCount}</span>}
+                        </Link>
+                        {isHeroNavigation ? <Link to={isAuthenticated ? "/account" : "/login?returnTo=%2Faccount"} className="flex h-9 w-9 items-center justify-center text-foreground hover:text-accent" aria-label={isAuthenticated ? "Account" : "Login or sign up"} title={isAuthenticated ? "Account" : "Login / Sign Up"}>
+                            <UserRound className="h-5 w-5" />
+                        </Link> : <Link to="/wishlist" className="flex h-9 w-9 items-center justify-center text-foreground hover:text-accent" aria-label="Wishlist" title="Wishlist">
+                            <Heart className="h-5 w-5" />
+                        </Link>}
                     </div>
                 </div>
             </nav>
@@ -98,16 +113,11 @@ export default function Navbar() {
                                 {l.label}
                             </Link>
                         ))}
-                        <a
-                            href={whatsappLink(DEFAULT_WHATSAPP_MESSAGE)}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={() => trackWhatsAppClick('navbar_mobile')}
-                            className="mt-4 inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-foreground text-primary-foreground text-sm font-medium tracking-wide rounded-sm"
-                        >
-                            <WhatsAppIcon className="w-4 h-4" />
-                            WhatsApp Us
-                        </a>
+                        <Link to="/account" className="py-3 text-base text-foreground/80 border-b border-border/40">Account</Link>
+                        <Link to="/wishlist" className="py-3 text-base text-foreground/80 border-b border-border/40">Wishlist</Link>
+                        <Link to="/cart" className="py-3 text-base text-foreground/80 border-b border-border/40">Cart</Link>
+                        {isAuthenticated && <button type="button" onClick={logout} className="py-3 text-left text-base text-foreground/80 border-b border-border/40">Sign out</button>}
+
                     </div>
                 </div>
             )}

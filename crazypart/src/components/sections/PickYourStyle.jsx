@@ -1,10 +1,12 @@
-import React, { useMemo, useRef, useCallback, useState } from "react";
+import React, { useEffect, useMemo, useRef, useCallback, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronRight, ChevronLeft, Languages } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import SectionHeading from "@/components/SectionHeading";
 import { WhatsAppIcon } from "@/components/Navbar";
 import { whatsappLink } from "@/lib/brand";
 import { trackWhatsAppClick } from "@/lib/gtag";
+import { useAuth } from "@/lib/AuthContext";
 
 const FABRIC_OPTIONS = ["Cotton", "Linen", "Polyester", "Paper Cotton", "Other"];
 const PATTERN_OPTIONS = ["Solid / Plain", "Checks", "Stripes", "Other"];
@@ -69,7 +71,6 @@ const HINDI = {
     "Solid / Plain": "प्लेन",
     "Checks": "चेक्स",
     "Stripes": "स्ट्राइप्स",
-    "Other": "कोई और पैटर्न",
 
     // Placeholders
     fabricPlaceholder: "आप जिस तरह का कपड़ा पसंद करते हैं, वह लिखें",
@@ -135,6 +136,7 @@ const STEPS_EN = [
 ];
 
 const transition = { duration: 0.35, ease: [0.22, 1, 0.36, 1] };
+const PICK_YOUR_STYLE_DRAFT_KEY = "pick-your-style-draft";
 
 function toggle(arr, value) {
     return arr.includes(value) ? arr.filter((v) => v !== value) : [...arr, value];
@@ -144,6 +146,8 @@ export default function PickYourStyle() {
     const [step, setStep] = useState(1); // 1,2,3,4(summary)
     const [isHindi, setIsHindi] = useState(false);
     const cardRef = useRef(null);
+    const navigate = useNavigate();
+    const { isAuthenticated } = useAuth();
 
     // Pick the right language pack
     const lang = isHindi ? HINDI : ENGLISH;
@@ -171,6 +175,40 @@ export default function PickYourStyle() {
     const [fabricNote, setFabricNote] = useState("");
     const [colorNote, setColorNote] = useState("");
     const [patternNote, setPatternNote] = useState("");
+
+    useEffect(() => {
+        try {
+            const savedDraft = sessionStorage.getItem(PICK_YOUR_STYLE_DRAFT_KEY);
+            if (!savedDraft) return;
+            const draft = JSON.parse(savedDraft);
+            if (draft.step === 4) setStep(4);
+            if (Array.isArray(draft.fabrics)) setFabrics(draft.fabrics);
+            if (Array.isArray(draft.colors)) setColors(draft.colors);
+            if (Array.isArray(draft.patterns)) setPatterns(draft.patterns);
+            if (typeof draft.fabricNote === "string") setFabricNote(draft.fabricNote);
+            if (typeof draft.colorNote === "string") setColorNote(draft.colorNote);
+            if (typeof draft.patternNote === "string") setPatternNote(draft.patternNote);
+            sessionStorage.removeItem(PICK_YOUR_STYLE_DRAFT_KEY);
+        } catch {
+            sessionStorage.removeItem(PICK_YOUR_STYLE_DRAFT_KEY);
+        }
+    }, []);
+
+    const saveWizardDraft = () => {
+        try {
+            sessionStorage.setItem(PICK_YOUR_STYLE_DRAFT_KEY, JSON.stringify({
+                step,
+                fabrics,
+                colors,
+                patterns,
+                fabricNote,
+                colorNote,
+                patternNote,
+            }));
+        } catch {
+            // Continue to the existing authentication flow if storage is unavailable.
+        }
+    };
 
     const fabricOther = fabrics.includes("Other / Mix");
     const colorOther = colors.includes(OTHER_COLOR);
@@ -410,23 +448,55 @@ export default function PickYourStyle() {
                                 </div>
 
                                 <div className="mt-10 text-center">
-                                    <p className="text-xs uppercase tracking-[0.25em] text-accent mb-2">
-                                        {lang.seeItBefore}
-                                    </p>
-                                    <p className="text-sm text-foreground/60 mb-6">
-                                        {lang.askAvailable}
-                                    </p>
-                                    <a
-                                        href={whatsappLink(message)}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        onClick={() => trackWhatsAppClick('pick_your_style_wizard')}
-                                        className="inline-flex items-center justify-center gap-2.5 px-7 sm:px-8 py-4 bg-foreground text-primary-foreground text-sm font-medium tracking-wide rounded-sm hover:bg-foreground/90 transition-colors duration-300"
-                                    >
-                                        <WhatsAppIcon className="w-4 h-4" />
-                                        {lang.sendWhatsApp}
-                                        <ChevronRight className="w-4 h-4" />
-                                    </a>
+                                    {isAuthenticated ? <>
+                                        <p className="text-xs uppercase tracking-[0.25em] text-accent mb-2">
+                                            {lang.seeItBefore}
+                                        </p>
+                                        <p className="text-sm text-foreground/60 mb-6">
+                                            {lang.askAvailable}
+                                        </p>
+                                        <a
+                                            href={whatsappLink(message)}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            onClick={() => trackWhatsAppClick('pick_your_style_wizard')}
+                                            className="inline-flex items-center justify-center gap-2.5 px-7 sm:px-8 py-4 bg-foreground text-primary-foreground text-sm font-medium tracking-wide rounded-sm hover:bg-foreground/90 transition-colors duration-300"
+                                        >
+                                            <WhatsAppIcon className="w-4 h-4" />
+                                            {lang.sendWhatsApp}
+                                            <ChevronRight className="w-4 h-4" />
+                                        </a>
+                                    </> : <>
+                                        <p className="font-display text-2xl sm:text-3xl font-medium text-foreground">
+                                            Want to Explore More?
+                                        </p>
+                                        <p className="mt-3 text-sm text-foreground/70">
+                                            Available exclusively to registered members.
+                                        </p>
+                                        <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-foreground/60">
+                                            Create a free account to request live photos and explore colors, fabrics and styles beyond our online collection.
+                                        </p>
+                                        <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-foreground/65">
+                                            Registered members get access to our wider collection through WhatsApp, including live photos of current stock, more colors, fabric options, and styles and patterns.
+                                        </p>
+                                        <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+                                            <button
+                                                type="button"
+                                                onClick={() => { saveWizardDraft(); navigate(`/register?returnTo=${encodeURIComponent(window.location.pathname)}`); }}
+                                                className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-foreground text-primary-foreground text-sm font-medium tracking-wide rounded-sm hover:bg-foreground/90 transition-colors duration-300"
+                                            >
+                                                Create Account
+                                                <ChevronRight className="w-4 h-4" />
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={() => { saveWizardDraft(); navigate(`/login?returnTo=${encodeURIComponent(window.location.pathname)}`); }}
+                                                className="inline-flex items-center justify-center gap-2 px-7 py-4 border border-border text-sm font-medium tracking-wide rounded-sm text-foreground hover:border-foreground/60 transition-colors duration-300"
+                                            >
+                                                Log In
+                                            </button>
+                                        </div>
+                                    </>}
                                 </div>
                             </motion.div>
                         )}

@@ -29,6 +29,7 @@ export const DEFAULT_WHATSAPP_MESSAGE =
 export const FABRICS = [
     {
         id: "azure-linen",
+        productId: "10000000-0000-4000-8000-000000000001",
         name: "Raymond 100% Cotton",
         price: "₹460/2-piece",
 
@@ -41,6 +42,7 @@ export const FABRICS = [
     },
     {
         id: "ivory-herringbone",
+        productId: "10000000-0000-4000-8000-000000000002",
         name: "Raymond Giza Cotton",
         price: "₹500/2-piece",
 
@@ -52,6 +54,7 @@ export const FABRICS = [
     },
     {
         id: "slate-evening",
+        productId: "10000000-0000-4000-8000-000000000003",
         name: "Raymond Pure white",
         price: "₹460/2-piece",
 
@@ -64,6 +67,7 @@ export const FABRICS = [
     },
     {
         id: "vibrant-collection",
+        productId: "10000000-0000-4000-8000-000000000004",
         name: "Raymond Pure white",
         price: "₹460/2-piece",
 

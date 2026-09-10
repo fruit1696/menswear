@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import Image from "@/components/ui/image";
 import { WhatsAppIcon } from "@/components/Navbar";
 import { whatsappLink, DEFAULT_WHATSAPP_MESSAGE } from "@/lib/brand";
 import { trackWhatsAppClick } from "@/lib/gtag";
-import { IMAGES } from "@/lib/images";
 import { BadgeCheck, Scissors, Feather, Truck, ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function Hero() {

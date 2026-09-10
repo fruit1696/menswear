@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import Image from "@/components/ui/image";
 import SectionHeading from "@/components/SectionHeading";
 import { IMAGES } from "@/lib/images";
-import { ArrowRight, MessageCircle, Truck, Tag, BadgeCheck, Eye, ShieldCheck, RotateCcw, Languages } from "lucide-react";
-import TranslateText from "@/components/TranslateText";
+import { Truck, Tag, BadgeCheck, Eye, ShieldCheck, Languages } from "lucide-react";
 
 const TRUST_POINTS = [
     {

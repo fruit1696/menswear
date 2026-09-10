@@ -1,34 +1,26 @@
 # AGENTS.md
 
-## Project Context
+## Project context
 
-This is a Base44 app repository. Treat it as user-owned application code, keep changes focused on the user's request, and preserve existing project conventions.
+This is the Crazy Cut Piece React/Vite storefront. Supabase provides PostgreSQL, Auth, Storage, and privileged Edge Functions. Follow `ARCHITECTURE.md` for all engineering decisions.
 
-Start with `README.md` for local setup, environment variables, and publish workflow.
+## Engineering rules
 
-## Base44 References
+- Preserve the existing frontend design, typography, responsive behavior, public pages, and policy pages.
+- Keep presentation, business rules, data access, and infrastructure concerns separate.
+- Use TanStack Query for server state and local React state for local UI concerns.
+- Keep PostgreSQL authoritative for prices, stock, orders, and payment state.
+- Enable and test RLS for every exposed table.
+- Never expose Supabase secret/service-role keys or Razorpay secrets in frontend code.
+- Add schema changes as versioned files under `supabase/migrations`.
+- Prefer focused feature services over a large generic abstraction around Supabase.
+- Run the relevant lint, type-check, test, and build commands before finishing changes.
 
-- CLI overview: https://docs.base44.com/developers/references/cli/get-started/overview.md
-- Agent skills: https://docs.base44.com/developers/backend/overview/skills.md
+## Key paths
 
-If your agent supports Agent Skills, install or update Base44 skills before Base44-specific work:
-
-```bash
-npx skills add base44/skills
-```
-
-## Key Files
-
-- `src/`: frontend application source.
-- `src/api/base44Client.js`: frontend Base44 SDK client.
-- `vite.config.js`: Vite config and Base44 Vite plugin setup.
-- `.env.local`: local-only environment values; never commit secrets.
-
-## Working Notes
-
-- Use `base44 dev` as the default local development command when you need the local Base44 backend. It can run the backend and frontend together.
-- When docs or code mention the frontend being started automatically, that usually means the Base44 project config includes `site.serveCommand`, for example `"serveCommand": "npm run dev"` in `base44/config.jsonc`.
-- Use `npm run dev` only for frontend-only work against the hosted Base44 backend.
-- Prefer the existing Base44 CLI workflow over adding new npm scripts for Base44-specific tasks.
-- Reuse the existing SDK client and Vite plugin patterns before adding new Base44 integration paths.
-- Run the relevant checks from `package.json` before finishing code changes.
+- `src/`: frontend source
+- `src/api/supabaseClient.ts`: browser Supabase client
+- `src/components/ui/`: established UI primitives
+- `src/index.css`: design tokens and typography
+- `supabase/migrations/`: PostgreSQL schema and policies
+- `.env.local`: local secrets and configuration; never commit it

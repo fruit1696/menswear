@@ -4,8 +4,13 @@ import { WhatsAppIcon } from "@/components/Navbar";
 import { FABRICS, whatsappLink } from "@/lib/brand";
 import { trackWhatsAppClick } from "@/lib/gtag";
 import TranslateText from "@/components/TranslateText";
+import { useActiveProducts } from "@/features/products/productQueries";
+import { productToFabric } from "@/features/products/productService";
 
 export default function Fabrics() {
+    const { data: products } = useActiveProducts();
+    const fabrics = products?.map(productToFabric) ?? FABRICS;
+
     React.useEffect(() => {
         document.title = "Selected Raymond Shirt Fabrics | Crazy Cutpiece";
         let canonicalLink = document.querySelector("link[rel='canonical']");
@@ -53,7 +58,7 @@ export default function Fabrics() {
             <section className="py-12 sm:py-16">
                 <div className="mx-auto max-w-7xl px-5 sm:px-8">
                     <div className="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-                        {FABRICS.map((f, i) => (
+                        {fabrics.map((f, i) => (
                             <FabricCard key={f.id} fabric={f} index={i} />
                         ))}
                     </div>

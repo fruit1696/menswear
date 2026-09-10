@@ -6,9 +6,13 @@ import { FABRICS, whatsappLink, fabricImages } from "@/lib/brand";
 import { WhatsAppIcon } from "@/components/Navbar";
 import { trackWhatsAppClick } from "@/lib/gtag";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { useActiveProducts } from "@/features/products/productQueries";
+import { productToFabric } from "@/features/products/productService";
 
 export default function SelectedCollection() {
     const [selectedFabric, setSelectedFabric] = useState(null);
+    const { data: products } = useActiveProducts();
+    const fabrics = products?.map(productToFabric) ?? FABRICS;
 
     const getWhatsappMessage = (fabric) => {
         if (!fabric) return "";
@@ -26,12 +30,13 @@ export default function SelectedCollection() {
                     />
                 </div>
 
-                <div className="mt-14 grid gap-x-6 gap-y-10 grid-cols-2 lg:grid-cols-4">
-                    {FABRICS.map((f, i) => (
+                <div className="mt-14 grid grid-cols-2 gap-3">
+                    {fabrics.map((f, i) => (
                         <FabricCard
                             key={f.id}
                             fabric={f}
                             index={i}
+                            customerPick
                             onSelectFabric={(fabric) => setSelectedFabric(fabric)}
                         />
                     ))}

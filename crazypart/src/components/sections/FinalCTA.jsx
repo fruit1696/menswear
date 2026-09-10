@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { WhatsAppIcon } from "@/components/Navbar";
-import { whatsappLink } from "@/lib/brand";
-import { trackWhatsAppClick } from "@/lib/gtag";
 
 function useShopHours() {
     const [isOnline, setIsOnline] = useState(false);

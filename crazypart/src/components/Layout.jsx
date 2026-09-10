@@ -2,7 +2,6 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import WhatsAppBar from "@/components/WhatsAppBar";
 
 export default function Layout() {
     return (
@@ -12,7 +11,6 @@ export default function Layout() {
                 <Outlet />
             </main>
             <Footer />
-            <WhatsAppBar />
         </div>
     );
 }
