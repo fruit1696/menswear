@@ -2,8 +2,9 @@ import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { ChevronDown, Loader2, Star } from "lucide-react";
 import Image from "@/components/ui/image";
+import FabricCarousel from "@/components/FabricCarousel";
 import { WhatsAppIcon } from "@/components/Navbar";
-import { FABRICS, whatsappLink } from "@/lib/brand";
+import { FABRICS, fabricImages, whatsappLink } from "@/lib/brand";
 import { trackWhatsAppClick } from "@/lib/gtag";
 import { useActiveProduct } from "@/features/products/productQueries";
 import { productToFabric } from "@/features/products/productService";
@@ -43,7 +44,7 @@ export default function FabricDetail() {
                         to="/fabrics"
                         className="mt-8 inline-block text-sm font-medium text-foreground border-b border-accent pb-1"
                     >
-                        ← Back to Selected Fabrics
+                        ← Back to Fabrics
                     </Link>
                 </div>
             </div>
@@ -95,7 +96,7 @@ export default function FabricDetail() {
             {/* Breadcrumb */}
             <div className="mx-auto max-w-7xl px-5 sm:px-8 py-6">
                 <Link to="/fabrics" className="text-sm text-foreground/55 hover:text-foreground transition-colors">
-                    ← Selected Fabrics
+                    ← Explore Fabrics
                 </Link>
             </div>
 
@@ -106,12 +107,10 @@ export default function FabricDetail() {
                         <div className="lg:col-span-7">
                             <div className="relative swatch-shadow rounded-sm overflow-hidden bg-secondary">
                                 <WishlistButton productId={fabric.productId} productName={fabric.name} />
-                                <Image
-                                    src={fabric.image}
-                                    alt={`${fabric.name} — Raymond shirt fabric, 2-piece cutpiece`}
-                                    fittingType="fill"
-                                    className="w-full aspect-[4/5] cursor-zoom-in object-cover"
-                                    onClick={() => setLargeImage(fabric.image)}
+                                <FabricCarousel
+                                    images={fabricImages(fabric)}
+                                    altBase={`${fabric.name} — Raymond shirt fabric, 2-piece cutpiece`}
+                                    onImageClick={setLargeImage}
                                 />
                                 
                            

@@ -24,12 +24,14 @@ export function productToFabric(product: ProductWithImages) {
         tone: product.color ?? "Selected weave",
         description: product.description,
         price: `₹${Math.round(product.price_paise / 100)}/2-piece`,
+        originalPrice: product.compare_at_price_paise === null ? undefined : Math.round(product.compare_at_price_paise / 100),
+        deliveryLeadDays: product.delivery_lead_days ?? undefined,
         image: images[0],
         images,
     };
 }
 
-const productSelect = "id, name, slug, description, price_paise, sku, category, fabric_type, color, pattern, status, created_at, updated_at";
+const productSelect = "id, name, slug, description, price_paise, compare_at_price_paise, delivery_lead_days, sku, category, fabric_type, color, pattern, status, created_at, updated_at";
 const imageSelect = "id, product_id, object_path, alt_text, sort_order, is_primary, created_at";
 
 export async function listActiveProducts(): Promise<ProductWithImages[]> {

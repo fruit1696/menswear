@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, UserRound, ShoppingBag, Heart } from "lucide-react";
-import { whatsappLink, DEFAULT_WHATSAPP_MESSAGE } from "@/lib/brand";
-import { trackWhatsAppClick } from "@/lib/gtag";
 import AnnouncementTicker from "@/components/AnnouncementTicker";
 import BetaBanner from "@/components/BetaBanner";
 import { useAuth } from "@/lib/AuthContext";
@@ -64,21 +62,11 @@ export default function Navbar() {
                         <Link to="/account" className="p-2 text-foreground hover:text-accent" aria-label="Account" title="Account">
                             <UserRound className="h-5 w-5" />
                         </Link>
-                        <Link to="/account" className="text-sm font-medium text-foreground/75 hover:text-foreground">Account</Link>
-                        <a
-                            href={whatsappLink(DEFAULT_WHATSAPP_MESSAGE)}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={() => trackWhatsAppClick('navbar_desktop')}
-                            className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-primary-foreground text-sm font-medium tracking-wide rounded-sm hover:bg-foreground/90 transition-colors duration-300 whitespace-nowrap"
-                        >
-                    
-                        </a>
                     </div>
 
                     {/* Center: Brand Name (Crazy Cutpiece) */}
-                    <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
-                        <Link to="/" className="group flex flex-col leading-none text-center pointer-events-auto">
+                    <div className="absolute inset-0 z-20 flex items-center justify-center bg-transparent pointer-events-none">
+                        <Link to="/" className="group flex flex-col bg-transparent leading-none text-center pointer-events-auto">
                             <span className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-accent whitespace-nowrap">
                                 Crazy Cutpiece
                             </span>

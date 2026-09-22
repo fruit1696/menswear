@@ -32,6 +32,8 @@ export const FABRICS = [
         productId: "10000000-0000-4000-8000-000000000001",
         name: "Raymond 100% Cotton",
         price: "₹460/2-piece",
+        originalPrice: 1500,
+        deliveryLeadDays: 4,
 
         image: "/blue1.jpeg",
         images: [
@@ -45,6 +47,8 @@ export const FABRICS = [
         productId: "10000000-0000-4000-8000-000000000002",
         name: "Raymond Giza Cotton",
         price: "₹500/2-piece",
+        originalPrice: 1500,
+        deliveryLeadDays: 4,
 
         image: "/black1.jpeg",
         images: [
@@ -57,6 +61,8 @@ export const FABRICS = [
         productId: "10000000-0000-4000-8000-000000000003",
         name: "Raymond Pure white",
         price: "₹460/2-piece",
+        originalPrice: 1500,
+        deliveryLeadDays: 4,
 
         image: "/white1.jpeg",
         images: [
@@ -70,6 +76,8 @@ export const FABRICS = [
         productId: "10000000-0000-4000-8000-000000000004",
         name: "Raymond Pure white",
         price: "₹460/2-piece",
+        originalPrice: 1500,
+        deliveryLeadDays: 4,
 
         image: "/Awhite2.jpeg",
         images: [

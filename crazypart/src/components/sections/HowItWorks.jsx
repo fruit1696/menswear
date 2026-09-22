@@ -3,7 +3,7 @@ import SectionHeading from "@/components/SectionHeading";
 
 const STEPS = [
     { no: "01", title: "Explore", text: "Browse a few selected fabrics online." },
-    { no: "02", title: "WhatsApp", text: "Tell us what kind of fabric you're looking for." },
+    { no: "02", title: "WhatsApp", text: "Want to See More Fabrics?." },
     { no: "03", title: "Discover More", text: "We'll show you actual photos of available fabrics." },
     { no: "04", title: "Choose", text: "Pick the fabric you like." },
     { no: "05", title: "Order", text: "Complete your purchase directly with us." },

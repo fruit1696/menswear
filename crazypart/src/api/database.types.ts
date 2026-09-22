@@ -30,6 +30,8 @@ export type Database = {
                     slug: string;
                     description: string;
                     price_paise: number;
+                    compare_at_price_paise: number | null;
+                    delivery_lead_days: number | null;
                     sku: string;
                     category: string | null;
                     fabric_type: string | null;
@@ -45,6 +47,8 @@ export type Database = {
                     slug: string;
                     description?: string;
                     price_paise: number;
+                    compare_at_price_paise?: number | null;
+                    delivery_lead_days?: number | null;
                     sku: string;
                     category?: string | null;
                     fabric_type?: string | null;
@@ -261,6 +265,24 @@ export type Database = {
                     updated_at?: string;
                 };
                 Update: Partial<Database["public"]["Tables"]["reviews"]["Insert"]>;
+                Relationships: [];
+            };
+            explore_deposits: {
+                Row: {
+                    id: string;
+                    user_id: string;
+                    amount_paise: number;
+                    currency: "INR";
+                    status: "created" | "captured" | "failed" | "refunded";
+                    razorpay_order_id: string;
+                    razorpay_payment_id: string | null;
+                    paid_at: string | null;
+                    refunded_at: string | null;
+                    created_at: string;
+                    updated_at: string;
+                };
+                Insert: Partial<Database["public"]["Tables"]["explore_deposits"]["Row"]> & { user_id: string; razorpay_order_id: string };
+                Update: Partial<Database["public"]["Tables"]["explore_deposits"]["Insert"]>;
                 Relationships: [];
             };
         };

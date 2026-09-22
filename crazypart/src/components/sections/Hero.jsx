@@ -16,10 +16,10 @@ export default function Hero() {
         },
         {
             src: "/pic2.jpeg",
-            alt: "Raymond shirt fabric — Pick Your Style",
+            alt: "Raymond shirt fabric — Request live photos.",
             href: "#pick-your-style",
             isExternal: false,
-            label: "Pick Your Style",
+            label: "Request live photos.",
         },
         {
             src: "/pic3.jpeg",
@@ -91,10 +91,10 @@ export default function Hero() {
                 {/* 1. FABRIC CAROUSEL */}
                 <div className="w-full max-w-[600px] flex flex-col items-center gap-4">
                     {/* Carousel Container with Touch/Swipe */}
-                    <div className="relative w-full aspect-[9/16] rounded-2xl overflow-hidden border border-border/80 bg-white shadow-lg flex items-center justify-center group">
+                    <div className="relative w-full aspect-[9/16] rounded-2xl overflow-visible border border-border/80 bg-white shadow-lg flex items-center justify-center group">
 
                         {/* Embla Viewport */}
-                        <div className="overflow-hidden w-full h-full touch-pan-y" ref={emblaRef}>
+                        <div className="overflow-hidden w-full h-full rounded-2xl touch-pan-y" ref={emblaRef}>
                             <div className="flex h-full">
                                 {heroSlides.map((slide, idx) => (
                                     <div className="flex-[0_0_100%] min-w-0 h-full relative" key={idx}>
@@ -118,6 +118,24 @@ export default function Hero() {
                             </div>
                         </div>
 
+                        <button
+                            type="button"
+                            onClick={scrollPrev}
+                            aria-label="Previous fabric"
+                            className="absolute -left-5 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center bg-transparent text-foreground transition-colors duration-200 hover:text-accent active:text-accent sm:hidden"
+                        >
+                            <ChevronLeft className="h-5 w-5" />
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={scrollNext}
+                            aria-label="Next fabric"
+                            className="absolute -right-5 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center bg-transparent text-foreground transition-colors duration-200 hover:text-accent active:text-accent sm:hidden"
+                        >
+                            <ChevronRight className="h-5 w-5" />
+                        </button>
+
                     </div>
 
                     {/* Carousel Navigation: Previous, Pagination, Next */}
@@ -126,7 +144,7 @@ export default function Hero() {
                             type="button"
                             onClick={scrollPrev}
                             aria-label="Previous fabric"
-                            className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-neutral-200 text-foreground shadow-sm transition-colors duration-200 hover:bg-neutral-300 active:bg-neutral-300"
+                            className="hidden h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-neutral-200 text-foreground shadow-sm transition-colors duration-200 hover:bg-neutral-300 active:bg-neutral-300 sm:flex"
                         >
                             <ChevronLeft className="h-5 w-5" />
                         </button>
@@ -151,7 +169,7 @@ export default function Hero() {
                             type="button"
                             onClick={scrollNext}
                             aria-label="Next fabric"
-                            className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-neutral-200 text-foreground shadow-sm transition-colors duration-200 hover:bg-neutral-300 active:bg-neutral-300"
+                            className="hidden h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-neutral-200 text-foreground shadow-sm transition-colors duration-200 hover:bg-neutral-300 active:bg-neutral-300 sm:flex"
                         >
                             <ChevronRight className="h-5 w-5" />
                         </button>

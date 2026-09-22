@@ -9,7 +9,7 @@ import Image from "@/components/ui/image";
  * Built on embla-carousel-react (already installed) — no new design system.
  * When a fabric has a single image, controls are hidden and it degrades to a static image.
  */
-export default function FabricCarousel({ images, altBase, badge, square = false }) {
+export default function FabricCarousel({ images, altBase, badge, square = false, aspectClassName, onImageClick }) {
     const [emblaRef, emblaApi] = useEmblaCarousel({
         loop: false,
         dragFree: false,
@@ -62,9 +62,10 @@ export default function FabricCarousel({ images, altBase, badge, square = false 
                                 src={src}
                                 alt={`${altBase} — fabric view ${i + 1}`}
                                 fittingType="fill"
-                                className={`w-full object-cover ${square ? "aspect-square" : "aspect-[4/5]"}`}
+                                className={`w-full object-cover ${onImageClick ? "cursor-zoom-in" : ""} ${aspectClassName ?? (square ? "aspect-square" : "aspect-[4/5]")}`}
                                 loading={i === 0 ? "eager" : "lazy"}
                                 draggable={false}
+                                onClick={() => onImageClick?.(src)}
                             />
                         </div>
                     ))}

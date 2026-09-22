@@ -21,9 +21,9 @@ export default function Home() {
         <>
             <Hero />
             <SelectedCollection />
-            <PickYourStyle />
             <TwoPieceConcept />
             <WhyBuy />
+            <PickYourStyle />
             {/* <BrandIntro /> */}
             {/* <Quality /> */}
             <VisitStore />

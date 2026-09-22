@@ -29,6 +29,7 @@ import AdminOrders from '@/pages/AdminOrders';
 import AdminProducts from '@/pages/AdminProducts';
 import Wishlist from '@/pages/Wishlist';
 import ErrorBoundary from '@/components/ErrorBoundary';
+import FeaturedCollection from '@/pages/FeaturedCollection';
 
 const AppRoutes = () => {
     return (
@@ -37,6 +38,7 @@ const AppRoutes = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/fabrics" element={<Fabrics />} />
                 <Route path="/fabrics/:id" element={<FabricDetail />} />
+                <Route path="/collections/:collectionId" element={<FeaturedCollection />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/wishlist" element={<Wishlist />} />
                 <Route path="/account" element={<Account />} />

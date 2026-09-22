@@ -39,16 +39,6 @@ export default function Footer() {
                             2-piece sets. The fabrics shown online are only a glimpse —
                             the full collection is yours to discover on WhatsApp.
                         </p>
-                        <a
-                            href={whatsappLink(DEFAULT_WHATSAPP_MESSAGE)}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={() => trackWhatsAppClick('footer')}
-                            className="mt-7 inline-flex items-center gap-2 px-5 py-3 bg-white/10 hover:bg-white/15 text-sm font-medium tracking-wide rounded-sm transition-colors duration-300"
-                        >
-                            <WhatsAppIcon className="w-4 h-4" />
-                            WhatsApp Crazy Cutpiece
-                        </a>
                     </div>
 
                     {/* Explore */}
@@ -58,7 +48,7 @@ export default function Footer() {
                         </h4>
                         <ul className="space-y-3 text-sm text-primary-foreground/75">
                             <li><Link to="/" className="hover:text-primary-foreground transition-colors">Home</Link></li>
-                            <li><Link to="/fabrics" className="hover:text-primary-foreground transition-colors">Selected Fabrics</Link></li>
+                            <li><Link to="/fabrics" className="hover:text-primary-foreground transition-colors">Explore Fabrics</Link></li>
                             <li><Link to="/#concept" className="hover:text-primary-foreground transition-colors">2-Piece Concept</Link></li>
                             <li><Link to="/#about" className="hover:text-primary-foreground transition-colors">About</Link></li>
                         </ul>

@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo, useRef, useCallback, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronRight, ChevronLeft, Languages } from "lucide-react";
+import { Check, ChevronRight, ChevronLeft, Languages, Loader2, ShieldCheck } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import SectionHeading from "@/components/SectionHeading";
 import { WhatsAppIcon } from "@/components/Navbar";
-import { whatsappLink } from "@/lib/brand";
 import { trackWhatsAppClick } from "@/lib/gtag";
 import { useAuth } from "@/lib/AuthContext";
+import { getExploreAccess, payExploreDeposit } from "@/features/explore/exploreDepositService";
 
 const FABRIC_OPTIONS = ["Cotton", "Linen", "Polyester", "Paper Cotton", "Other"];
 const PATTERN_OPTIONS = ["Solid / Plain", "Checks", "Stripes", "Other"];
@@ -31,7 +31,7 @@ const OTHER_COLOR = "Other / Specific Shade";
 /* ─── Hindi translation map ─── */
 const HINDI = {
     // Section heading
-    eyebrow: "यहाँ से अपना कपड़ा ऑर्डर करें",
+    eyebrow: "लाइव फ़ोटो के लिए अनुरोध करें",
     title: "नीचे दिए गए विकल्पों में से अपनी पसंद का कपड़ा चुनें",
     description: "अपनी पसंद बताने के बाद, हम आपको उस कपड़े की लाइव फोटो WhatsApp पर भेजेंगे। पसंद आए तो वहीं से ऑर्डर कर सकते हैं।",
 
@@ -97,8 +97,8 @@ const HINDI = {
 };
 
 const ENGLISH = {
-    eyebrow: "Pick Your Style",
-    title: "Tell Us What You're Looking For",
+    eyebrow: "Request live photos.",
+    title: "Want to See More Fabrics?",
     description: "Looking for a specific fabric? Just select your preferred material, color, and pattern. Our experts will check our Current Stock and send you live photos of your perfect match over WhatsApp.",
 
     stepFabric: "Fabric",
@@ -147,7 +147,7 @@ export default function PickYourStyle() {
     const [isHindi, setIsHindi] = useState(false);
     const cardRef = useRef(null);
     const navigate = useNavigate();
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, user } = useAuth();
 
     // Pick the right language pack
     const lang = isHindi ? HINDI : ENGLISH;
@@ -447,57 +447,15 @@ export default function PickYourStyle() {
                                     />
                                 </div>
 
-                                <div className="mt-10 text-center">
-                                    {isAuthenticated ? <>
-                                        <p className="text-xs uppercase tracking-[0.25em] text-accent mb-2">
-                                            {lang.seeItBefore}
-                                        </p>
-                                        <p className="text-sm text-foreground/60 mb-6">
-                                            {lang.askAvailable}
-                                        </p>
-                                        <a
-                                            href={whatsappLink(message)}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            onClick={() => trackWhatsAppClick('pick_your_style_wizard')}
-                                            className="inline-flex items-center justify-center gap-2.5 px-7 sm:px-8 py-4 bg-foreground text-primary-foreground text-sm font-medium tracking-wide rounded-sm hover:bg-foreground/90 transition-colors duration-300"
-                                        >
-                                            <WhatsAppIcon className="w-4 h-4" />
-                                            {lang.sendWhatsApp}
-                                            <ChevronRight className="w-4 h-4" />
-                                        </a>
-                                    </> : <>
-                                        <p className="font-display text-2xl sm:text-3xl font-medium text-foreground">
-                                            Want to Explore More?
-                                        </p>
-                                        <p className="mt-3 text-sm text-foreground/70">
-                                            Available exclusively to registered members.
-                                        </p>
-                                        <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-foreground/60">
-                                            Create a free account to request live photos and explore colors, fabrics and styles beyond our online collection.
-                                        </p>
-                                        <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-foreground/65">
-                                            Registered members get access to our wider collection through WhatsApp, including live photos of current stock, more colors, fabric options, and styles and patterns.
-                                        </p>
-                                        <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-                                            <button
-                                                type="button"
-                                                onClick={() => { saveWizardDraft(); navigate(`/register?returnTo=${encodeURIComponent(window.location.pathname)}`); }}
-                                                className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-foreground text-primary-foreground text-sm font-medium tracking-wide rounded-sm hover:bg-foreground/90 transition-colors duration-300"
-                                            >
-                                                Create Account
-                                                <ChevronRight className="w-4 h-4" />
-                                            </button>
-                                            <button
-                                                type="button"
-                                                onClick={() => { saveWizardDraft(); navigate(`/login?returnTo=${encodeURIComponent(window.location.pathname)}`); }}
-                                                className="inline-flex items-center justify-center gap-2 px-7 py-4 border border-border text-sm font-medium tracking-wide rounded-sm text-foreground hover:border-foreground/60 transition-colors duration-300"
-                                            >
-                                                Log In
-                                            </button>
-                                        </div>
-                                    </>}
-                                </div>
+                                <ExploreDeposit
+                                    isAuthenticated={isAuthenticated}
+                                    user={user}
+                                    message={message}
+                                    navigate={navigate}
+                                    saveWizardDraft={saveWizardDraft}
+                                    isHindi={isHindi}
+                                    onToggleLanguage={() => setIsHindi((current) => !current)}
+                                />
                             </motion.div>
                         )}
                     </AnimatePresence>
@@ -527,6 +485,125 @@ export default function PickYourStyle() {
             </div>
         </section>
     );
+}
+
+function ExploreDeposit({ isAuthenticated, user, message, navigate, saveWizardDraft, isHindi, onToggleLanguage }) {
+    const [status, setStatus] = useState("idle");
+    const [whatsappUrl, setWhatsappUrl] = useState("");
+    const [error, setError] = useState("");
+    const [showAuthPrompt, setShowAuthPrompt] = useState(false);
+    const copy = isHindi ? {
+        toggle: "See English",
+        title: "और विकल्प देखना चाहते हैं?",
+        intro: "हमारे ऑनलाइन कलेक्शन के अलावा और रंग, कपड़े, स्टाइल और पैटर्न देखें।",
+        deposit: "₹100 वापसी योग्य जमा राशि",
+        access: "₹100 का भुगतान करके WhatsApp एक्सेस अनलॉक करें और हमारे बड़े कलेक्शन की अतिरिक्त लाइव तस्वीरें माँगें।",
+        refundable: "यदि आप खरीदारी नहीं करते हैं तो ₹100 पूरी तरह वापस किए जा सकते हैं, या आपकी खरीदारी में समायोजित किए जा सकते हैं।",
+        open: "WhatsApp एक्सेस खोलें",
+        pay: "₹100 का भुगतान करें और अधिक देखें",
+        checking: "एक्सेस जाँचा जा रहा है…",
+        paying: "सुरक्षित भुगतान खुल रहा है…",
+        auth: "भुगतान से पहले अकाउंट बनाएँ या लॉग इन करें।",
+        register: "अकाउंट बनाएँ",
+        login: "लॉग इन करें",
+    } : {
+        toggle: "See Translation (हिंदी)",
+        title: "Want to Explore More?",
+        intro: "Explore more colors, fabrics, styles, and patterns beyond our online collection.",
+        deposit: "₹100 Refundable Deposit",
+        access: "Pay ₹100 to unlock WhatsApp access and request additional live photos from our wider collection.",
+        refundable: "The ₹100 is fully refundable if you decide not to purchase, or can be adjusted toward your purchase.",
+        open: "Open WhatsApp Access",
+        pay: "Pay ₹100 & Explore More",
+        checking: "Checking Access…",
+        paying: "Opening Secure Payment…",
+        auth: "Create an account or log in before payment.",
+        register: "Create Account",
+        login: "Log In",
+    };
+
+    useEffect(() => {
+        if (!isAuthenticated) return;
+        let active = true;
+        setStatus("checking");
+        getExploreAccess(message)
+            .then((access) => {
+                if (!active) return;
+                if (access.access_granted && access.whatsapp_url) {
+                    setWhatsappUrl(access.whatsapp_url);
+                    setStatus("unlocked");
+                } else setStatus("idle");
+            })
+            .catch(() => active && setStatus("idle"));
+        return () => { active = false; };
+    }, [isAuthenticated, message]);
+
+    const startPayment = async () => {
+        if (!isAuthenticated) {
+            setShowAuthPrompt(true);
+            return;
+        }
+        setError("");
+        setStatus("paying");
+        try {
+            const access = await payExploreDeposit({ message, email: user?.email });
+            if (!access.access_granted || !access.whatsapp_url) throw new Error("Payment was verified, but access could not be opened.");
+            setWhatsappUrl(access.whatsapp_url);
+            setStatus("unlocked");
+        } catch (paymentError) {
+            setError(paymentError instanceof Error ? paymentError.message : "Unable to complete payment.");
+            setStatus("idle");
+        }
+    };
+
+    const goToAuth = (path) => {
+        saveWizardDraft();
+        navigate(`${path}?returnTo=${encodeURIComponent(`${window.location.pathname}#pick-your-style`)}`);
+    };
+
+    return <div className="mx-auto mt-10 max-w-xl border-t border-border/60 pt-9 text-center">
+        <button type="button" onClick={onToggleLanguage} className="mb-4 inline-flex items-center gap-1.5 text-xs font-semibold text-accent transition-opacity hover:opacity-80">
+            <Languages className="h-3.5 w-3.5" />{copy.toggle}
+        </button>
+        <p className="font-display text-2xl font-medium text-foreground sm:text-3xl">{copy.title}</p>
+        <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-foreground/65">{copy.intro}</p>
+
+        <div className="mx-auto mt-7 rounded-xl border border-border/70 bg-secondary/25 px-5 py-6 sm:px-7">
+            <div className="flex items-center justify-center gap-2 text-foreground">
+                <ShieldCheck className="h-5 w-5 text-accent" />
+                <h4 className="text-base font-semibold">{copy.deposit}</h4>
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-foreground/65">{copy.access}</p>
+            <p className="mt-2 text-xs leading-relaxed text-foreground/55">{copy.refundable}</p>
+
+            {status === "unlocked" ? <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick("paid_explore_more")}
+                className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2.5 rounded-md bg-[#1E5E41] px-6 py-3.5 text-sm font-medium tracking-wide text-white transition-colors hover:bg-[#184C35]"
+            >
+                <WhatsAppIcon className="h-4 w-4" />{copy.open}<ChevronRight className="h-4 w-4" />
+            </a> : <button
+                type="button"
+                onClick={startPayment}
+                disabled={status === "checking" || status === "paying"}
+                className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-foreground px-6 py-3.5 text-sm font-medium tracking-wide text-primary-foreground transition-colors hover:bg-foreground/90 disabled:cursor-wait disabled:opacity-65"
+            >
+                {(status === "checking" || status === "paying") && <Loader2 className="h-4 w-4 animate-spin" />}
+                {status === "checking" ? copy.checking : status === "paying" ? copy.paying : copy.pay}
+            </button>}
+
+            {error && <p role="alert" className="mt-3 text-xs text-destructive">{error}</p>}
+            {showAuthPrompt && !isAuthenticated && <div className="mt-5 border-t border-border/60 pt-5">
+                <p className="text-sm font-medium text-foreground">{copy.auth}</p>
+                <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    <button type="button" onClick={() => goToAuth("/register")} className="min-h-11 rounded-md bg-foreground px-5 text-sm font-medium text-primary-foreground">{copy.register}</button>
+                    <button type="button" onClick={() => goToAuth("/login")} className="min-h-11 rounded-md border border-border px-5 text-sm font-medium text-foreground transition-colors hover:border-foreground/50">{copy.login}</button>
+                </div>
+            </div>}
+        </div>
+    </div>;
 }
 
 function Step({ heading, children }) {
