@@ -1,12 +1,11 @@
 import React from "react";
 import Hero from "@/components/sections/Hero";
 import SelectedCollection from "@/components/sections/SelectedCollection";
-import PickYourStyle from "@/components/sections/PickYourStyle";
 import VisitStore from "@/components/sections/VisitStore";
-import WantMore from "@/components/sections/WantMore";
 import TwoPieceConcept from "@/components/sections/TwoPieceConcept";
 import WhyBuy from "@/components/sections/WhyBuy";
 import FinalCTA from "@/components/sections/FinalCTA";
+import PickYourStyle from "@/components/sections/PickYourStyle";
 
 export default function Home() {
     React.useEffect(() => {
@@ -27,7 +26,7 @@ export default function Home() {
             {/* <BrandIntro /> */}
             {/* <Quality /> */}
             <VisitStore />
-            <WantMore />
+            {/* <WantMore /> */}
             {/* <WhyAffordable /> */}
             {/* <HowItWorks /> */}
             {/* <Trust /> */}

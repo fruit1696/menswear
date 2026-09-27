@@ -69,7 +69,7 @@ export default function Fabrics() {
             <section className="py-12 sm:py-16 bg-foreground text-primary-foreground">
                 <div className="mx-auto max-w-3xl px-5 sm:px-8 text-center">
                     <span className="text-[11px] uppercase tracking-[0.3em] text-accent">
-                        Want to See More?
+                        Explore Beyond Our Online Collection
                     </span>
                     <h2 className="mt-5 font-display text-4xl sm:text-5xl font-medium leading-tight text-balance">
                         WhatsApp us to see current available designs.

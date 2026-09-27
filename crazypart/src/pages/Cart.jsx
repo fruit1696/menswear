@@ -48,7 +48,7 @@ export default function Cart() {
                         ))}
                     </div>
                 )}
-                {!!lines.length && <div className="mt-8 border-t border-border/60 pt-6"><div className="flex items-center justify-between text-base"><span className="text-foreground/65">Subtotal</span><strong className="font-display text-2xl text-foreground">₹{Math.round(subtotal / 100)}</strong></div><p className="mt-2 text-xs text-foreground/50">Final stock and price are confirmed securely at checkout.</p><Link to="/checkout" className="mt-6 inline-flex items-center justify-center border-b border-accent pb-1 text-sm font-medium text-foreground">Proceed to checkout</Link></div>}
+                {!!lines.length && <div className="mt-8 border-t border-border/60 pt-6"><div className="flex items-center justify-between text-base"><span className="text-foreground/65">Subtotal</span><strong className="font-display text-2xl text-foreground">₹{Math.round(subtotal / 100)}</strong></div><p className="mt-2 text-xs text-foreground/50">Final stock and price are confirmed securely at checkout.</p><Button asChild size="lg" className="mt-6 w-full transition-transform active:scale-[0.98] sm:w-auto"><Link to="/checkout">Proceed to checkout</Link></Button></div>}
             </div>
         </div>
     );

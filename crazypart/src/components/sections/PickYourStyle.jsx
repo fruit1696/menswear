@@ -98,8 +98,8 @@ const HINDI = {
 
 const ENGLISH = {
     eyebrow: "Request live photos.",
-    title: "Want to See More Fabrics?",
-    description: "Looking for a specific fabric? Just select your preferred material, color, and pattern. Our experts will check our Current Stock and send you live photos of your perfect match over WhatsApp.",
+    title: "Explore Beyond Our Online Collection",
+    description: "Looking for a different color, pattern, or fabric? Our in-store collection includes many more options, with availability changing frequently as new stock arrives and pieces sell.",
 
     stepFabric: "Fabric",
     stepColor: "Color",
@@ -492,6 +492,7 @@ function ExploreDeposit({ isAuthenticated, user, message, navigate, saveWizardDr
     const [whatsappUrl, setWhatsappUrl] = useState("");
     const [error, setError] = useState("");
     const [showAuthPrompt, setShowAuthPrompt] = useState(false);
+    const whatsappMessage = `Hi, I’ve completed the refundable deposit and would like to explore additional colors and fabric varieties currently available.\n\n${message}`;
     const copy = isHindi ? {
         toggle: "See English",
         title: "और विकल्प देखना चाहते हैं?",
@@ -509,12 +510,12 @@ function ExploreDeposit({ isAuthenticated, user, message, navigate, saveWizardDr
     } : {
         toggle: "See Translation (हिंदी)",
         title: "Want to Explore More?",
-        intro: "Explore more colors, fabrics, styles, and patterns beyond our online collection.",
+        intro: "To request live photos and explore currently available options, a refundable deposit is required.",
         deposit: "₹100 Refundable Deposit",
         access: "Pay ₹100 to unlock WhatsApp access and request additional live photos from our wider collection.",
         refundable: "The ₹100 is fully refundable if you decide not to purchase, or can be adjusted toward your purchase.",
         open: "Open WhatsApp Access",
-        pay: "Pay ₹100 & Explore More",
+        pay: "Pay Refundable Deposit",
         checking: "Checking Access…",
         paying: "Opening Secure Payment…",
         auth: "Create an account or log in before payment.",
@@ -526,7 +527,7 @@ function ExploreDeposit({ isAuthenticated, user, message, navigate, saveWizardDr
         if (!isAuthenticated) return;
         let active = true;
         setStatus("checking");
-        getExploreAccess(message)
+        getExploreAccess(whatsappMessage)
             .then((access) => {
                 if (!active) return;
                 if (access.access_granted && access.whatsapp_url) {
@@ -536,7 +537,7 @@ function ExploreDeposit({ isAuthenticated, user, message, navigate, saveWizardDr
             })
             .catch(() => active && setStatus("idle"));
         return () => { active = false; };
-    }, [isAuthenticated, message]);
+    }, [isAuthenticated, whatsappMessage]);
 
     const startPayment = async () => {
         if (!isAuthenticated) {
@@ -546,7 +547,7 @@ function ExploreDeposit({ isAuthenticated, user, message, navigate, saveWizardDr
         setError("");
         setStatus("paying");
         try {
-            const access = await payExploreDeposit({ message, email: user?.email });
+            const access = await payExploreDeposit({ message: whatsappMessage, email: user?.email });
             if (!access.access_granted || !access.whatsapp_url) throw new Error("Payment was verified, but access could not be opened.");
             setWhatsappUrl(access.whatsapp_url);
             setStatus("unlocked");

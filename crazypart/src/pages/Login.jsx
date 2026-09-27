@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/lib/AuthContext";
 import { safeReturnTo } from "@/lib/authReturnTo";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 export default function Login({ mode = "login" }) {
     const { signInWithGoogle, signInWithPassword, signUpWithPassword, isSupabaseConfigured, isAuthenticated, isLoadingAuth } = useAuth();
@@ -95,6 +95,15 @@ export default function Login({ mode = "login" }) {
                 {loading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <GoogleIcon className="mr-2 h-5 w-5" />}
                 Continue with Google
             </Button>
+            <p className="mt-6 text-center text-sm text-muted-foreground">
+                {isRegister ? "Already have an account? " : "New to Crazy Cutpiece? "}
+                <Link
+                    to={`${isRegister ? "/login" : "/register"}?returnTo=${encodeURIComponent(safeReturnTo())}`}
+                    className="font-medium text-foreground underline decoration-accent underline-offset-4"
+                >
+                    {isRegister ? "Log in" : "Create an account"}
+                </Link>
+            </p>
         </AuthLayout>
     );
 }

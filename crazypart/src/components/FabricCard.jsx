@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import FabricCarousel from "@/components/FabricCarousel";
 import Image from "@/components/ui/image";
 import { fabricImages } from "@/lib/brand";
 import WishlistButton from "@/features/wishlist/WishlistButton";
@@ -13,7 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
  * The image area is a multi-image carousel (touch/swipe + arrows + dots).
  * Existing info is preserved: name, code, tone, description, WhatsApp CTA.
  */
-export default function FabricCard({ fabric, onSelectFabric, customerPick = false, staticCard = false }) {
+export default function FabricCard({ fabric, onSelectFabric, customerPick = false, staticCard = false, detailHref }) {
     const images = fabricImages(fabric);
     const navigate = useNavigate();
     const rating = useProductRating(fabric.productId);
@@ -21,11 +20,8 @@ export default function FabricCard({ fabric, onSelectFabric, customerPick = fals
     const handleImageClick = (event) => {
         if (event?.target.closest("button, a")) return;
         if (staticCard) return;
-        if (customerPick) {
-            navigate(`/fabrics/${fabric.id}`);
-            return;
-        }
-        onSelectFabric?.(fabric);
+        if (onSelectFabric) onSelectFabric(fabric);
+        else navigate(detailHref ?? `/fabrics/${fabric.id}`);
     };
 
     return (
@@ -33,35 +29,30 @@ export default function FabricCard({ fabric, onSelectFabric, customerPick = fals
             <div
                         className={`relative overflow-hidden swatch-shadow ${staticCard ? "cursor-default" : "cursor-pointer"} ${customerPick ? "rounded-xl" : "rounded-sm"}`}
                 onClick={handleImageClick}
-                role={customerPick && !staticCard ? "link" : undefined}
-                tabIndex={customerPick && !staticCard ? 0 : undefined}
-                onKeyDown={customerPick && !staticCard ? (event) => {
+                role={!staticCard ? "link" : undefined}
+                tabIndex={!staticCard ? 0 : undefined}
+                onKeyDown={!staticCard ? (event) => {
                     if (event.key === "Enter" || event.key === " ") handleImageClick(event);
                 } : undefined}
             >
                 {!customerPick && <WishlistButton productId={fabric.productId} productName={fabric.name} />}
-                {customerPick ? (
-                    images[0] && <Image
-                        src={images[0]}
-                        alt={`${fabric.name} — Raymond shirt fabric, 2-piece cut`}
-                        className="aspect-[3/4] w-full object-cover"
-                    />
-                ) : (
-                    <FabricCarousel
-                        images={images}
-                        altBase={`${fabric.name} — Raymond shirt fabric, 2-piece cut`}
-                        badge="2-PIECE SHIRT"
-                    />
-                )}
+                {images[0] && <Image
+                    src={images[0]}
+                    alt={`${fabric.name} — Raymond shirt fabric, 2-piece cut`}
+                    className={`w-full object-cover ${customerPick ? "aspect-[3/4]" : "aspect-[4/5]"}`}
+                />}
+                {!customerPick && <div className="pointer-events-none absolute left-4 top-4 z-20">
+                    <span className="inline-block rounded-sm bg-background/85 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-foreground backdrop-blur-sm">2-PIECE SHIRT</span>
+                </div>}
                 <ReviewRatingBadge rating={rating} productSlug={fabric.id} productName={fabric.name} />
             </div>
 
             <div className={customerPick ? "flex flex-col px-2.5 pb-3 pt-3 sm:px-3" : "mt-3 flex flex-col"}>
                 {customerPick ? (
-                    <CustomerPickDetails fabric={fabric} navigate={navigate} staticCard={staticCard} />
+                    <CustomerPickDetails fabric={fabric} navigate={navigate} staticCard={staticCard} detailHref={detailHref} />
                 ) : (
                     <button
-                        onClick={() => onSelectFabric ? onSelectFabric(fabric) : navigate(`/fabrics/${fabric.id}`)}
+                        onClick={() => onSelectFabric ? onSelectFabric(fabric) : navigate(detailHref ?? `/fabrics/${fabric.id}`)}
                         className="w-full overflow-hidden text-left font-display text-base font-medium leading-tight tracking-tight text-foreground transition-colors duration-300 hover:text-accent hover:underline decoration-accent underline-offset-4 whitespace-nowrap text-ellipsis"
                         title={fabric.name}
                     >
@@ -79,7 +70,7 @@ export default function FabricCard({ fabric, onSelectFabric, customerPick = fals
     );
 }
 
-function CustomerPickDetails({ fabric, navigate, staticCard }) {
+function CustomerPickDetails({ fabric, navigate, staticCard, detailHref }) {
     const title = String(fabric.name || "Shirt fabric").replace(/^Raymond\s*/i, "") || "Shirt fabric";
     const currentPrice = parsePrice(fabric.price);
     const sellingPriceLabel = formatSellingPrice(fabric.price);
@@ -93,7 +84,7 @@ function CustomerPickDetails({ fabric, navigate, staticCard }) {
         <div className="flex items-center justify-between gap-2">
             {staticCard ? <span className="truncate text-left font-sans text-sm font-bold uppercase leading-tight text-black">RAYMOND</span> : <button
                 type="button"
-                onClick={() => navigate(`/fabrics/${fabric.id}`)}
+                onClick={() => navigate(detailHref ?? `/fabrics/${fabric.id}`)}
                 className="truncate text-left font-sans text-sm font-bold uppercase leading-tight text-black hover:underline"
             >RAYMOND</button>}
             <WishlistButton productId={fabric.productId} productName={fabric.name} compact inline />

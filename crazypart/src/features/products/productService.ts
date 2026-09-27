@@ -1,5 +1,6 @@
 import { requireSupabase } from "@/api/supabaseClient";
 import type { Database } from "@/api/database.types";
+import { FEATURED_COLLECTION_LIST } from "@/lib/featuredCollections";
 
 type Product = Database["public"]["Tables"]["products"]["Row"];
 type ProductImage = Database["public"]["Tables"]["product_images"]["Row"];
@@ -8,9 +9,13 @@ export type ProductWithImages = Product & { images: ProductImage[] };
 
 export function productToFabric(product: ProductWithImages) {
     const client = requireSupabase();
-    const images = product.images.map((image) =>
+    const storageImages = product.images.map((image) =>
         client.storage.from("product-images").getPublicUrl(image.object_path).data.publicUrl
     );
+    const featuredFabric = FEATURED_COLLECTION_LIST
+        .flatMap((collection) => collection.varieties)
+        .find((fabric) => fabric.productId === product.id);
+    const images = storageImages.length ? storageImages : featuredFabric?.images ?? [];
 
     return {
         id: product.slug,

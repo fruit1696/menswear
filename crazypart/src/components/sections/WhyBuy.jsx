@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SectionHeading from "@/components/SectionHeading";
 import { IMAGES } from "@/lib/images";
-import { Truck, Tag, BadgeCheck, Eye, ShieldCheck, Languages } from "lucide-react";
+import { Truck, Tag, BadgeCheck, ShieldCheck, Languages } from "lucide-react";
 
 const TRUST_POINTS = [
     {
@@ -103,7 +103,7 @@ export default function WhyBuy() {
                 </div>
 
                 {/* FEATURE CARD 3: 100% TRANSPARENT SHOPPING */}
-                <div className={cardBoxClass}>
+                {/* <div className={cardBoxClass}>
                     <div className="flex flex-col items-center gap-2">
                         <Eye className="w-5 h-5 text-accent" strokeWidth={1.8} />
                         <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-accent">
@@ -131,7 +131,7 @@ export default function WhyBuy() {
                             </p>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 {/* FEATURE CARD 4: AUTHENTIC MILL STOCK */}
                 <div className={cardBoxClass}>

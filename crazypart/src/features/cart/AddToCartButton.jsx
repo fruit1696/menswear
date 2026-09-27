@@ -17,17 +17,18 @@ export default function AddToCartButton({ productId, product, compact = false })
         window.setTimeout(() => setAdded(false), 1600);
     };
 
-    const handleBuyNow = () => {
+    const handleBuyNow = async () => {
+        await addItem(productId, quantity, product);
         navigate(`/checkout?buyNow=${encodeURIComponent(productId)}&quantity=${quantity}`);
     };
 
     return <div className={compact ? "flex gap-3" : "mt-4 flex flex-wrap items-center gap-3"}>
         {!compact && <div className="flex items-center border border-input"><button type="button" className="h-10 w-10" onClick={() => setQuantity((current) => Math.max(1, current - 1))} aria-label="Decrease quantity">−</button><span className="w-8 text-center text-sm">{quantity}</span><button type="button" className="h-10 w-10" onClick={() => setQuantity((current) => Math.min(50, current + 1))} aria-label="Increase quantity">+</button></div>}
         <>
-            <Button type="button" onClick={handleAdd} size={compact ? "sm" : "default"} className={compact ? "" : "w-full sm:w-auto"} aria-label="Add product to cart">
-                {added ? <Check /> : <ShoppingBag />}{added ? "Added to cart" : "Add to cart"}
+            <Button type="button" variant="outline" onClick={handleAdd} size={compact ? "sm" : "default"} className={compact ? "" : "w-full sm:w-auto"} aria-label="Add product to cart">
+                {added ? <Check /> : <ShoppingBag />}{added ? "Added to Cart" : "Add to Cart"}
             </Button>
-            <Button type="button" variant="outline" onClick={handleBuyNow} size={compact ? "sm" : "default"} className={compact ? "" : "w-full sm:w-auto"} aria-label="Buy product now">
+            <Button type="button" onClick={handleBuyNow} size={compact ? "sm" : "default"} className={compact ? "" : "w-full sm:w-auto"} aria-label="Buy product now">
                 <ArrowRight />Buy Now
             </Button>
         </>

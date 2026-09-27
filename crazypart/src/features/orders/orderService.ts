@@ -12,3 +12,13 @@ export async function listMyOrders(userId: string) {
     for (const item of items ?? []) itemsByOrder.set(item.order_id, [...(itemsByOrder.get(item.order_id) ?? []), item]);
     return orders.map((order) => ({ ...order, items: itemsByOrder.get(order.id) ?? [] }));
 }
+
+export async function getMyOrder(userId: string, orderId: string) {
+    const client = requireSupabase();
+    const { data: order, error } = await client.from("orders").select("*").eq("id", orderId).eq("user_id", userId).maybeSingle();
+    if (error) throw error;
+    if (!order) return null;
+    const { data: items, error: itemError } = await client.from("order_items").select("*").eq("order_id", orderId);
+    if (itemError) throw itemError;
+    return { ...order, items: items ?? [] };
+}

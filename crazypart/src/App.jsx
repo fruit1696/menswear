@@ -30,6 +30,7 @@ import AdminProducts from '@/pages/AdminProducts';
 import Wishlist from '@/pages/Wishlist';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import FeaturedCollection from '@/pages/FeaturedCollection';
+import OrderConfirmation from '@/pages/OrderConfirmation';
 
 const AppRoutes = () => {
     return (
@@ -39,11 +40,13 @@ const AppRoutes = () => {
                 <Route path="/fabrics" element={<Fabrics />} />
                 <Route path="/fabrics/:id" element={<FabricDetail />} />
                 <Route path="/collections/:collectionId" element={<FeaturedCollection />} />
+                <Route path="/collections/:collectionId/:productId" element={<FeaturedCollection />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/wishlist" element={<Wishlist />} />
                 <Route path="/account" element={<Account />} />
                 <Route element={<ProtectedRoute />}>
                     <Route path="/checkout" element={<Checkout />} />
+                    <Route path="/order-confirmation/:orderId" element={<OrderConfirmation />} />
                 </Route>
                 <Route path="/policies/refund" element={<RefundPolicy />} />
                 <Route path="/policies/privacy" element={<PrivacyPolicy />} />

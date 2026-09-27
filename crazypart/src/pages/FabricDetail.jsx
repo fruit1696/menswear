@@ -6,18 +6,23 @@ import FabricCarousel from "@/components/FabricCarousel";
 import { WhatsAppIcon } from "@/components/Navbar";
 import { FABRICS, fabricImages, whatsappLink } from "@/lib/brand";
 import { trackWhatsAppClick } from "@/lib/gtag";
-import { useActiveProduct } from "@/features/products/productQueries";
+import { useActiveProduct, useActiveProducts } from "@/features/products/productQueries";
 import { productToFabric } from "@/features/products/productService";
 import { createReview, getReviewContext, listProductReviews, updateReview } from "@/features/reviews/reviewService";
 import { useAuth } from "@/lib/AuthContext";
 import AddToCartButton from "@/features/cart/AddToCartButton";
 import WishlistButton from "@/features/wishlist/WishlistButton";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import FabricCard from "@/components/FabricCard";
 
 export default function FabricDetail() {
     const { id } = useParams();
     const { data: product } = useActiveProduct(id);
+    const { data: activeProducts } = useActiveProducts();
     const fabric = product ? productToFabric(product) : FABRICS.find((f) => f.id === id);
+    const relatedFabrics = (activeProducts?.map(productToFabric) ?? FABRICS)
+        .filter((item) => item.id !== id)
+        .slice(0, 4);
     const [largeImage, setLargeImage] = React.useState(null);
     const [showAllSpecifications, setShowAllSpecifications] = React.useState(false);
 
@@ -164,6 +169,18 @@ export default function FabricDetail() {
                     </div>
                 </div>
             </section>
+
+            {relatedFabrics.length > 0 && <section className="border-t border-border/60 bg-[#F9F8F6] py-16 sm:py-20" aria-labelledby="related-products-heading">
+                <div className="mx-auto max-w-7xl px-5 sm:px-8">
+                    <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-accent">You may also like</p>
+                    <h2 id="related-products-heading" className="mt-3 font-display text-3xl font-medium text-foreground sm:text-4xl">Related Products</h2>
+                    <div className="mt-8 flex snap-x snap-mandatory gap-3 overflow-x-auto pb-3 md:gap-4">
+                        {relatedFabrics.map((related) => <div key={related.id} className="w-[72vw] max-w-[280px] flex-none snap-start sm:w-[280px]">
+                            <FabricCard fabric={related} customerPick />
+                        </div>)}
+                    </div>
+                </div>
+            </section>}
 
             <ProductReviews productId={fabric.productId} productName={fabric.name} />
 
