@@ -10,7 +10,7 @@ export default function ShippingPolicy() {
                     <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-semibold">
                         Crazy Cutpiece Policies
                     </span>
-                    <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-foreground mt-2">
+                    <h1 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-foreground mt-2">
                         Shipping Policy
                     </h1>
                     <p className="text-sm text-muted-foreground mt-3">
@@ -26,7 +26,7 @@ export default function ShippingPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-foreground mb-3">How Your Order Works</h2>
+                        <h2 className="font-display text-lg font-semibold text-foreground mb-3">How Your Order Works</h2>
                         <p className="text-muted-foreground mb-2">
                             Our ordering process is simple:
                         </p>
@@ -40,7 +40,7 @@ export default function ShippingPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-foreground mb-3">Processing &amp; Dispatch</h2>
+                        <h2 className="font-display text-lg font-semibold text-foreground mb-3">Processing &amp; Dispatch</h2>
                         <p className="text-muted-foreground">
                             Orders are normally prepared and dispatched after payment confirmation.
                         </p>
@@ -53,7 +53,7 @@ export default function ShippingPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-foreground mb-3">Delivery</h2>
+                        <h2 className="font-display text-lg font-semibold text-foreground mb-3">Delivery</h2>
                         <p className="text-muted-foreground">
                             Delivery times depend on the shipping carrier, destination, weather, holidays, and other circumstances outside our control.
                         </p>
@@ -66,7 +66,7 @@ export default function ShippingPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-foreground mb-3">Tracking</h2>
+                        <h2 className="font-display text-lg font-semibold text-foreground mb-3">Tracking</h2>
                         <p className="text-muted-foreground">
                             Once your order has been shipped, the tracking ID will be shared with you through WhatsApp.
                         </p>
@@ -76,7 +76,7 @@ export default function ShippingPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-foreground mb-3">Incorrect Address</h2>
+                        <h2 className="font-display text-lg font-semibold text-foreground mb-3">Incorrect Address</h2>
                         <p className="text-muted-foreground">
                             Please make sure that the delivery address and contact information provided to us are correct before the order is shipped.
                         </p>
@@ -86,7 +86,7 @@ export default function ShippingPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-foreground mb-3">Damaged Packages</h2>
+                        <h2 className="font-display text-lg font-semibold text-foreground mb-3">Damaged Packages</h2>
                         <p className="text-muted-foreground">
                             If your package appears damaged when delivered, please take photographs or a video of the package and contact us on WhatsApp as soon as possible.
                         </p>
@@ -96,7 +96,7 @@ export default function ShippingPolicy() {
                     </section>
 
                     <section className="bg-secondary/40 p-6 rounded-lg border border-border mt-10">
-                        <h3 className="font-semibold text-foreground mb-2">Have shipping questions?</h3>
+                        <h3 className="font-display font-semibold text-foreground mb-2">Have shipping questions?</h3>
                         <p className="text-sm text-muted-foreground mb-4">
                             Contact us on WhatsApp for tracking updates or shipping assistance.
                         </p>
@@ -104,7 +104,7 @@ export default function ShippingPolicy() {
                             href={whatsappLink("Hi Crazy Cutpiece, I have a question about my shipping/order.")}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded transition-colors"
+                            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[hsl(var(--whatsapp))] hover:opacity-90 text-[hsl(var(--whatsapp-foreground))] text-sm font-medium rounded-sm transition-opacity"
                         >
                             <WhatsAppIcon className="w-4 h-4" />
                             Contact Support on WhatsApp

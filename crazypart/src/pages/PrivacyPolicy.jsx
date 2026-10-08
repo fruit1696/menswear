@@ -10,7 +10,7 @@ export default function PrivacyPolicy() {
                     <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-semibold">
                         Crazy Cutpiece Policies
                     </span>
-                    <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-foreground mt-2">
+                    <h1 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-foreground mt-2">
                         Privacy Policy
                     </h1>
                     <p className="text-sm text-muted-foreground mt-3">
@@ -29,7 +29,7 @@ export default function PrivacyPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-foreground mb-3">Information We May Collect</h2>
+                        <h2 className="font-display text-lg font-semibold text-foreground mb-3">Information We May Collect</h2>
                         <p className="text-muted-foreground mb-2">
                             Depending on how you use our website and place an order, we may collect information such as:
                         </p>
@@ -46,7 +46,7 @@ export default function PrivacyPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-foreground mb-3">How We Use Your Information</h2>
+                        <h2 className="font-display text-lg font-semibold text-foreground mb-3">How We Use Your Information</h2>
                         <p className="text-muted-foreground mb-2">
                             We may use your information to:
                         </p>
@@ -64,7 +64,7 @@ export default function PrivacyPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-foreground mb-3">Payments</h2>
+                        <h2 className="font-display text-lg font-semibold text-foreground mb-3">Payments</h2>
                         <p className="text-muted-foreground">
                             Crazy Cutpiece does not currently process payments directly through an online payment gateway on this website.
                         </p>
@@ -77,7 +77,7 @@ export default function PrivacyPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-foreground mb-3">Sharing Your Information</h2>
+                        <h2 className="font-display text-lg font-semibold text-foreground mb-3">Sharing Your Information</h2>
                         <p className="text-muted-foreground">
                             We may share necessary customer information with service providers involved in fulfilling your order, such as shipping or delivery providers.
                         </p>
@@ -90,7 +90,7 @@ export default function PrivacyPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-foreground mb-3">WhatsApp Communication</h2>
+                        <h2 className="font-display text-lg font-semibold text-foreground mb-3">WhatsApp Communication</h2>
                         <p className="text-muted-foreground">
                             When you contact Crazy Cutpiece through WhatsApp, your communication is also subject to WhatsApp&apos;s own privacy policies and terms.
                         </p>
@@ -100,7 +100,7 @@ export default function PrivacyPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-foreground mb-3">Data Security</h2>
+                        <h2 className="font-display text-lg font-semibold text-foreground mb-3">Data Security</h2>
                         <p className="text-muted-foreground">
                             We take reasonable steps to protect the information we collect from unauthorized access, misuse, alteration, or disclosure.
                         </p>
@@ -110,7 +110,7 @@ export default function PrivacyPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-foreground mb-3">Changes to This Privacy Policy</h2>
+                        <h2 className="font-display text-lg font-semibold text-foreground mb-3">Changes to This Privacy Policy</h2>
                         <p className="text-muted-foreground">
                             We may update this Privacy Policy from time to time to reflect changes to our business, website, or legal requirements.
                         </p>
@@ -120,7 +120,7 @@ export default function PrivacyPolicy() {
                     </section>
 
                     <section className="bg-secondary/40 p-6 rounded-lg border border-border mt-10">
-                        <h3 className="font-semibold text-foreground mb-2">Contact Us</h3>
+                        <h3 className="font-display font-semibold text-foreground mb-2">Contact Us</h3>
                         <p className="text-sm text-muted-foreground mb-4">
                             If you have questions about this Privacy Policy or how your information is handled, please contact Crazy Cutpiece through WhatsApp.
                         </p>
@@ -128,7 +128,7 @@ export default function PrivacyPolicy() {
                             href={whatsappLink("Hi Crazy Cutpiece, I have a question regarding your Privacy Policy.")}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded transition-colors"
+                            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[hsl(var(--whatsapp))] hover:opacity-90 text-[hsl(var(--whatsapp-foreground))] text-sm font-medium rounded-sm transition-opacity"
                         >
                             <WhatsAppIcon className="w-4 h-4" />
                             Contact Us on WhatsApp

@@ -36,8 +36,7 @@ export default function Footer() {
                         </div>
                         <p className="mt-6 text-sm text-primary-foreground/70 max-w-sm leading-relaxed">
                             A curated gateway to Raymond shirt fabrics, sold as convenient
-                            2-piece sets. The fabrics shown online are only a glimpse —
-                            the full collection is yours to discover on WhatsApp.
+                            2-piece sets.
                         </p>
                     </div>
 
@@ -133,8 +132,8 @@ export default function Footer() {
                             {/* Dropdown panel positioned cleanly above button with padding bridge */}
                             <div
                                 className={`absolute left-0 bottom-full pb-2 w-56 transition-all duration-200 ease-in-out z-50 ${dropdownOpen
-                                        ? "opacity-100 visible translate-y-0"
-                                        : "opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0"
+                                    ? "opacity-100 visible translate-y-0"
+                                    : "opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0"
                                     }`}
                             >
                                 <div className="rounded-md bg-zinc-900 border border-white/15 shadow-2xl p-2">

@@ -31,6 +31,7 @@ import Wishlist from '@/pages/Wishlist';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import FeaturedCollection from '@/pages/FeaturedCollection';
 import OrderConfirmation from '@/pages/OrderConfirmation';
+import AdminProductRequests from '@/pages/AdminProductRequests';
 
 const AppRoutes = () => {
     return (
@@ -57,6 +58,7 @@ const AppRoutes = () => {
                         <Route path="/admin/catalog" element={<AdminCatalog />} />
                         <Route path="/admin/products" element={<AdminProducts />} />
                         <Route path="/admin/orders" element={<AdminOrders />} />
+                        <Route path="/admin/requests" element={<AdminProductRequests />} />
                     </Route>
                 </Route>
             </Route>

@@ -6,10 +6,11 @@ import { trackWhatsAppClick } from "@/lib/gtag";
 import TranslateText from "@/components/TranslateText";
 import { useActiveProducts } from "@/features/products/productQueries";
 import { productToFabric } from "@/features/products/productService";
+import { FULL_COLLECTION } from "@/lib/featuredCollections";
 
 export default function Fabrics() {
     const { data: products } = useActiveProducts();
-    const fabrics = products?.map(productToFabric) ?? FABRICS;
+    const fabrics = products?.length ? products.map(productToFabric) : FULL_COLLECTION.varieties;
 
     React.useEffect(() => {
         document.title = "Selected Raymond Shirt Fabrics | Crazy Cutpiece";
@@ -35,7 +36,7 @@ export default function Fabrics() {
                                 </h1>
                                 <div className="brass-rule w-24 mt-7" />
                                 <p className="mt-7 text-lg text-foreground/75 leading-relaxed max-w-2xl">
-                                    What you see here is just a small glimpse of our collection. With 5,000+ fabrics and varieties to choose from, we can’t showcase everything online. WhatsApp us to explore our full collection.
+                                    What you see here is just a small glimpse of our collection. With 5,000+ fabrics and varieties to choose from, we can’t showcase everything online. Looking for a different color or pattern? Let us know what you’re looking for, and if it’s available, we’ll notify you.
                                 </p>
                             </>
                         }
@@ -46,7 +47,8 @@ export default function Fabrics() {
                                 </h1>
                                 <div className="brass-rule w-24 mt-7" />
                                 <p className="mt-7 text-lg text-foreground/75 leading-relaxed max-w-2xl">
-                                    जो आप यहाँ देख रहे हैं वह हमारे संग्रह की केवल एक छोटी सी झलक है। 5,000+ कपड़ों और किस्मों के साथ, हम सब कुछ ऑनलाइन नहीं दिखा सकते। हमारा पूरा संग्रह देखने के लिए हमें WhatsApp करें।
+                                    यह हमारी पूरी कलेक्शन की सिर्फ़ एक छोटी-सी झलक है। हमारे पास 5,000+ फैब्रिक्स और कई तरह के रंग व पैटर्न उपलब्ध हैं, जिन्हें हम पूरी तरह ऑनलाइन नहीं दिखा सकते। आपको कोई दूसरा रंग या पैटर्न चाहिए? हमें बताइए कि आप क्या ढूंढ रहे हैं। अगर वह उपलब्ध हुआ, तो हम आपको सूचित करेंगे।
+
                                 </p>
                             </>
                         }
@@ -57,9 +59,9 @@ export default function Fabrics() {
             {/* Gallery */}
             <section className="py-12 sm:py-16">
                 <div className="mx-auto max-w-7xl px-5 sm:px-8">
-                    <div className="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-                        {fabrics.map((f, i) => (
-                            <FabricCard key={f.id} fabric={f} index={i} />
+                    <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+                        {fabrics.map((f) => (
+                            <FabricCard key={f.id} fabric={f} customerPick detailHref={`/collections/all/${f.id}`} />
                         ))}
                     </div>
                 </div>
@@ -72,22 +74,12 @@ export default function Fabrics() {
                         Explore Beyond Our Online Collection
                     </span>
                     <h2 className="mt-5 font-display text-4xl sm:text-5xl font-medium leading-tight text-balance">
-                        WhatsApp us to see current available designs.
+                        Let us know what you’re looking for
                     </h2>
                     <p className="mt-6 text-primary-foreground/75 leading-relaxed">
-                        These are only a few examples. We have 5000+ fabrics available —
-                        tell us what you're looking for and we'll send live photos.
+                        These are only a few examples. We have 5000+ fabrics available
+                        Looking for a different color or pattern? Let us know what you’re looking for, and if it’s available, we’ll notify you.
                     </p>
-                    <a
-                        href={whatsappLink("Hi Crazy Cutpiece, I'd like to see more shirt fabric designs.")}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => trackWhatsAppClick('fabrics_gallery_cta')}
-                        className="mt-9 inline-flex items-center gap-2.5 px-7 py-4 bg-white/10 hover:bg-white/15 text-sm font-medium tracking-wide rounded-sm transition-colors duration-300"
-                    >
-                        <WhatsAppIcon className="w-4 h-4" />
-                        WhatsApp Us
-                    </a>
                 </div>
             </section>
         </div>

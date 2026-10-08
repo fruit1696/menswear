@@ -8,10 +8,20 @@ import PickYourStyle from "@/components/sections/PickYourStyle";
 import { FEATURED_COLLECTIONS, FULL_COLLECTION } from "@/lib/featuredCollections";
 import { fabricImages } from "@/lib/brand";
 import AddToCartButton from "@/features/cart/AddToCartButton";
+import WishlistButton from "@/features/wishlist/WishlistButton";
+import ProductOptionRequest from "@/features/productRequests/ProductOptionRequest";
+import { useActiveProducts } from "@/features/products/productQueries";
+import { productToFabric } from "@/features/products/productService";
 
 export default function FeaturedCollection() {
     const { collectionId, productId } = useParams();
-    const collection = collectionId === "all" ? FULL_COLLECTION : FEATURED_COLLECTIONS[collectionId];
+    const { data: products } = useActiveProducts();
+    
+    let collection = collectionId === "all" ? FULL_COLLECTION : FEATURED_COLLECTIONS[collectionId];
+    if (collectionId === "all" && products?.length) {
+        collection = { ...collection, varieties: products.map(productToFabric) };
+    }
+    
     const selectedFabric = productId ? collection?.varieties.find((fabric) => fabric.id === productId) : null;
 
     React.useEffect(() => {
@@ -68,7 +78,8 @@ function CollectionProductDetail({ fabric, collection, collectionId }) {
                 <ArrowLeft className="h-4 w-4" />Back to {collection.name}
             </Link>
             <div className="mt-8 grid items-start gap-10 lg:grid-cols-12 lg:gap-16">
-                <div className="overflow-hidden rounded-xl bg-secondary shadow-lg lg:col-span-7">
+                <div className="relative overflow-hidden rounded-xl bg-secondary shadow-lg lg:col-span-7">
+                    <WishlistButton productId={fabric.productId} productName={fabric.name} />
                     <FabricCarousel
                         images={fabricImages(fabric)}
                         altBase={`${fabric.name} — Raymond shirt fabric`}
@@ -80,8 +91,8 @@ function CollectionProductDetail({ fabric, collection, collectionId }) {
                     <h1 className="mt-4 font-display text-4xl font-medium leading-tight text-foreground sm:text-5xl">{fabric.name}</h1>
                     <div className="brass-rule mt-6 w-20" />
                     <p className="mt-6 text-lg font-semibold text-foreground">{String(fabric.price).replace("/", "/ ")}</p>
-                    <p className="mt-5 text-sm leading-relaxed text-foreground/65">Swipe on mobile or use the image arrows to explore all available photos of this fabric.</p>
                     <AddToCartButton productId={fabric.productId} product={fabric} />
+                    <ProductOptionRequest product={fabric} />
                 </div>
             </div>
             {relatedProducts.length > 0 && <section className="mt-20 border-t border-border/60 pt-12 sm:mt-24 sm:pt-16" aria-labelledby="related-products-heading">

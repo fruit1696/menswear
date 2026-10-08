@@ -8,7 +8,7 @@ import { useCart } from "@/features/cart/CartProvider";
 
 const NAV_LINKS = [
     { label: "Home", to: "/" },
-    { label: "Shop Fabrics", to: "/fabrics" },
+    { label: "Shop Fabric", to: "/fabrics" },
     { label: "2-Piece Concept", to: "/#concept" },
     { label: "About Us", to: "/#about" },
 ];
@@ -19,7 +19,7 @@ export default function Navbar() {
     const location = useLocation();
     const isHeroNavigation = location.pathname === "/";
     const { itemCount } = useCart();
-    const { isAuthenticated, logout } = useAuth();
+    const { isAuthenticated, isAdmin, logout } = useAuth();
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 24);
@@ -48,7 +48,7 @@ export default function Navbar() {
                     >
                         {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                     </button>
-                    {/* Left: Navigation and account actions */}
+                    {/* Left: Navigation actions */}
                     <div className="hidden flex-1 items-center gap-5 z-10 md:flex lg:gap-7">
                         {NAV_LINKS.map((l) => (
                             <Link
@@ -59,9 +59,7 @@ export default function Navbar() {
                                 {l.label}
                             </Link>
                         ))}
-                        <Link to="/account" className="p-2 text-foreground hover:text-accent" aria-label="Account" title="Account">
-                            <UserRound className="h-5 w-5" />
-                        </Link>
+                        {isAdmin && <Link to="/admin/requests" className="text-sm font-medium tracking-wide text-foreground/75 transition-colors hover:text-foreground">Admin Requests</Link>}
                     </div>
 
                     {/* Center: Brand Name (Crazy Cutpiece) */}
@@ -75,15 +73,32 @@ export default function Navbar() {
 
                     {/* Right: Shopping shortcuts */}
                     <div className="ml-auto flex flex-1 items-center justify-end gap-3 z-10">
-                        <Link to="/cart" className="relative flex h-9 w-9 items-center justify-center text-foreground hover:text-accent" aria-label={`Cart with ${itemCount} items`} title="Cart">
-                            <ShoppingBag className="h-5 w-5" />
-                            {itemCount > 0 && <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] text-accent-foreground">{itemCount}</span>}
-                        </Link>
-                        {isHeroNavigation ? <Link to={isAuthenticated ? "/account" : "/login?returnTo=%2Faccount"} className="flex h-9 w-9 items-center justify-center text-foreground hover:text-accent" aria-label={isAuthenticated ? "Account" : "Login or sign up"} title={isAuthenticated ? "Account" : "Login / Sign Up"}>
-                            <UserRound className="h-5 w-5" />
-                        </Link> : <Link to="/wishlist" className="flex h-9 w-9 items-center justify-center text-foreground hover:text-accent" aria-label="Wishlist" title="Wishlist">
-                            <Heart className="h-5 w-5" />
-                        </Link>}
+                        {/* Desktop right shortcuts: Wishlist, Cart, Account */}
+                        <div className="hidden md:flex items-center gap-3">
+                            <Link to="/wishlist" className="flex h-9 w-9 items-center justify-center text-foreground hover:text-accent" aria-label="Wishlist" title="Wishlist">
+                                <Heart className="h-5 w-5" />
+                            </Link>
+                            <Link to="/cart" className="relative flex h-9 w-9 items-center justify-center text-foreground hover:text-accent" aria-label={`Cart with ${itemCount} items`} title="Cart">
+                                <ShoppingBag className="h-5 w-5" />
+                                {itemCount > 0 && <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] text-accent-foreground">{itemCount}</span>}
+                            </Link>
+                            <Link to={isAuthenticated ? "/account" : "/login?returnTo=%2Faccount"} className="flex h-9 w-9 items-center justify-center text-foreground hover:text-accent" aria-label={isAuthenticated ? "Account" : "Login or sign up"} title={isAuthenticated ? "Account" : "Login / Sign Up"}>
+                                <UserRound className="h-5 w-5" />
+                            </Link>
+                        </div>
+
+                        {/* Mobile right shortcuts (100% unchanged) */}
+                        <div className="flex md:hidden items-center gap-3">
+                            <Link to="/cart" className="relative flex h-9 w-9 items-center justify-center text-foreground hover:text-accent" aria-label={`Cart with ${itemCount} items`} title="Cart">
+                                <ShoppingBag className="h-5 w-5" />
+                                {itemCount > 0 && <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] text-accent-foreground">{itemCount}</span>}
+                            </Link>
+                            {isHeroNavigation ? <Link to={isAuthenticated ? "/account" : "/login?returnTo=%2Faccount"} className="flex h-9 w-9 items-center justify-center text-foreground hover:text-accent" aria-label={isAuthenticated ? "Account" : "Login or sign up"} title={isAuthenticated ? "Account" : "Login / Sign Up"}>
+                                <UserRound className="h-5 w-5" />
+                            </Link> : <Link to="/wishlist" className="flex h-9 w-9 items-center justify-center text-foreground hover:text-accent" aria-label="Wishlist" title="Wishlist">
+                                <Heart className="h-5 w-5" />
+                            </Link>}
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -102,10 +117,6 @@ export default function Navbar() {
                             </Link>
                         ))}
                         <Link to="/account" className="py-3 text-base text-foreground/80 border-b border-border/40">Account</Link>
-                        <Link to="/wishlist" className="py-3 text-base text-foreground/80 border-b border-border/40">Wishlist</Link>
-                        <Link to="/cart" className="py-3 text-base text-foreground/80 border-b border-border/40">Cart</Link>
-                        {isAuthenticated && <button type="button" onClick={logout} className="py-3 text-left text-base text-foreground/80 border-b border-border/40">Sign out</button>}
-
                     </div>
                 </div>
             )}

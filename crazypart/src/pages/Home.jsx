@@ -5,7 +5,7 @@ import VisitStore from "@/components/sections/VisitStore";
 import TwoPieceConcept from "@/components/sections/TwoPieceConcept";
 import WhyBuy from "@/components/sections/WhyBuy";
 import FinalCTA from "@/components/sections/FinalCTA";
-import PickYourStyle from "@/components/sections/PickYourStyle";
+// import PickYourStyle from "@/components/sections/PickYourStyle";
 
 export default function Home() {
     React.useEffect(() => {
@@ -22,7 +22,7 @@ export default function Home() {
             <SelectedCollection />
             <TwoPieceConcept />
             <WhyBuy />
-            <PickYourStyle />
+            {/* <PickYourStyle /> */}
             {/* <BrandIntro /> */}
             {/* <Quality /> */}
             <VisitStore />

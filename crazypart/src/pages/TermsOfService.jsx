@@ -10,7 +10,7 @@ export default function TermsOfService() {
                     <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-semibold">
                         Crazy Cutpiece Policies
                     </span>
-                    <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-foreground mt-2">
+                    <h1 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-foreground mt-2">
                         Terms of Service
                     </h1>
                     <p className="text-sm text-muted-foreground mt-3">
@@ -29,7 +29,7 @@ export default function TermsOfService() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-foreground mb-3">About Our Products</h2>
+                        <h2 className="font-display text-lg font-semibold text-foreground mb-3">About Our Products</h2>
                         <p className="text-muted-foreground">
                             Crazy Cutpiece sells fabric and pre-cut fabric pieces through its website.
                         </p>
@@ -42,7 +42,7 @@ export default function TermsOfService() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-foreground mb-3">Product Availability</h2>
+                        <h2 className="font-display text-lg font-semibold text-foreground mb-3">Product Availability</h2>
                         <p className="text-muted-foreground">
                             All products are subject to availability.
                         </p>
@@ -55,7 +55,7 @@ export default function TermsOfService() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-foreground mb-3">Orders &amp; Payment</h2>
+                        <h2 className="font-display text-lg font-semibold text-foreground mb-3">Orders &amp; Payment</h2>
                         <p className="text-muted-foreground">
                             Crazy Cutpiece does not currently process payments through an online payment gateway on the website.
                         </p>
@@ -71,7 +71,7 @@ export default function TermsOfService() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-foreground mb-3">Order Cancellation</h2>
+                        <h2 className="font-display text-lg font-semibold text-foreground mb-3">Order Cancellation</h2>
                         <p className="text-muted-foreground">
                             Because our products may be pre-cut and prepared specifically for an order, cancellation may not be possible after the order has been confirmed and payment has been received.
                         </p>
@@ -81,7 +81,7 @@ export default function TermsOfService() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-foreground mb-3">Shipping</h2>
+                        <h2 className="font-display text-lg font-semibold text-foreground mb-3">Shipping</h2>
                         <p className="text-muted-foreground">
                             After an order has been confirmed and payment has been received, Crazy Cutpiece will prepare the order for dispatch.
                         </p>
@@ -94,7 +94,7 @@ export default function TermsOfService() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-foreground mb-3">Returns &amp; Refunds</h2>
+                        <h2 className="font-display text-lg font-semibold text-foreground mb-3">Returns &amp; Refunds</h2>
                         <p className="text-muted-foreground">
                             Returns, exchanges, and refunds are governed by our Refund Policy.
                         </p>
@@ -107,7 +107,7 @@ export default function TermsOfService() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-foreground mb-3">Website Use</h2>
+                        <h2 className="font-display text-lg font-semibold text-foreground mb-3">Website Use</h2>
                         <p className="text-muted-foreground">
                             You agree to use this website only for lawful purposes.
                         </p>
@@ -124,14 +124,14 @@ export default function TermsOfService() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-foreground mb-3">Intellectual Property</h2>
+                        <h2 className="font-display text-lg font-semibold text-foreground mb-3">Intellectual Property</h2>
                         <p className="text-muted-foreground">
                             The content of the Crazy Cutpiece website, including text, photographs, graphics, logos, designs, product descriptions, and other materials, belongs to Crazy Cutpiece or its respective owners and may not be reproduced or used without permission.
                         </p>
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-foreground mb-3">Limitation of Liability</h2>
+                        <h2 className="font-display text-lg font-semibold text-foreground mb-3">Limitation of Liability</h2>
                         <p className="text-muted-foreground">
                             Crazy Cutpiece will make reasonable efforts to ensure that product information and website content are accurate.
                         </p>
@@ -144,7 +144,7 @@ export default function TermsOfService() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-foreground mb-3">Changes to These Terms</h2>
+                        <h2 className="font-display text-lg font-semibold text-foreground mb-3">Changes to These Terms</h2>
                         <p className="text-muted-foreground">
                             We may update these Terms of Service from time to time.
                         </p>
@@ -154,7 +154,7 @@ export default function TermsOfService() {
                     </section>
 
                     <section className="bg-secondary/40 p-6 rounded-lg border border-border mt-10">
-                        <h3 className="font-semibold text-foreground mb-2">Contact Us</h3>
+                        <h3 className="font-display font-semibold text-foreground mb-2">Contact Us</h3>
                         <p className="text-sm text-muted-foreground mb-4">
                             If you have questions about these Terms of Service, your order, or any of our policies, please contact Crazy Cutpiece through WhatsApp.
                         </p>
@@ -162,7 +162,7 @@ export default function TermsOfService() {
                             href={whatsappLink("Hi Crazy Cutpiece, I have a question regarding the Terms of Service.")}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded transition-colors"
+                            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[hsl(var(--whatsapp))] hover:opacity-90 text-[hsl(var(--whatsapp-foreground))] text-sm font-medium rounded-sm transition-opacity"
                         >
                             <WhatsAppIcon className="w-4 h-4" />
                             Contact Us on WhatsApp

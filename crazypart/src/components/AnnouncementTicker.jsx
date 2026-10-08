@@ -5,9 +5,7 @@ const ANNOUNCEMENTS = [
     "Premium Fabrics. Crazy Prices.",
     "Raymond Shirting.",
     "2-Piece Shirt Sets.",
-    "Choose Your Fabric. We'll Find the Match.",
-    "Real Raymond Fabric. Real Availability.",
-    "Order on WhatsApp.",
+    "Real Raymond Fabric.",
     "Free Shipping across India.",
 ];
 

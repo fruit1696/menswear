@@ -86,33 +86,35 @@ export default function Hero() {
             <h1 className="sr-only">Raymond Shirt Fabric Online | Crazy Cutpiece</h1>
 
             {/* Main Content Composition */}
-            <div className="relative z-10 mx-auto max-w-4xl w-full flex flex-col items-center gap-6 sm:gap-8 text-center my-auto">
+            <div className="relative z-10 mx-auto max-w-4xl md:max-w-7xl md:w-[85vw] w-full flex flex-col items-center gap-6 sm:gap-8 text-center my-auto">
 
                 {/* 1. FABRIC CAROUSEL */}
-                <div className="w-full max-w-[600px] flex flex-col items-center gap-4">
+                <div className="w-full max-w-[600px] md:max-w-7xl md:w-[85vw] flex flex-col items-center gap-4">
                     {/* Carousel Container with Touch/Swipe */}
-                    <div className="relative w-full aspect-[9/16] rounded-2xl overflow-visible border border-border/80 bg-white shadow-lg flex items-center justify-center group">
+                    <div className="relative w-full overflow-visible group">
 
                         {/* Embla Viewport */}
-                        <div className="overflow-hidden w-full h-full rounded-2xl touch-pan-y" ref={emblaRef}>
-                            <div className="flex h-full">
+                        <div className="overflow-hidden w-full touch-pan-y" ref={emblaRef}>
+                            <div className="flex -ml-4 md:-ml-6">
                                 {heroSlides.map((slide, idx) => (
-                                    <div className="flex-[0_0_100%] min-w-0 h-full relative" key={idx}>
-                                        <a
-                                            href={slide.href}
-                                            target={slide.isExternal ? "_blank" : undefined}
-                                            rel={slide.isExternal ? "noopener noreferrer" : undefined}
-                                            onClick={slide.onClick}
-                                            className="block w-full h-full cursor-pointer relative"
-                                            aria-label={slide.label}
-                                        >
-                                            <img
-                                                src={slide.src}
-                                                alt={slide.alt}
-                                                className="w-full h-full object-cover select-none"
-                                                draggable={false}
-                                            />
-                                        </a>
+                                    <div className="flex-[0_0_100%] md:flex-[0_0_33.333%] min-w-0 relative pl-4 md:pl-6" key={idx}>
+                                        <div className="w-full h-full aspect-[9/16] rounded-2xl overflow-hidden border border-border/80 bg-white shadow-lg">
+                                            <a
+                                                href={slide.href}
+                                                target={slide.isExternal ? "_blank" : undefined}
+                                                rel={slide.isExternal ? "noopener noreferrer" : undefined}
+                                                onClick={slide.onClick}
+                                                className="block w-full h-full cursor-pointer relative"
+                                                aria-label={slide.label}
+                                            >
+                                                <img
+                                                    src={slide.src}
+                                                    alt={slide.alt}
+                                                    className="w-full h-full object-cover select-none"
+                                                    draggable={false}
+                                                />
+                                            </a>
+                                        </div>
                                     </div>
                                 ))}
                             </div>
@@ -176,19 +178,6 @@ export default function Hero() {
                     </div>
                 </div>
 
-                {/* Optional Desktop WhatsApp CTA */}
-                <div className="hidden sm:flex items-center justify-center">
-                    <a
-                        href={whatsappLink(DEFAULT_WHATSAPP_MESSAGE)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => trackWhatsAppClick('hero')}
-                        className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-[#1E5E41] hover:bg-[#184C35] text-white text-sm font-medium tracking-wide rounded-full transition-colors duration-300 shadow-md"
-                    >
-                        <WhatsAppIcon className="w-4 h-4" />
-                        ORDER ON WHATSAPP
-                    </a>
-                </div>
             </div>
 
             {/* 3. TRUST PILLARS */}

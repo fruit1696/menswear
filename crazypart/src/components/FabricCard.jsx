@@ -36,11 +36,32 @@ export default function FabricCard({ fabric, onSelectFabric, customerPick = fals
                 } : undefined}
             >
                 {!customerPick && <WishlistButton productId={fabric.productId} productName={fabric.name} />}
-                {images[0] && <Image
-                    src={images[0]}
-                    alt={`${fabric.name} — Raymond shirt fabric, 2-piece cut`}
-                    className={`w-full object-cover ${customerPick ? "aspect-[3/4]" : "aspect-[4/5]"}`}
-                />}
+                {/* ── Dual-image hover stack ─────────────────────────────
+                     Primary image is always visible.
+                     Secondary image (images[1]) fades in on card hover via
+                     Tailwind's `group` + `group-hover:opacity-100` pattern.
+                     Both images share the same aspect-ratio wrapper so there
+                     is never a layout shift during the transition.
+                ──────────────────────────────────────────────────────── */}
+                <div className={`relative w-full overflow-hidden ${customerPick ? "aspect-[3/4]" : "aspect-[4/5]"}`}>
+                    {/* Primary image */}
+                    {images[0] && (
+                        <Image
+                            src={images[0]}
+                            alt={`${fabric.name} — Raymond shirt fabric, 2-piece cut`}
+                            className="absolute inset-0 h-full w-full object-cover"
+                        />
+                    )}
+                    {/* Secondary / hover image — fades in smoothly */}
+                    {images[1] && (
+                        <Image
+                            src={images[1]}
+                            alt={`${fabric.name} — alternate view`}
+                            className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100"
+                            aria-hidden="true"
+                        />
+                    )}
+                </div>
                 {!customerPick && <div className="pointer-events-none absolute left-4 top-4 z-20">
                     <span className="inline-block rounded-sm bg-background/85 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-foreground backdrop-blur-sm">2-PIECE SHIRT</span>
                 </div>}
@@ -82,21 +103,21 @@ function CustomerPickDetails({ fabric, navigate, staticCard, detailHref }) {
 
     return <>
         <div className="flex items-center justify-between gap-2">
-            {staticCard ? <span className="truncate text-left font-sans text-sm font-bold uppercase leading-tight text-black">RAYMOND</span> : <button
+            {staticCard ? <span className="truncate text-left font-body text-sm font-semibold uppercase leading-tight text-foreground">{`RAYMOND`}</span> : <button
                 type="button"
                 onClick={() => navigate(detailHref ?? `/fabrics/${fabric.id}`)}
-                className="truncate text-left font-sans text-sm font-bold uppercase leading-tight text-black hover:underline"
+                className="truncate text-left font-body text-sm font-semibold uppercase leading-tight text-foreground hover:underline"
             >RAYMOND</button>}
             <WishlistButton productId={fabric.productId} productName={fabric.name} compact inline />
         </div>
-        <p className="mt-1 truncate font-sans text-xs text-gray-500" title={title}>{title}</p>
-        {currentPrice && <div className="mt-2 flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5 font-sans">
-            {originalPrice && <span className="text-xs text-gray-400 line-through">₹{originalPrice.toLocaleString("en-IN")}</span>}
-            <span className="text-sm font-bold text-black">{sellingPriceLabel}</span>
-            {discount && <span className="text-xs font-medium text-orange-500">({discount}% OFF)</span>}
+        <p className="mt-1 truncate font-body text-xs text-foreground/55" title={title}>{title}</p>
+        {currentPrice && <div className="mt-2 flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5 font-body">
+            {originalPrice && <span className="text-xs text-foreground/40 line-through">₹{originalPrice.toLocaleString("en-IN")}</span>}
+            <span className="text-sm font-semibold text-foreground">{sellingPriceLabel}</span>
+            {discount && <span className="text-xs font-medium text-accent">({discount}% OFF)</span>}
         </div>}
-        {fabric.offerText && <p className="mt-1.5 truncate font-sans text-xs font-medium text-green-700">{fabric.offerText}</p>}
-        {deliveryEstimate && <p className="mt-1.5 truncate font-sans text-[11px] text-gray-500">Delivery by {deliveryEstimate}</p>}
+        {fabric.offerText && <p className="mt-1.5 truncate font-body text-xs font-medium text-accent">{fabric.offerText}</p>}
+        {deliveryEstimate && <p className="mt-1.5 truncate font-body text-[11px] text-foreground/55">Delivery by {deliveryEstimate}</p>}
     </>;
 }
 
@@ -154,7 +175,7 @@ function ReviewRatingBadge({ rating, productSlug, productName }) {
 
 function ProductPrice({ price }) {
     const [amount, unit] = String(price).split("/");
-    return <p className="mt-2 font-sans text-sm font-medium tracking-wide text-accent">
+    return <p className="mt-2 font-body text-sm font-medium tracking-wide text-accent">
         {amount}{unit && <span className="font-normal text-foreground/55"> / {unit}</span>}
     </p>;
 }

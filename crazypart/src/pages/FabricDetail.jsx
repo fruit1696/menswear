@@ -14,6 +14,7 @@ import AddToCartButton from "@/features/cart/AddToCartButton";
 import WishlistButton from "@/features/wishlist/WishlistButton";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import FabricCard from "@/components/FabricCard";
+import ProductOptionRequest from "@/features/productRequests/ProductOptionRequest";
 
 export default function FabricDetail() {
     const { id } = useParams();
@@ -152,6 +153,7 @@ export default function FabricDetail() {
 
                            
                             <AddToCartButton productId={fabric.productId} product={fabric} />
+                            <ProductOptionRequest product={fabric} />
 
                             {specifications.length > 0 && <div className="mt-8 rounded-sm border border-border/60 bg-card p-5 sm:p-6">
                                 <h2 className="font-display text-2xl font-medium text-foreground">Product Information</h2>

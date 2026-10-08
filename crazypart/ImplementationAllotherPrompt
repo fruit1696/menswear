@@ -1,0 +1,356 @@
+Yes — I’d make **one implementation prompt per domain**, so your coding model can work incrementally instead of getting one huge context dump.
+
+### 1. Profiles + Addresses
+
+Implement the finalized **Profiles + Addresses** backend functionality.
+
+Assume the PostgreSQL schemas already exist. Do not redesign or modify the schemas unless there is a genuine implementation blocker.
+
+Before coding, inspect the existing project architecture and follow its existing `api → service → dao` patterns, validation, authentication, Supabase usage, error handling, and testing conventions.
+
+### Profiles
+
+`profiles` represents application-level customer information. Supabase Auth remains responsible for authentication/identity.
+
+Schema concept:
+
+* `user_id` UUID PK → `auth.users.id`
+* `display_name` Text
+* `phone` Text
+* `created_at`
+* `updated_at`
+
+Implement:
+
+* Get current user's profile
+* Create/update profile
+* Validate authenticated ownership
+* Never allow a user to modify another user's profile
+
+### Addresses
+
+Schema concept:
+
+* `id` UUID PK
+* `user_id` → `profiles.user_id`
+* `full_name`
+* `phone`
+* `address_line1`
+* `address_line2` nullable
+* `city`
+* `state`
+* `postal_code`
+* `country`
+* `is_default`
+* `created_at`
+* `updated_at`
+
+Implement:
+
+* Create address
+* Get user's addresses
+* Get address by ID
+* Update address
+* Delete address
+* Set default address
+
+Business rules:
+
+* Users can only access their own addresses.
+* A user can have multiple addresses.
+* Maintain the application's one-default-address rule.
+* Setting one address as default must unset the previous default atomically.
+* Do not allow another user's address ID to be manipulated through client input.
+
+Add tests following existing project conventions.
+
+### 2. Product Types + Products
+
+Implement the finalized **Product Types + Products** backend functionality.
+
+Assume the PostgreSQL schemas already exist. Do not redesign the schemas.
+
+Existing architecture:
+
+`product_types → products → product-specific detail tables`
+
+Initial product types include `fabric` and `boxer`.
+
+### Product Types
+
+Implement:
+
+* List product types
+* Get product type
+* Admin creation/update/deactivation if the existing application has admin catalog management
+
+Product types are controlled database values. Do not accept arbitrary product-type strings from the frontend.
+
+### Products
+
+Implement:
+
+* Create product
+* Get product by ID
+* Get product by SKU
+* List/filter products
+* Update product
+* Activate/deactivate product
+* Featured products where supported
+
+Business rules:
+
+* `id` is DB-generated.
+* SKU is generated/managed by PostgreSQL and unique.
+* Product name is customer-facing and is NOT the identifier.
+* Price must never be negative.
+* Product status must use the finalized database enum/constraint.
+* Do not allow clients to fabricate UUIDs/SKUs where the database owns generation.
+* Respect the relationship between `product_type_id` and product-specific detail records.
+* Do not delete products in a way that corrupts historical orders.
+
+Follow existing `api → service → dao` architecture and add tests.
+
+### 3. Fabrics + Boxers
+
+Implement the finalized product-specific detail functionality for **Fabrics + Boxers**.
+
+Assume PostgreSQL schemas already exist. Do not redesign them.
+
+### Fabrics
+
+`fabrics` is a 1:1 detail table with `products`.
+
+Fields include:
+
+* `product_id`
+* `fabric_type`
+* `color`
+* `color_family`
+* `pattern`
+* `weight`
+* `width_inches`
+* `created_at`
+* `updated_at`
+
+Important:
+
+The fixed fabric attributes use **PostgreSQL ENUMs**. The database is the final authority and must reject invalid enum values.
+
+Implement:
+
+* Create fabric product details
+* Get fabric details
+* Update fabric details
+* Validate product relationship
+* Prevent invalid product/detail combinations
+
+### Boxers
+
+`boxers` is also a 1:1 detail table with `products`.
+
+Current minimal schema:
+
+* `product_id`
+* `size`
+* `color`
+* `material`
+* `created_at`
+* `updated_at`
+
+Boxers are not currently the primary business product, so keep implementation minimal and do not over-engineer future requirements.
+
+Follow the existing API/service/DAO architecture.
+
+Ensure a product classified as a particular product type has the correct corresponding detail record.
+
+### 4. Product Images
+
+Implement the finalized **Product Images** functionality.
+
+Assume the PostgreSQL schema already exists.
+
+Schema:
+
+* `id` UUID PK
+* `product_id` FK → `products.id`
+* `image_url`
+* `display_order`
+* `is_primary`
+* `created_at`
+
+Relationship:
+
+`products 1 → N product_images`
+
+Implement:
+
+* Add product image
+* List product images
+* Update image ordering
+* Set primary image
+* Delete image
+* Return images ordered by `display_order`
+
+Important rules:
+
+* Only one image may be primary for a product.
+* Respect the existing PostgreSQL unique partial index/constraint enforcing this.
+* Setting a new primary image should be atomic.
+* Do not allow images to be associated with nonexistent products.
+* Do not break historical order snapshots when product images change.
+* Use the existing Supabase Storage/image-upload architecture if one already exists.
+
+Inspect the repository first and follow existing API/service/DAO conventions.
+
+### 5. Inventory + Reservations
+
+Implement the finalized **Inventory + Inventory Reservations** functionality.
+
+Assume the PostgreSQL schemas already exist.
+
+### Inventory
+
+Schema concept:
+
+* `product_id` PK/FK → products
+* `quantity`
+* `updated_at`
+
+`inventory.quantity` represents **physical stock**.
+
+Do NOT store active reservations inside `inventory.quantity`.
+
+### Reservations
+
+Schema concept:
+
+* `id`
+* `product_id`
+* `quantity`
+* `user_id` nullable for guest checkout
+* `expires_at`
+* `status`
+* `created_at`
+* `updated_at`
+
+Statuses include the finalized reservation lifecycle.
+
+Business rules:
+
+* Available stock = physical inventory minus active reservations.
+* Checkout creates a reservation for approximately 10 minutes.
+* Reservation creation must be atomic and race-condition safe.
+* Do not allow available stock to become negative.
+* Successful payment confirms the reservation and permanently deducts physical inventory.
+* Failed/cancelled/expired payment releases the reservation.
+* Confirming the same reservation twice must not deduct inventory twice.
+* Expired reservations must no longer reduce available stock.
+
+Use database transactions/locking or existing atomic database functions where necessary.
+
+Follow existing API/service/DAO architecture and add concurrency/idempotency tests.
+
+### 6. Cart + Cart Items
+
+Implement the finalized **Cart + Cart Items** functionality.
+
+Assume the PostgreSQL schemas already exist.
+
+### Cart
+
+* `id`
+* `user_id` → `profiles.user_id`
+* `created_at`
+* `updated_at`
+
+There is **one cart per authenticated user**.
+
+### Cart Items
+
+* `id`
+* `cart_id`
+* `product_id`
+* `quantity`
+* `created_at`
+* `updated_at`
+
+There is a unique constraint on `(cart_id, product_id)`.
+
+Important business rules:
+
+* Guests cannot use Add to Cart.
+* Only authenticated users can have/use carts.
+* A user can only access their own cart.
+* Adding an existing product should update/increment its quantity rather than create a duplicate item.
+* Quantity must be greater than zero.
+* Product must exist and be eligible for sale.
+* Do not assume cart price is authoritative; current product price must be validated during checkout.
+* Inventory availability must be validated during checkout/reservation, not trusted from the cart.
+
+Implement:
+
+* Get/create current user's cart
+* Add item
+* Update quantity
+* Remove item
+* Clear cart
+* Get cart with product details
+
+Follow existing API/service/DAO conventions and add authorization tests.
+
+### 7. Reviews
+
+Implement the finalized **Reviews** functionality.
+
+Assume the PostgreSQL schema already exists.
+
+Schema:
+
+* `id`
+* `product_id` → products
+* `user_id` → profiles.user_id
+* `rating`
+* `title` nullable
+* `body`
+* `display_name`
+* `created_at`
+* `updated_at`
+
+Constraints:
+
+* Rating 1–5.
+* Title max 120 characters.
+* Body 10–2000 characters.
+* Display name 1–80 characters.
+* Unique `(product_id, user_id)`.
+
+Critical business rule:
+
+**Only a customer who actually purchased the product can submit a review.**
+
+Before allowing a review, backend logic must verify that:
+
+* The authenticated user owns the relevant order.
+* The order contains the requested product.
+* The purchase reached the qualifying paid/completed state.
+* The requested product was actually purchased.
+
+Do not rely only on frontend checks.
+
+The database/business layer should also prevent bypassing this rule through direct API calls.
+
+Implement:
+
+* Create review
+* Get product reviews
+* Get user's review
+* Update own review
+* Delete own review if supported by existing product requirements
+* Prevent duplicate reviews
+
+Reviews reference `products`, not `fabrics`, so future product types such as boxers can also be reviewed.
+
+Follow existing API/service/DAO architecture and add tests.
+
+These seven prompts cover the **pre-order domain** cleanly; your separate Orders/Payments/Returns/Refunds prompt can then handle the transaction domain.

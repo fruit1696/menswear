@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useAuth } from "@/lib/AuthContext";
 import { deleteAddress, listAddresses, saveAddress, setDefaultAddress, updateProfile } from "@/features/account/accountService";
 import { listMyOrders } from "@/features/orders/orderService";
+import { listMyProductOptionRequests } from "@/features/productRequests/productRequestService";
 import Login from "@/pages/Login";
 
 const emptyAddress = { recipient_name: "", phone: "", line1: "", line2: "", city: "", state: "", postal_code: "", country_code: "IN", is_default: false };
@@ -18,9 +19,11 @@ export default function Account() {
     const [addressForm, setAddressForm] = useState(emptyAddress);
     const [showAddressForm, setShowAddressForm] = useState(false);
     const [orders, setOrders] = useState([]);
+    const [productRequests, setProductRequests] = useState([]);
     const [saving, setSaving] = useState(false);
     const [loadingAddresses, setLoadingAddresses] = useState(true);
     const [loadingOrders, setLoadingOrders] = useState(true);
+    const [loadingRequests, setLoadingRequests] = useState(true);
     const [expandedOrder, setExpandedOrder] = useState(null);
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
@@ -32,11 +35,12 @@ export default function Account() {
     useEffect(() => {
         if (!user) return undefined;
         let active = true;
-        Promise.all([listAddresses(user.id), listMyOrders(user.id)])
-            .then(([nextAddresses, nextOrders]) => {
+        Promise.all([listAddresses(user.id), listMyOrders(user.id), listMyProductOptionRequests(user.id)])
+            .then(([nextAddresses, nextOrders, nextRequests]) => {
                 if (!active) return;
                 setAddresses(nextAddresses);
                 setOrders(nextOrders);
+                setProductRequests(nextRequests);
                 if (!nextAddresses.length) setShowAddressForm(true);
             })
             .catch((loadError) => active && setError(loadError.message || "Unable to load account details."))
@@ -44,6 +48,7 @@ export default function Account() {
                 if (active) {
                     setLoadingAddresses(false);
                     setLoadingOrders(false);
+                    setLoadingRequests(false);
                 }
             });
         return () => { active = false; };
@@ -88,11 +93,12 @@ export default function Account() {
                 <div className="mt-10 grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
                     <div className="space-y-10">
                         <section className="border-y border-border/60 py-8"><SectionHeading title="Manage account" /><div className="mt-6 space-y-4"><Field label="Name"><Input value={profileForm.full_name} onChange={(event) => setProfileForm({ ...profileForm, full_name: event.target.value })} autoComplete="name" /></Field><Field label="Email"><Input value={user.email || ""} readOnly aria-readonly="true" className="text-foreground/60" /></Field><Field label="Phone"><Input value={profileForm.phone} onChange={(event) => setProfileForm({ ...profileForm, phone: event.target.value })} autoComplete="tel" /></Field><p className="text-xs leading-relaxed text-foreground/50">Your email is managed securely by your authenticated Supabase account.</p><Button onClick={saveProfile} disabled={saving}><Save />Save changes</Button></div></section>
-                        <section className="border-y border-border/60 py-8"><SectionHeading title="Explore more collection" /><p className="mt-4 text-sm leading-relaxed text-foreground/65">As a registered member, request live photos and explore additional colors, fabrics and styles beyond our curated online collection.</p><Link to="/#pick-your-style" className="mt-6 inline-flex items-center gap-2 border-b border-accent pb-1 text-sm font-medium text-foreground"><ExternalLink className="h-4 w-4" />Request on WhatsApp</Link></section>
+
                     </div>
                     <section className="border-y border-border/60 py-8"><div className="flex items-center justify-between gap-4"><SectionHeading title="My addresses" /><Button variant="outline" size="sm" onClick={() => { setAddressForm({ ...emptyAddress, recipient_name: profile?.full_name ?? "", phone: profile?.phone ?? "" }); setShowAddressForm(true); }}><Plus />Add address</Button></div>{loadingAddresses ? <p className="mt-6 text-sm text-foreground/60">Loading addresses...</p> : <div className="mt-6 space-y-3">{addresses.length === 0 && !addressForm.id && <p className="text-sm text-foreground/60">No saved addresses yet.</p>}{addresses.map((address) => <AddressCard key={address.id} address={address} onEdit={() => { setAddressForm(address); setShowAddressForm(true); }} onDelete={() => removeAddress(address.id)} onDefault={() => makeDefault(address.id)} saving={saving} />)}</div>}{(showAddressForm || addressForm.id) && <AddressForm address={addressForm} setAddress={setAddressForm} onSubmit={submitAddress} onCancel={() => { setAddressForm(emptyAddress); setShowAddressForm(false); }} saving={saving} />}</section>
                 </div>
                 <section className="mt-14 border-t border-border/60 pt-10"><SectionHeading title="My orders" />{loadingOrders ? <p className="mt-6 text-sm text-foreground/60">Loading orders...</p> : orders.length === 0 ? <p className="mt-6 text-sm text-foreground/60">No orders yet.</p> : <div className="mt-6 divide-y divide-border/60 border-y border-border/60">{orders.map((order) => <OrderCard key={order.id} order={order} expanded={expandedOrder === order.id} onToggle={() => setExpandedOrder((current) => current === order.id ? null : order.id)} />)}</div>}</section>
+                <section className="mt-14 border-t border-border/60 pt-10"><SectionHeading title="My fabric requests" />{loadingRequests ? <p className="mt-6 text-sm text-foreground/60">Loading requests...</p> : productRequests.length === 0 ? <p className="mt-6 text-sm text-foreground/60">No color or pattern requests yet.</p> : <div className="mt-6 grid gap-4">{productRequests.map((request) => <article key={request.id} className="rounded-md border border-border/60 p-4 sm:p-5"><div className="flex items-start gap-4">{request.product_image && <img src={request.product_image} alt="" className="h-20 w-16 shrink-0 rounded-sm object-cover" />}<div className="min-w-0 flex-1"><div className="flex flex-wrap items-start justify-between gap-2"><div><h3 className="font-display text-xl">{request.product_name}</h3><p className="mt-1 text-xs text-foreground/50">{new Date(request.created_at).toLocaleString()}</p></div><span className="rounded-full bg-secondary px-3 py-1 text-xs capitalize">{request.status}</span></div><p className="mt-3 text-sm text-foreground/65">Color: {request.requested_color || "—"} · Pattern: {request.requested_pattern || "—"}</p>{request.customer_note && <p className="mt-2 text-sm text-foreground/55">Your note: {request.customer_note}</p>}{request.admin_reply && <div className="mt-4 rounded-md border-l-2 border-accent bg-secondary/50 p-3"><p className="text-xs uppercase tracking-[0.15em] text-accent">Our reply</p><p className="mt-1 text-sm text-foreground/75">{request.admin_reply}</p></div>}</div></div></article>)}</div>}</section>
             </div>
         </div>
     );
